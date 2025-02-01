@@ -1,0 +1,59 @@
+/* Light theme */
+.theme-light {
+  --bg-primary: #ffffff;
+  --bg-secondary: #f3f4f6;
+  --text-primary: #111827;
+  --text-secondary: #4b5563;
+  --accent: #4f46e5;
+  --border-color: #cdd6e6;
+}
+
+/* Dark theme */
+.theme-dark {
+  --bg-primary: #1f2937;
+  --bg-secondary: #111827;
+  --text-primary: #f9fafb;
+  --text-secondary: #d1d5db;
+  --accent: #6366f1;
+  --border-color: #374151;
+}
+
+/* Sepia theme */
+.theme-sepia {
+  --bg-primary: #fdf6e3;
+  --bg-secondary: #eee8d5;
+  --text-primary: #657b83;
+  --text-secondary: #93a1a1;
+  --accent: #b58900;
+  --border-color: #d1c4a1;
+}
+
+/* Nord theme */
+.theme-nord {
+  --bg-primary: #2e3440;
+  --bg-secondary: #3b4252;
+  --text-primary: #eceff4;
+  --text-secondary: #d8dee9;
+  --accent: #88c0d0;
+  --border-color: #4c566a;
+}
+
+/* Dracula theme */
+.theme-dracula {
+  --bg-primary: #282a36;
+  --bg-secondary: #44475a;
+  --text-primary: #f8f8f2;
+  --text-secondary: #6272a4;
+  --accent: #bd93f9;
+  --border-color: #6272a4;
+}
+
+/* Apply theme variables globally */
+:root {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+body {
+  background-color: var(--bg-secondary);
+}
