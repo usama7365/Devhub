@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { MessageSquare, Search, Filter } from 'lucide-react';
 import { PostCard } from '../components/PostCard';
 import { dummyPosts } from '../lib/dummy-data';
@@ -8,11 +8,16 @@ export function Discussions() {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [showResolved, setShowResolved] = useState<boolean | null>(null);
 
-  const filteredPosts = dummyPosts.filter(post => {
-    const matchesSearch = post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      post.tags.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase()));
-    const matchesCategory = !selectedCategory || post.category === selectedCategory;
-    const matchesResolved = showResolved === null || post.is_resolved === showResolved;
+  const filteredPosts = dummyPosts.filter((post) => {
+    const matchesSearch =
+      post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      post.tags.some((tag) =>
+        tag.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+    const matchesCategory =
+      !selectedCategory || post.category === selectedCategory;
+    const matchesResolved =
+      showResolved === null || post.is_resolved === showResolved;
     return matchesSearch && matchesCategory && matchesResolved;
   });
 
@@ -20,8 +25,12 @@ export function Discussions() {
     <div className="py-8">
       <div className="flex justify-between items-center mb-8">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">Discussions</h1>
-          <p className="mt-2 text-gray-600 dark:text-gray-400">Join the conversation with fellow developers</p>
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">
+            Discussions
+          </h1>
+          <p className="mt-2 text-gray-600 dark:text-gray-400">
+            Join the conversation with fellow developers
+          </p>
         </div>
         <button className="btn">
           <MessageSquare className="w-4 h-4 mr-2" />
@@ -38,41 +47,59 @@ export function Discussions() {
             </div>
             <div className="space-y-4">
               <div>
-                <h3 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Categories</h3>
+                <h3 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  Categories
+                </h3>
                 <div className="space-y-2">
-                  {['Frontend', 'Backend', 'DevOps'].map(category => (
+                  {['Frontend', 'Backend', 'DevOps'].map((category) => (
                     <label key={category} className="flex items-center">
                       <input
                         type="checkbox"
                         checked={selectedCategory === category}
-                        onChange={() => setSelectedCategory(selectedCategory === category ? null : category)}
+                        onChange={() =>
+                          setSelectedCategory(
+                            selectedCategory === category ? null : category
+                          )
+                        }
                         className="rounded text-indigo-600"
                       />
-                      <span className="ml-2 text-sm text-gray-600 dark:text-gray-400">{category}</span>
+                      <span className="ml-2 text-sm text-gray-600 dark:text-gray-400">
+                        {category}
+                      </span>
                     </label>
                   ))}
                 </div>
               </div>
               <div>
-                <h3 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Status</h3>
+                <h3 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  Status
+                </h3>
                 <div className="space-y-2">
                   <label className="flex items-center">
                     <input
                       type="checkbox"
                       checked={showResolved === false}
-                      onChange={() => setShowResolved(showResolved === false ? null : false)}
+                      onChange={() =>
+                        setShowResolved(showResolved === false ? null : false)
+                      }
                       className="rounded text-indigo-600"
                     />
-                    <span className="ml-2 text-sm text-gray-600 dark:text-gray-400">Open</span>
+                    <span className="ml-2 text-sm text-gray-600 dark:text-gray-400">
+                      Open
+                    </span>
                   </label>
                   <label className="flex items-center">
                     <input
                       type="checkbox"
                       checked={showResolved === true}
-                      onChange={() => setShowResolved(showResolved === true ? null : true)}
+                      onChange={() =>
+                        setShowResolved(showResolved === true ? null : true)
+                      }
                       className="rounded text-indigo-600"
                     />
-                    <span className="ml-2 text-sm text-gray-600 dark:text-gray-400">Resolved</span>
+                    <span className="ml-2 text-sm text-gray-600 dark:text-gray-400">
+                      Resolved
+                    </span>
                   </label>
                 </div>
               </div>

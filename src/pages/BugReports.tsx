@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { Bug, Search, Filter } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { dummyBugReports } from '../lib/dummy-data';
@@ -10,28 +10,28 @@ export function BugReports() {
   const [showResolved, setShowResolved] = useState<boolean | null>(null);
 
   const allTags = Array.from(
-    new Set(dummyBugReports.flatMap(bug => bug.tags))
+    new Set(dummyBugReports.flatMap((bug) => bug.tags))
   );
 
-  const filteredBugs = dummyBugReports.filter(bug => {
-    const matchesSearch = 
+  const filteredBugs = dummyBugReports.filter((bug) => {
+    const matchesSearch =
       bug.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
       bug.content.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      bug.tags.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase()));
-    const matchesTags = 
+      bug.tags.some((tag) =>
+        tag.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+    const matchesTags =
       selectedTags.length === 0 ||
-      selectedTags.every(tag => bug.tags.includes(tag));
-    const matchesResolved = 
+      selectedTags.every((tag) => bug.tags.includes(tag));
+    const matchesResolved =
       showResolved === null || bug.is_resolved === showResolved;
-    
+
     return matchesSearch && matchesTags && matchesResolved;
   });
 
   const toggleTag = (tag: string) => {
-    setSelectedTags(prev =>
-      prev.includes(tag)
-        ? prev.filter(t => t !== tag)
-        : [...prev, tag]
+    setSelectedTags((prev) =>
+      prev.includes(tag) ? prev.filter((t) => t !== tag) : [...prev, tag]
     );
   };
 
@@ -39,8 +39,12 @@ export function BugReports() {
     <div className="py-8">
       <div className="flex justify-between items-center mb-8">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">Bug Reports</h1>
-          <p className="mt-2 text-gray-600 dark:text-gray-400">Report and track bugs, get help from the community</p>
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">
+            Bug Reports
+          </h1>
+          <p className="mt-2 text-gray-600 dark:text-gray-400">
+            Report and track bugs, get help from the community
+          </p>
         </div>
         <Link to="/bug-reports/new" className="btn">
           <Bug className="w-4 h-4 mr-2" />
@@ -57,32 +61,44 @@ export function BugReports() {
             </div>
             <div className="space-y-4">
               <div>
-                <h3 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Status</h3>
+                <h3 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  Status
+                </h3>
                 <div className="space-y-2">
                   <label className="flex items-center">
                     <input
                       type="checkbox"
                       checked={showResolved === false}
-                      onChange={() => setShowResolved(showResolved === false ? null : false)}
+                      onChange={() =>
+                        setShowResolved(showResolved === false ? null : false)
+                      }
                       className="rounded text-indigo-600"
                     />
-                    <span className="ml-2 text-sm text-gray-600 dark:text-gray-400">Open</span>
+                    <span className="ml-2 text-sm text-gray-600 dark:text-gray-400">
+                      Open
+                    </span>
                   </label>
                   <label className="flex items-center">
                     <input
                       type="checkbox"
                       checked={showResolved === true}
-                      onChange={() => setShowResolved(showResolved === true ? null : true)}
+                      onChange={() =>
+                        setShowResolved(showResolved === true ? null : true)
+                      }
                       className="rounded text-indigo-600"
                     />
-                    <span className="ml-2 text-sm text-gray-600 dark:text-gray-400">Resolved</span>
+                    <span className="ml-2 text-sm text-gray-600 dark:text-gray-400">
+                      Resolved
+                    </span>
                   </label>
                 </div>
               </div>
               <div>
-                <h3 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Tags</h3>
+                <h3 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  Tags
+                </h3>
                 <div className="space-y-2">
-                  {allTags.map(tag => (
+                  {allTags.map((tag) => (
                     <label key={tag} className="flex items-center">
                       <input
                         type="checkbox"
@@ -90,7 +106,9 @@ export function BugReports() {
                         onChange={() => toggleTag(tag)}
                         className="rounded text-indigo-600"
                       />
-                      <span className="ml-2 text-sm text-gray-600 dark:text-gray-400">{tag}</span>
+                      <span className="ml-2 text-sm text-gray-600 dark:text-gray-400">
+                        {tag}
+                      </span>
                     </label>
                   ))}
                 </div>

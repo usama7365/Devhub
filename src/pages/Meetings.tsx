@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { MeetingRoom } from "../components/MeetingRoom";
+import React, { useState } from 'react';
+import { MeetingRoom } from '../components/MeetingRoom';
 import {
   Video,
   Users,
@@ -9,38 +9,38 @@ import {
   Zap,
   Clock,
   Monitor,
-} from "lucide-react";
+} from 'lucide-react';
 
 const sampleParticipants = [
   {
-    id: "1",
-    name: "John Doe",
-    avatar: "https://ui-avatars.com/api/?name=John+Doe&background=random",
+    id: '1',
+    name: 'John Doe',
+    avatar: 'https://ui-avatars.com/api/?name=John+Doe&background=random',
   },
   {
-    id: "2",
-    name: "Jane Smith",
-    avatar: "https://ui-avatars.com/api/?name=Jane+Smith&background=random",
+    id: '2',
+    name: 'Jane Smith',
+    avatar: 'https://ui-avatars.com/api/?name=Jane+Smith&background=random',
   },
   {
-    id: "3",
-    name: "feline Doe",
-    avatar: "https://ui-avatars.com/api/?name=feline+Doe&background=random",
+    id: '3',
+    name: 'feline Doe',
+    avatar: 'https://ui-avatars.com/api/?name=feline+Doe&background=random',
   },
   {
-    id: "4",
-    name: "usama Smith",
-    avatar: "https://ui-avatars.com/api/?name=usama+Smith&background=random",
+    id: '4',
+    name: 'usama Smith',
+    avatar: 'https://ui-avatars.com/api/?name=usama+Smith&background=random',
   },
   {
-    id: "5",
-    name: "code Doe",
-    avatar: "https://ui-avatars.com/api/?name=code+Doe&background=random",
+    id: '5',
+    name: 'code Doe',
+    avatar: 'https://ui-avatars.com/api/?name=code+Doe&background=random',
   },
   {
-    id: "6",
-    name: "alex Smith",
-    avatar: "https://ui-avatars.com/api/?name=alex+Smith&background=random",
+    id: '6',
+    name: 'alex Smith',
+    avatar: 'https://ui-avatars.com/api/?name=alex+Smith&background=random',
   },
 ];
 
@@ -48,7 +48,7 @@ export function Meetings() {
   const [selectedRoom, setSelectedRoom] = useState<string | null>(null);
 
   const handleInvite = (email: string) => {
-    console.log("Inviting:", email);
+    console.log('Inviting:', email);
   };
 
   return (
@@ -114,7 +114,7 @@ export function Meetings() {
             image="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&h=400&fit=crop"
             participants={4}
             duration="1 hour"
-            onJoin={() => setSelectedRoom("code-review")}
+            onJoin={() => setSelectedRoom('code-review')}
           />
           <RoomCard
             title="Pair Programming"
@@ -122,7 +122,7 @@ export function Meetings() {
             image="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=800&h=400&fit=crop"
             participants={2}
             duration="2 hours"
-            onJoin={() => setSelectedRoom("pair-programming")}
+            onJoin={() => setSelectedRoom('pair-programming')}
           />
           <RoomCard
             title="Team Standup"
@@ -130,7 +130,7 @@ export function Meetings() {
             image="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=800&h=400&fit=crop"
             participants={8}
             duration="30 mins"
-            onJoin={() => setSelectedRoom("standup")}
+            onJoin={() => setSelectedRoom('standup')}
           />
         </div>
       </section>

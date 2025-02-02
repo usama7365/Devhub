@@ -1,3 +1,4 @@
+import React from 'react';
 import { useParams } from 'react-router-dom';
 import { Tag, Eye, Calendar } from 'lucide-react';
 import { formatDistanceToNow } from 'date-fns';
@@ -5,8 +6,8 @@ import { dummyArticles, dummyUsers } from '../lib/dummy-data';
 
 export function KnowledgeBaseDetail() {
   const { id } = useParams<{ id: string }>();
-  const article = dummyArticles.find(a => a.id === id);
-  const author = dummyUsers.find(u => u.id === article?.user_id);
+  const article = dummyArticles.find((a) => a.id === id);
+  const author = dummyUsers.find((u) => u.id === article?.user_id);
 
   if (!article || !author) {
     return <div className="text-center py-12">Article not found</div>;
@@ -25,10 +26,14 @@ export function KnowledgeBaseDetail() {
                   className="w-10 h-10 rounded-full"
                 />
                 <div>
-                  <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">{author.username}</h3>
+                  <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
+                    {author.username}
+                  </h3>
                   <div className="flex items-center text-sm text-gray-500 dark:text-gray-400">
                     <Calendar className="w-4 h-4 mr-1" />
-                    {formatDistanceToNow(new Date(article.created_at), { addSuffix: true })}
+                    {formatDistanceToNow(new Date(article.created_at), {
+                      addSuffix: true,
+                    })}
                   </div>
                 </div>
               </div>
@@ -38,8 +43,10 @@ export function KnowledgeBaseDetail() {
               </div>
             </div>
 
-            <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-4">{article.title}</h1>
-            
+            <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-4">
+              {article.title}
+            </h1>
+
             <div className="flex items-center space-x-4 mb-6">
               <div className="flex items-center space-x-2">
                 <Tag className="w-4 h-4 text-gray-400" />

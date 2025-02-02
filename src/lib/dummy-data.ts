@@ -1,82 +1,82 @@
-import { User, Post, Comment, Article, BlogPost } from "../types";
+import { User, Post, Comment, Article, BlogPost } from '../types';
 
 export const dummyUsers: User[] = [
   {
-    id: "1",
-    username: "Feline_Predator",
-    email: "Feline@example.com",
+    id: '1',
+    username: 'Feline_Predator',
+    email: 'Feline@example.com',
     avatar_url:
-      "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop",
-    bio: "Full-stack developer passionate about React and Node.js",
-    github_username: "usama7365",
-    created_at: "2025-01-01T00:00:00Z",
+      'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop',
+    bio: 'Full-stack developer passionate about React and Node.js',
+    github_username: 'usama7365',
+    created_at: '2025-01-01T00:00:00Z',
   },
   {
-    id: "2",
-    username: "alina",
-    email: "jane@example.com",
+    id: '2',
+    username: 'alina',
+    email: 'jane@example.com',
     avatar_url:
-      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=400&fit=crop",
-    bio: "DevOps engineer and cloud architect",
-    github_username: "janedoe",
-    created_at: "2024-01-02T00:00:00Z",
+      'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=400&fit=crop',
+    bio: 'DevOps engineer and cloud architect',
+    github_username: 'janedoe',
+    created_at: '2024-01-02T00:00:00Z',
   },
 ];
 
 export const dummyPosts: Post[] = [
   {
-    id: "1",
-    title: "Best practices for React performance optimization",
+    id: '1',
+    title: 'Best practices for React performance optimization',
     content:
-      "Here are some key strategies for optimizing React applications...",
-    user_id: "1",
-    category: "Frontend",
-    tags: ["React", "Performance", "JavaScript"],
+      'Here are some key strategies for optimizing React applications...',
+    user_id: '1',
+    category: 'Frontend',
+    tags: ['React', 'Performance', 'JavaScript'],
     upvotes: 42,
     is_resolved: false,
-    created_at: "2024-02-28T10:00:00Z",
-    updated_at: "2024-02-28T10:00:00Z",
+    created_at: '2024-02-28T10:00:00Z',
+    updated_at: '2024-02-28T10:00:00Z',
   },
   {
-    id: "2",
-    title: "Understanding Docker networking",
+    id: '2',
+    title: 'Understanding Docker networking',
     content:
-      "A deep dive into Docker networking concepts and best practices...",
-    user_id: "2",
-    category: "DevOps",
-    tags: ["Docker", "Networking", "DevOps"],
+      'A deep dive into Docker networking concepts and best practices...',
+    user_id: '2',
+    category: 'DevOps',
+    tags: ['Docker', 'Networking', 'DevOps'],
     upvotes: 35,
     is_resolved: true,
-    created_at: "2024-02-27T15:30:00Z",
-    updated_at: "2024-02-27T15:30:00Z",
+    created_at: '2024-02-27T15:30:00Z',
+    updated_at: '2024-02-27T15:30:00Z',
   },
 ];
 
 export const dummyComments: Comment[] = [
   {
-    id: "1",
-    content: "Great explanation! This helped me understand the concept better.",
+    id: '1',
+    content: 'Great explanation! This helped me understand the concept better.',
     user: dummyUsers[0],
-    post_id: "1",
+    post_id: '1',
     is_accepted: true,
     upvotes: 15,
-    created_at: "2024-02-28T11:00:00Z",
+    created_at: '2024-02-28T11:00:00Z',
   },
   {
-    id: "2",
-    content: "Could you elaborate more on the networking part?",
+    id: '2',
+    content: 'Could you elaborate more on the networking part?',
     user: dummyUsers[1],
-    post_id: "2",
+    post_id: '2',
     is_accepted: false,
     upvotes: 8,
-    created_at: "2024-02-27T16:30:00Z",
+    created_at: '2024-02-27T16:30:00Z',
   },
 ];
 
 export const dummyArticles: Article[] = [
   {
-    id: "1",
-    title: "Complete Guide to Modern Web Development",
+    id: '1',
+    title: 'Complete Guide to Modern Web Development',
     content: `# Modern Web Development Guide
 
 ## Introduction
@@ -100,17 +100,17 @@ Modern web development has evolved significantly over the past few years. This g
 - Kubernetes orchestration
 - Cloud deployment`,
     description:
-      "Learn about the latest tools and techniques in web development",
-    user_id: "1",
-    category: "Web Development",
-    tags: ["JavaScript", "React", "Node.js"],
+      'Learn about the latest tools and techniques in web development',
+    user_id: '1',
+    category: 'Web Development',
+    tags: ['JavaScript', 'React', 'Node.js'],
     views: 1200,
-    created_at: "2024-02-25T10:00:00Z",
-    updated_at: "2024-02-25T10:00:00Z",
+    created_at: '2024-02-25T10:00:00Z',
+    updated_at: '2024-02-25T10:00:00Z',
   },
   {
-    id: "2",
-    title: "Microservices Architecture Patterns",
+    id: '2',
+    title: 'Microservices Architecture Patterns',
     content: `# Microservices Architecture Patterns
 
 ## Overview
@@ -138,17 +138,17 @@ Microservices architecture has become the standard for building scalable applica
 - Message queues
 - Event sourcing
 - CQRS pattern`,
-    description: "A deep dive into microservices design patterns",
-    user_id: "2",
-    category: "Architecture",
-    tags: ["Microservices", "System Design", "Architecture"],
+    description: 'A deep dive into microservices design patterns',
+    user_id: '2',
+    category: 'Architecture',
+    tags: ['Microservices', 'System Design', 'Architecture'],
     views: 850,
-    created_at: "2024-02-24T15:30:00Z",
-    updated_at: "2024-02-24T15:30:00Z",
+    created_at: '2024-02-24T15:30:00Z',
+    updated_at: '2024-02-24T15:30:00Z',
   },
   {
-    id: "3",
-    title: "Getting Started with TypeScript",
+    id: '3',
+    title: 'Getting Started with TypeScript',
     content: `# TypeScript Fundamentals
 
 ## Introduction
@@ -165,20 +165,20 @@ TypeScript adds static typing to JavaScript, making it more robust and maintaina
 - Union types
 - Type guards
 - Declaration files`,
-    description: "Master TypeScript fundamentals and advanced features",
-    user_id: "1",
-    category: "Programming Languages",
-    tags: ["TypeScript", "JavaScript", "Programming"],
+    description: 'Master TypeScript fundamentals and advanced features',
+    user_id: '1',
+    category: 'Programming Languages',
+    tags: ['TypeScript', 'JavaScript', 'Programming'],
     views: 750,
-    created_at: "2024-02-23T12:00:00Z",
-    updated_at: "2024-02-23T12:00:00Z",
+    created_at: '2024-02-23T12:00:00Z',
+    updated_at: '2024-02-23T12:00:00Z',
   },
 ];
 
 export const dummyBugReports: Post[] = [
   {
-    id: "bug-1",
-    title: "Memory leak in React useEffect cleanup",
+    id: 'bug-1',
+    title: 'Memory leak in React useEffect cleanup',
     content: `I'm experiencing a memory leak in my React application. The issue occurs when components unmount but async operations continue.
 
 **Steps to reproduce:**
@@ -196,17 +196,17 @@ Memory usage keeps increasing
 - React 18.2.0
 - Node.js 18.15.0
 - Chrome 91.0.4472.124`,
-    user_id: "1",
-    category: "Bug",
-    tags: ["React", "Memory Leak", "Hooks"],
+    user_id: '1',
+    category: 'Bug',
+    tags: ['React', 'Memory Leak', 'Hooks'],
     upvotes: 12,
     is_resolved: false,
-    created_at: "2024-02-28T09:00:00Z",
-    updated_at: "2024-02-28T09:00:00Z",
+    created_at: '2024-02-28T09:00:00Z',
+    updated_at: '2024-02-28T09:00:00Z',
   },
   {
-    id: "bug-2",
-    title: "TypeScript compilation error with decorators",
+    id: 'bug-2',
+    title: 'TypeScript compilation error with decorators',
     content: `Getting a strange compilation error when using decorators in TypeScript 5.0.
 
 **Error message:**
@@ -236,17 +236,17 @@ export class AppComponent {}
 **Environment:**
 - TypeScript 5.0.2
 - Node.js 18.15.0`,
-    user_id: "2",
-    category: "Bug",
-    tags: ["TypeScript", "Decorators", "Compilation"],
+    user_id: '2',
+    category: 'Bug',
+    tags: ['TypeScript', 'Decorators', 'Compilation'],
     upvotes: 5,
     is_resolved: true,
-    created_at: "2024-02-27T14:30:00Z",
-    updated_at: "2024-02-27T14:30:00Z",
+    created_at: '2024-02-27T14:30:00Z',
+    updated_at: '2024-02-27T14:30:00Z',
   },
   {
-    id: "bug-3",
-    title: "Docker container network isolation issue",
+    id: 'bug-3',
+    title: 'Docker container network isolation issue',
     content: `Containers in different networks are able to communicate when they shouldn't be able to.
 
 **Steps to reproduce:**
@@ -273,20 +273,20 @@ networks:
 **Environment:**
 - Docker 20.10.8
 - Ubuntu 20.04 LTS`,
-    user_id: "1",
-    category: "Bug",
-    tags: ["Docker", "Networking", "Security"],
+    user_id: '1',
+    category: 'Bug',
+    tags: ['Docker', 'Networking', 'Security'],
     upvotes: 8,
     is_resolved: false,
-    created_at: "2024-02-26T11:00:00Z",
-    updated_at: "2024-02-26T11:00:00Z",
+    created_at: '2024-02-26T11:00:00Z',
+    updated_at: '2024-02-26T11:00:00Z',
   },
 ];
 
 export const dummyBlogPosts: BlogPost[] = [
   {
-    id: "1",
-    title: "The Future of Web Development",
+    id: '1',
+    title: 'The Future of Web Development',
     content: `# The Future of Web Development
 
 ## Introduction
@@ -323,17 +323,17 @@ The rise of edge computing is changing how we deploy applications:
 ## Conclusion
 The future of web development is exciting and full of possibilities. Stay tuned for more updates!`,
     cover_image:
-      "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=1200&h=600&fit=crop",
+      'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=1200&h=600&fit=crop',
     author: dummyUsers[0],
-    tags: ["Web Development", "Future Tech", "AI", "WebAssembly"],
+    tags: ['Web Development', 'Future Tech', 'AI', 'WebAssembly'],
     likes: 156,
     views: 2300,
-    created_at: "2024-02-20T10:00:00Z",
-    updated_at: "2024-02-20T10:00:00Z",
+    created_at: '2024-02-20T10:00:00Z',
+    updated_at: '2024-02-20T10:00:00Z',
   },
   {
-    id: "2",
-    title: "Building Scalable Systems: A Practical Guide",
+    id: '2',
+    title: 'Building Scalable Systems: A Practical Guide',
     content: `# Building Scalable Systems: A Practical Guide
 
 ## Introduction
@@ -377,17 +377,17 @@ Key metrics to watch:
 ## Conclusion
 Building scalable systems requires careful planning and the right architecture choices.`,
     cover_image:
-      "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1200&h=600&fit=crop",
+      'https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1200&h=600&fit=crop',
     author: dummyUsers[1],
-    tags: ["System Design", "Scalability", "Architecture", "DevOps"],
+    tags: ['System Design', 'Scalability', 'Architecture', 'DevOps'],
     likes: 98,
     views: 1500,
-    created_at: "2024-02-19T15:30:00Z",
-    updated_at: "2024-02-19T15:30:00Z",
+    created_at: '2024-02-19T15:30:00Z',
+    updated_at: '2024-02-19T15:30:00Z',
   },
   {
-    id: "3",
-    title: "Mastering TypeScript: Advanced Patterns",
+    id: '3',
+    title: 'Mastering TypeScript: Advanced Patterns',
     content: `# Mastering TypeScript: Advanced Patterns
 
 ## Introduction
@@ -446,12 +446,12 @@ class TypedEmitter {
 ## Conclusion
 TypeScript's type system enables powerful patterns for building robust applications.`,
     cover_image:
-      "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=1200&h=600&fit=crop",
+      'https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=1200&h=600&fit=crop',
     author: dummyUsers[0],
-    tags: ["TypeScript", "Programming", "JavaScript", "Design Patterns"],
+    tags: ['TypeScript', 'Programming', 'JavaScript', 'Design Patterns'],
     likes: 127,
     views: 1800,
-    created_at: "2024-02-18T09:15:00Z",
-    updated_at: "2024-02-18T09:15:00Z",
+    created_at: '2024-02-18T09:15:00Z',
+    updated_at: '2024-02-18T09:15:00Z',
   },
 ];

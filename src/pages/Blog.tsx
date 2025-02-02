@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Pencil, Search, Calendar, Eye, Heart } from 'lucide-react';
 import { dummyBlogPosts } from '../lib/dummy-data';
@@ -9,24 +9,34 @@ export function Blog() {
   const [selectedTag, setSelectedTag] = useState<string | null>(null);
 
   const allTags = Array.from(
-    new Set(dummyBlogPosts.flatMap(post => post.tags))
+    new Set(dummyBlogPosts.flatMap((post) => post.tags))
   );
 
-  const filteredPosts = dummyBlogPosts.filter(post =>
-    (post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    post.content.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    post.tags.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase()))) &&
-    (!selectedTag || post.tags.includes(selectedTag))
+  const filteredPosts = dummyBlogPosts.filter(
+    (post) =>
+      (post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        post.content.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        post.tags.some((tag) =>
+          tag.toLowerCase().includes(searchTerm.toLowerCase())
+        )) &&
+      (!selectedTag || post.tags.includes(selectedTag))
   );
 
   return (
     <div className="py-8">
       <div className="flex justify-between items-center mb-8">
         <div>
-          <h1 className="text-3xl font-bold text-[var(--text-primary)]">Blog</h1>
-          <p className="mt-2 text-[var(--text-secondary)]">Share your knowledge and experiences</p>
+          <h1 className="text-3xl font-bold text-[var(--text-primary)]">
+            Blog
+          </h1>
+          <p className="mt-2 text-[var(--text-secondary)]">
+            Share your knowledge and experiences
+          </p>
         </div>
-        <Link to="/blog/new" className="btn bg-[var(--accent)] text-[var(--bg-primary)] hover:bg-[var(--accent)]/90">
+        <Link
+          to="/blog/new"
+          className="btn bg-[var(--accent)] text-[var(--bg-primary)] hover:bg-[var(--accent)]/90"
+        >
           <Pencil className="w-4 h-4 mr-2" />
           Write Post
         </Link>
@@ -35,12 +45,16 @@ export function Blog() {
       <div className="flex gap-6">
         <div className="w-64 flex-shrink-0">
           <div className="bg-[var(--bg-primary)] rounded-lg shadow-sm p-4 mb-4">
-            <h3 className="font-semibold text-[var(--text-primary)] mb-3">Popular Tags</h3>
+            <h3 className="font-semibold text-[var(--text-primary)] mb-3">
+              Popular Tags
+            </h3>
             <div className="space-y-2">
-              {allTags.map(tag => (
+              {allTags.map((tag) => (
                 <button
                   key={tag}
-                  onClick={() => setSelectedTag(selectedTag === tag ? null : tag)}
+                  onClick={() =>
+                    setSelectedTag(selectedTag === tag ? null : tag)
+                  }
                   className={`block w-full text-left px-2 py-1 rounded ${
                     selectedTag === tag
                       ? 'bg-[var(--accent)]/10 text-[var(--accent)]'
@@ -70,7 +84,10 @@ export function Blog() {
 
           <div className="grid grid-cols-1 gap-6">
             {filteredPosts.map((post) => (
-              <article key={post.id} className="bg-[var(--bg-primary)] rounded-lg shadow-sm overflow-hidden">
+              <article
+                key={post.id}
+                className="bg-[var(--bg-primary)] rounded-lg shadow-sm overflow-hidden"
+              >
                 <img
                   src={post.cover_image}
                   alt={post.title}
@@ -82,7 +99,7 @@ export function Blog() {
                       {post.title}
                     </h2>
                   </Link>
-                  
+
                   <div className="mt-4 flex items-center space-x-4">
                     <img
                       src={post.author.avatar_url}
@@ -95,7 +112,9 @@ export function Blog() {
                       </p>
                       <div className="flex items-center text-sm text-[var(--text-secondary)]">
                         <Calendar className="w-4 h-4 mr-1" />
-                        {formatDistanceToNow(new Date(post.created_at), { addSuffix: true })}
+                        {formatDistanceToNow(new Date(post.created_at), {
+                          addSuffix: true,
+                        })}
                       </div>
                     </div>
                   </div>

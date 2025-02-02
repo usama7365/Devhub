@@ -1,3 +1,4 @@
+import React from 'react';
 import { useParams } from 'react-router-dom';
 import { Bug, ThumbsUp, Check } from 'lucide-react';
 import { formatDistanceToNow } from 'date-fns';
@@ -8,9 +9,9 @@ import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 export function BugReportDetail() {
   const { id } = useParams<{ id: string }>();
-  const bug = dummyBugReports.find(b => b.id === id);
-  const comments = dummyComments.filter(c => c.post_id === id);
-  const author = dummyUsers.find(u => u.id === bug?.user_id);
+  const bug = dummyBugReports.find((b) => b.id === id);
+  const comments = dummyComments.filter((c) => c.post_id === id);
+  const author = dummyUsers.find((u) => u.id === bug?.user_id);
 
   if (!bug || !author) {
     return <div className="text-center py-12">Bug report not found</div>;
@@ -28,9 +29,13 @@ export function BugReportDetail() {
                 className="w-10 h-10 rounded-full"
               />
               <div>
-                <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100">{author.username}</h2>
+                <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
+                  {author.username}
+                </h2>
                 <p className="text-sm text-gray-500">
-                  {formatDistanceToNow(new Date(bug.created_at), { addSuffix: true })}
+                  {formatDistanceToNow(new Date(bug.created_at), {
+                    addSuffix: true,
+                  })}
                 </p>
               </div>
             </div>
@@ -48,7 +53,9 @@ export function BugReportDetail() {
             </div>
           </div>
 
-          <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-4">{bug.title}</h1>
+          <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-4">
+            {bug.title}
+          </h1>
 
           <div className="prose dark:prose-invert max-w-none mb-6">
             <ReactMarkdown
@@ -107,12 +114,18 @@ export function BugReportDetail() {
                   <div className="flex-1">
                     <div className="bg-gray-50 dark:bg-gray-700 rounded-lg p-4">
                       <div className="flex items-center justify-between mb-2">
-                        <h4 className="font-medium text-gray-900 dark:text-gray-100">{comment.user.username}</h4>
+                        <h4 className="font-medium text-gray-900 dark:text-gray-100">
+                          {comment.user.username}
+                        </h4>
                         <span className="text-sm text-gray-500">
-                          {formatDistanceToNow(new Date(comment.created_at), { addSuffix: true })}
+                          {formatDistanceToNow(new Date(comment.created_at), {
+                            addSuffix: true,
+                          })}
                         </span>
                       </div>
-                      <p className="text-gray-700 dark:text-gray-300">{comment.content}</p>
+                      <p className="text-gray-700 dark:text-gray-300">
+                        {comment.content}
+                      </p>
                     </div>
                     <div className="mt-2 flex items-center space-x-4">
                       <button className="text-sm text-gray-500 hover:text-indigo-600 dark:hover:text-indigo-400">
@@ -138,10 +151,7 @@ export function BugReportDetail() {
                 rows={4}
               />
               <div className="mt-2 flex justify-end">
-                <button
-                  type="submit"
-                  className="btn"
-                >
+                <button type="submit" className="btn">
                   Post Comment
                 </button>
               </div>

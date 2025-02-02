@@ -17,25 +17,26 @@ const dummyNotifications: Notification[] = [
     title: 'New Comment',
     message: 'John Doe commented on your post',
     timestamp: new Date(Date.now() - 1000 * 60 * 5).toISOString(), // 5 minutes ago
-    read: false
+    read: false,
   },
   {
     id: '2',
     title: 'Post Liked',
     message: 'Your post received 10 likes',
     timestamp: new Date(Date.now() - 1000 * 60 * 30).toISOString(), // 30 minutes ago
-    read: false
-  }
+    read: false,
+  },
 ];
 
 export function NotificationCenter() {
-  const [notifications, setNotifications] = useState<Notification[]>(dummyNotifications);
+  const [notifications, setNotifications] =
+    useState<Notification[]>(dummyNotifications);
   const [isOpen, setIsOpen] = useState(false);
-  const unreadCount = notifications.filter(n => !n.read).length;
+  const unreadCount = notifications.filter((n) => !n.read).length;
 
   const markAsRead = (id: string) => {
-    setNotifications(prev =>
-      prev.map(n => n.id === id ? { ...n, read: true } : n)
+    setNotifications((prev) =>
+      prev.map((n) => (n.id === id ? { ...n, read: true } : n))
     );
   };
 
@@ -73,11 +74,13 @@ export function NotificationCenter() {
                 No notifications
               </div>
             ) : (
-              notifications.map(notification => (
+              notifications.map((notification) => (
                 <div
                   key={notification.id}
                   className={`p-4 border-b dark:border-gray-700 ${
-                    !notification.read ? 'bg-indigo-50 dark:bg-indigo-900/20' : ''
+                    !notification.read
+                      ? 'bg-indigo-50 dark:bg-indigo-900/20'
+                      : ''
                   }`}
                   onClick={() => markAsRead(notification.id)}
                 >
@@ -88,7 +91,9 @@ export function NotificationCenter() {
                     {notification.message}
                   </p>
                   <span className="mt-2 text-xs text-gray-500 dark:text-gray-500">
-                    {formatDistanceToNow(new Date(notification.timestamp), { addSuffix: true })}
+                    {formatDistanceToNow(new Date(notification.timestamp), {
+                      addSuffix: true,
+                    })}
                   </span>
                 </div>
               ))

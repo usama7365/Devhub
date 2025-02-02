@@ -13,27 +13,24 @@ export function VideoCall({ roomId, onClose }: VideoCallProps) {
   const remoteVideoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
-    // WebRTC setup would go here
-    // For now, just showing the local video stream
+    let localStream: MediaStream | null = null;
     if (navigator.mediaDevices) {
       navigator.mediaDevices
         .getUserMedia({ video: true, audio: true })
         .then((stream) => {
+          localStream = stream; // Store reference
           if (localVideoRef.current) {
             localVideoRef.current.srcObject = stream;
           }
         })
         .catch((err) => console.error('Error accessing media devices:', err));
     }
-
     return () => {
-      // Cleanup streams
-      if (localVideoRef.current?.srcObject) {
-        const stream = localVideoRef.current.srcObject as MediaStream;
-        stream.getTracks().forEach((track) => track.stop());
+      if (localStream) {
+        localStream.getTracks().forEach((track) => track.stop());
       }
     };
-  }, [roomId]);
+  }, [roomId]); // ✅ Dependencies are correct
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50">
@@ -53,23 +50,35 @@ export function VideoCall({ roomId, onClose }: VideoCallProps) {
             className="absolute bottom-4 right-4 w-48 rounded-lg bg-gray-900"
           />
         </div>
-        
+
         <div className="flex justify-center space-x-4">
           <button
             onClick={() => setIsVideoEnabled(!isVideoEnabled)}
             className={`p-4 rounded-full ${
-              isVideoEnabled ? 'bg-gray-200 text-gray-800' : 'bg-red-500 text-white'
+              isVideoEnabled
+                ? 'bg-gray-200 text-gray-800'
+                : 'bg-red-500 text-white'
             }`}
           >
-            {isVideoEnabled ? <Video className="w-6 h-6" /> : <VideoOff className="w-6 h-6" />}
+            {isVideoEnabled ? (
+              <Video className="w-6 h-6" />
+            ) : (
+              <VideoOff className="w-6 h-6" />
+            )}
           </button>
           <button
             onClick={() => setIsAudioEnabled(!isAudioEnabled)}
             className={`p-4 rounded-full ${
-              isAudioEnabled ? 'bg-gray-200 text-gray-800' : 'bg-red-500 text-white'
+              isAudioEnabled
+                ? 'bg-gray-200 text-gray-800'
+                : 'bg-red-500 text-white'
             }`}
           >
-            {isAudioEnabled ? <Mic className="w-6 h-6" /> : <MicOff className="w-6 h-6" />}
+            {isAudioEnabled ? (
+              <Mic className="w-6 h-6" />
+            ) : (
+              <MicOff className="w-6 h-6" />
+            )}
           </button>
           <button
             onClick={onClose}

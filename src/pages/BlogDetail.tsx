@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
+import React from 'react';
 import { useParams } from 'react-router-dom';
 import { Calendar, Eye, Heart } from 'lucide-react';
 import { formatDistanceToNow } from 'date-fns';
@@ -9,7 +9,7 @@ import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 export function BlogDetail() {
   const { id } = useParams<{ id: string }>();
-  const post = dummyBlogPosts.find(p => p.id === id);
+  const post = dummyBlogPosts.find((p) => p.id === id);
 
   if (!post) {
     return <div className="text-center py-12">Blog post not found</div>;
@@ -38,7 +38,9 @@ export function BlogDetail() {
                 </h3>
                 <div className="flex items-center text-sm text-gray-500 dark:text-gray-400">
                   <Calendar className="w-4 h-4 mr-1" />
-                  {formatDistanceToNow(new Date(post.created_at), { addSuffix: true })}
+                  {formatDistanceToNow(new Date(post.created_at), {
+                    addSuffix: true,
+                  })}
                 </div>
               </div>
               <div className="flex items-center space-x-4 ml-auto text-sm text-gray-500 dark:text-gray-400">
@@ -70,27 +72,19 @@ export function BlogDetail() {
 
             <div className="prose dark:prose-invert max-w-none">
               <ReactMarkdown
-                children={post.content}
                 components={{
-                  code({ node, inline, className, children, ...props }: {
-                    node: React.ReactNode;
-                    inline?: boolean;
-                    className?: string;
-                    children?: React.ReactNode;
-                    props?: any;
-                  }) {
+                  code({ node, inline, className, children, ...props }) {
                     const match = /language-(\w+)/.exec(className || '');
                     return !inline && match ? (
                       <SyntaxHighlighter
-                        children={String(children).replace(/\n$/, '')}
-                        style={vscDarkPlus}
-                        language={match[1]}
-                        PreTag="div"
-                        {...props}
-                        ref={(instance: SyntaxHighlighter | null) => {
-                          // Do something with the instance if needed
-                        }}
-                      />
+                      style={vscDarkPlus}
+                      language={match[1]}
+                      PreTag="div"
+                      {...props}
+                    >
+                      {String(children).replace(/\n$/, '')}
+                    </SyntaxHighlighter>
+                    
                     ) : (
                       <code className={className} {...props}>
                         {children}
@@ -99,14 +93,13 @@ export function BlogDetail() {
                   },
                   img({ node, ...props }) {
                     return (
-                      <img
-                        className="w-full rounded-lg my-4"
-                        {...props}
-                      />
+                      <img className="w-full rounded-lg my-4" {...props} />
                     );
                   },
                 }}
-              />
+              >
+                {post.content}
+              </ReactMarkdown>
             </div>
           </div>
         </article>

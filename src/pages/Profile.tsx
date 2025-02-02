@@ -6,8 +6,8 @@ import { PostCard } from '../components/PostCard';
 
 export function Profile() {
   const { username } = useParams<{ username: string }>();
-  const user = dummyUsers.find(u => u.username === username);
-  const userPosts = dummyPosts.filter(post => post.user_id === user?.id);
+  const user = dummyUsers.find((u) => u.username === username);
+  const userPosts = dummyPosts.filter((post) => post.user_id === user?.id);
 
   if (!user) {
     return <div className="text-center py-12">User not found</div>;
@@ -28,7 +28,9 @@ export function Profile() {
                 />
               </div>
               <div className="ml-36 pt-4">
-                <h1 className="text-3xl font-bold text-[var(--text-primary)]">{user.username}</h1>
+                <h1 className="text-3xl font-bold text-[var(--text-primary)]">
+                  {user.username}
+                </h1>
                 <p className="text-[var(--text-secondary)] mt-1">{user.bio}</p>
               </div>
             </div>
@@ -62,13 +64,17 @@ export function Profile() {
             </div>
 
             <div className="mt-12">
-              <h2 className="text-2xl font-bold text-[var(--text-primary)] mb-6">Recent Activity</h2>
+              <h2 className="text-2xl font-bold text-[var(--text-primary)] mb-6">
+                Recent Activity
+              </h2>
               <div className="space-y-6">
                 {userPosts.map((post) => (
                   <PostCard key={post.id} post={post} />
                 ))}
                 {userPosts.length === 0 && (
-                  <p className="text-[var(--text-secondary)] text-center py-8">No activity yet</p>
+                  <p className="text-[var(--text-secondary)] text-center py-8">
+                    No activity yet
+                  </p>
                 )}
               </div>
             </div>

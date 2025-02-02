@@ -14,7 +14,11 @@ interface MeetingRoomProps {
   onInvite: (email: string) => void;
 }
 
-export function MeetingRoom({ roomId, participants, onInvite }: MeetingRoomProps) {
+export function MeetingRoom({
+  roomId,
+  participants,
+  onInvite,
+}: MeetingRoomProps) {
   const [isCallActive, setIsCallActive] = useState(false);
   const [inviteEmail, setInviteEmail] = useState('');
 

@@ -8,12 +8,16 @@ interface RealtimeMessage {
 
 let channel: RealtimeChannel | null = null;
 
-export function initializeRealtime(userId: string, onMessage: (message: RealtimeMessage) => void) {
+export function initializeRealtime(
+  userId: string,
+  onMessage: (message: RealtimeMessage) => void
+) {
   if (channel) {
     channel.unsubscribe();
   }
 
-  channel = supabase.channel(`user:${userId}`)
+  channel = supabase
+    .channel(`user:${userId}`)
     .on('broadcast', { event: 'message' }, ({ payload }) => {
       onMessage(payload as RealtimeMessage);
     })

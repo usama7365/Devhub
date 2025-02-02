@@ -1,3 +1,4 @@
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { ThumbsUp, MessageSquare, Check } from 'lucide-react';
 import { formatDistanceToNow } from 'date-fns';
@@ -12,12 +13,18 @@ export function BugReportCard({ post }: BugReportCardProps) {
     <div className="bg-white rounded-lg shadow-sm p-6 mb-4">
       <div className="flex items-start justify-between">
         <div>
-          <Link to={`/bug-reports/${post.id}`} className="text-lg font-semibold text-gray-900 hover:text-indigo-600">
+          <Link
+            to={`/bug-reports/${post.id}`}
+            className="text-lg font-semibold text-gray-900 hover:text-indigo-600"
+          >
             {post.title}
           </Link>
           <div className="mt-2 flex items-center space-x-2">
             {post.tags.map((tag) => (
-              <span key={tag} className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-indigo-100 text-indigo-800">
+              <span
+                key={tag}
+                className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-indigo-100 text-indigo-800"
+              >
                 {tag}
               </span>
             ))}
@@ -37,7 +44,10 @@ export function BugReportCard({ post }: BugReportCardProps) {
             <ThumbsUp className="w-4 h-4 mr-1" />
             <span>{post.upvotes}</span>
           </button>
-          <Link to={`/discussions/${post.id}`} className="inline-flex items-center text-gray-500 hover:text-indigo-600">
+          <Link
+            to={`/discussions/${post.id}`}
+            className="inline-flex items-center text-gray-500 hover:text-indigo-600"
+          >
             <MessageSquare className="w-4 h-4 mr-1" />
             <span>Discuss</span>
           </Link>

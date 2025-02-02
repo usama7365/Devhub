@@ -37,7 +37,9 @@ export function PostCard({ post }: PostCardProps) {
           </span>
         )}
       </div>
-      <p className="mt-2 text-sm text-[var(--text-secondary)] line-clamp-2">{post.content}</p>
+      <p className="mt-2 text-sm text-[var(--text-secondary)] line-clamp-2">
+        {post.content}
+      </p>
       <div className="mt-4 flex items-center justify-between">
         <div className="flex items-center space-x-4">
           <button className="inline-flex items-center text-[var(--text-secondary)] hover:text-[var(--accent)]">

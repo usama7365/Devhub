@@ -1,10 +1,15 @@
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { BlogEditor } from '../components/BlogEditor';
 
 export function BlogCreate() {
   const navigate = useNavigate();
 
-  const handleSave = async (content: { title: string; content: string; tags: string[] }) => {
+  const handleSave = async (content: {
+    title: string;
+    content: string;
+    tags: string[];
+  }) => {
     try {
       const {
         data: { user },
@@ -37,7 +42,9 @@ export function BlogCreate() {
     <div className="py-8">
       <div className="max-w-4xl mx-auto">
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">Create Blog Post</h1>
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">
+            Create Blog Post
+          </h1>
           <p className="mt-2 text-gray-600 dark:text-gray-400">
             Share your knowledge and experiences with the community
           </p>

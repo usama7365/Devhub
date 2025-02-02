@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Book, Search, Tag, Eye, Calendar } from 'lucide-react';
 import { dummyArticles } from '../lib/dummy-data';
@@ -8,13 +8,19 @@ export function KnowledgeBase() {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
 
-  const categories = Array.from(new Set(dummyArticles.map(article => article.category)));
+  const categories = Array.from(
+    new Set(dummyArticles.map((article) => article.category))
+  );
 
-  const filteredArticles = dummyArticles.filter(article => {
-    const matchesSearch = article.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+  const filteredArticles = dummyArticles.filter((article) => {
+    const matchesSearch =
+      article.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
       article.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      article.tags.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase()));
-    const matchesCategory = !selectedCategory || article.category === selectedCategory;
+      article.tags.some((tag) =>
+        tag.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+    const matchesCategory =
+      !selectedCategory || article.category === selectedCategory;
     return matchesSearch && matchesCategory;
   });
 
@@ -22,8 +28,13 @@ export function KnowledgeBase() {
     <div className="py-8">
       <div className="flex justify-between items-center mb-8">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">Knowledge Base</h1>
-          <p className="mt-2 text-gray-600 dark:text-gray-400">Explore our community-driven knowledge base of tech stacks and best practices.</p>
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">
+            Knowledge Base
+          </h1>
+          <p className="mt-2 text-gray-600 dark:text-gray-400">
+            Explore our community-driven knowledge base of tech stacks and best
+            practices.
+          </p>
         </div>
         <Link to="/knowledge-base/new" className="btn">
           <Book className="w-4 h-4 mr-2" />
@@ -34,9 +45,11 @@ export function KnowledgeBase() {
       <div className="flex gap-6">
         <div className="w-64 flex-shrink-0">
           <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-4">
-            <h3 className="font-semibold text-gray-900 dark:text-gray-100 mb-3">Categories</h3>
+            <h3 className="font-semibold text-gray-900 dark:text-gray-100 mb-3">
+              Categories
+            </h3>
             <ul className="space-y-2">
-              {categories.map(category => (
+              {categories.map((category) => (
                 <li
                   key={category}
                   className={`cursor-pointer ${
@@ -44,7 +57,11 @@ export function KnowledgeBase() {
                       ? 'text-indigo-600 dark:text-indigo-400 font-medium'
                       : 'text-gray-600 dark:text-gray-400 hover:text-indigo-600 dark:hover:text-indigo-400'
                   }`}
-                  onClick={() => setSelectedCategory(selectedCategory === category ? null : category)}
+                  onClick={() =>
+                    setSelectedCategory(
+                      selectedCategory === category ? null : category
+                    )
+                  }
                 >
                   {category}
                 </li>
@@ -69,13 +86,18 @@ export function KnowledgeBase() {
 
           <div className="space-y-6">
             {filteredArticles.map((article) => (
-              <article key={article.id} className="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-6">
+              <article
+                key={article.id}
+                className="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-6"
+              >
                 <Link to={`/knowledge-base/${article.id}`}>
                   <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 hover:text-indigo-600 dark:hover:text-indigo-400">
                     {article.title}
                   </h2>
                 </Link>
-                <p className="mt-2 text-gray-600 dark:text-gray-400">{article.description}</p>
+                <p className="mt-2 text-gray-600 dark:text-gray-400">
+                  {article.description}
+                </p>
                 <div className="mt-4 flex items-center justify-between">
                   <div className="flex items-center gap-2">
                     <Tag className="w-4 h-4 text-gray-400" />
@@ -97,7 +119,9 @@ export function KnowledgeBase() {
                     </span>
                     <span className="flex items-center">
                       <Calendar className="w-4 h-4 mr-1" />
-                      {formatDistanceToNow(new Date(article.updated_at), { addSuffix: true })}
+                      {formatDistanceToNow(new Date(article.updated_at), {
+                        addSuffix: true,
+                      })}
                     </span>
                   </div>
                 </div>
