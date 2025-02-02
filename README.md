@@ -179,4 +179,4 @@ The platform is fully responsive and works seamlessly across:
 For questions or support, please open an issue or contact the maintainers:
 
 - GitHub: [GitHub Profile](https://github.com/usama7365)
-- Email: support@devhub.com
+- Email: usamaaamirsohail@gmail.com
