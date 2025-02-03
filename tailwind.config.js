@@ -3,10 +3,6 @@ export default {
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   darkMode: 'class',
   theme: {
-    screens: {
-      xs: {min: '320px', max: '639px'},
-      small: {min: '320px', max: '933px'},
-    },
     extend: {
       colors: {
         // Nord theme colors
