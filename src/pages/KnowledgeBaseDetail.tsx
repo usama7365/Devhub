@@ -10,7 +10,7 @@ export function KnowledgeBaseDetail() {
   const author = dummyUsers.find((u) => u.id === article?.user_id);
 
   if (!article || !author) {
-    return <div className="text-center py-12">Article not found</div>;
+    return (<div className="text-center py-12">Article not found</div>);
   }
 
   return (
