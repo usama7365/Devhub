@@ -25,9 +25,10 @@ export function KnowledgeBase() {
   });
 
   return (
-    <div className="py-8">
-      <div className="flex justify-between items-center mb-8">
-        <div>
+    <div className="py-8 px-4 sm:px-6 lg:px-8">
+      {/* Header Section */}
+      <div className="flex flex-col sm:flex-row justify-between items-center mb-8">
+        <div className="mb-4 sm:mb-0">
           <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">
             Knowledge Base
           </h1>
@@ -42,8 +43,10 @@ export function KnowledgeBase() {
         </Link>
       </div>
 
-      <div className="flex gap-6">
-        <div className="w-64 flex-shrink-0">
+      {/* Main Content */}
+      <div className="flex flex-col lg:flex-row gap-6">
+        {/* Filters Section */}
+        <div className="w-full lg:w-64 flex-shrink-0">
           <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-4">
             <h3 className="font-semibold text-gray-900 dark:text-gray-100 mb-3">
               Categories
@@ -70,7 +73,9 @@ export function KnowledgeBase() {
           </div>
         </div>
 
+        {/* Articles Section */}
         <div className="flex-1">
+          {/* Search Bar */}
           <div className="mb-6">
             <div className="relative">
               <input
@@ -84,6 +89,7 @@ export function KnowledgeBase() {
             </div>
           </div>
 
+          {/* Articles List */}
           <div className="space-y-6">
             {filteredArticles.map((article) => (
               <article
@@ -98,10 +104,10 @@ export function KnowledgeBase() {
                 <p className="mt-2 text-gray-600 dark:text-gray-400">
                   {article.description}
                 </p>
-                <div className="mt-4 flex items-center justify-between">
+                <div className="mt-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                   <div className="flex items-center gap-2">
                     <Tag className="w-4 h-4 text-gray-400" />
-                    <div className="flex gap-2">
+                    <div className="flex flex-wrap gap-2">
                       {article.tags.map((tag) => (
                         <span
                           key={tag}

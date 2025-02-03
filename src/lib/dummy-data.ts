@@ -210,7 +210,7 @@ Memory usage keeps increasing
     content: `Getting a strange compilation error when using decorators in TypeScript 5.0.
 
 **Error message:**
-\`\`\`
+\`\`\` typescript
 TS1219: Experimental support for decorators is a feature that is subject to change in a future release.
 \`\`\`
 

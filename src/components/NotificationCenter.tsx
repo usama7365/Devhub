@@ -55,17 +55,15 @@ export function NotificationCenter() {
       </button>
 
       {isOpen && (
-        <div className="absolute right-0 mt-2 w-80 bg-white dark:bg-gray-800 rounded-lg shadow-xl z-50">
-          <div className="p-4 border-b dark:border-gray-700">
-            <div className="flex items-center justify-between">
-              <h3 className="text-lg font-semibold">Notifications</h3>
-              <button
-                onClick={() => setIsOpen(false)}
-                className="text-gray-500 hover:text-gray-700 dark:hover:text-gray-300"
-              >
-                <X className="w-5 h-5" />
-              </button>
-            </div>
+        <div className="absolute right-4 top-12 w-80 max-w-sm sm:w-96 bg-white dark:bg-gray-800 rounded-lg shadow-xl z-50 min-w-[250px]">
+          <div className="p-4 border-b dark:border-gray-700 flex items-center justify-between">
+            <h3 className="text-lg font-semibold">Notifications</h3>
+            <button
+              onClick={() => setIsOpen(false)}
+              className="text-gray-500 hover:text-gray-700 dark:hover:text-gray-300"
+            >
+              <X className="w-5 h-5" />
+            </button>
           </div>
 
           <div className="max-h-96 overflow-y-auto">

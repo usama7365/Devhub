@@ -18,11 +18,13 @@ export function BugReportDetail() {
   }
 
   return (
-    <div className="py-8">
-      <div className="max-w-full mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="py-8 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-full mx-auto">
+        {/* Bug Report Section */}
         <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-6">
-          <div className="flex items-center justify-between mb-4">
-            <div className="flex items-center space-x-4">
+          {/* Author Info and Status */}
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6">
+            <div className="flex items-center space-x-4 mb-4 sm:mb-0">
               <img
                 src={author.avatar_url}
                 alt={author.username}
@@ -53,10 +55,12 @@ export function BugReportDetail() {
             </div>
           </div>
 
+          {/* Bug Title */}
           <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-4">
             {bug.title}
           </h1>
 
+          {/* Bug Content */}
           <div className="prose dark:prose-invert max-w-none mb-6">
             <ReactMarkdown
               children={bug.content}
@@ -81,8 +85,9 @@ export function BugReportDetail() {
             />
           </div>
 
-          <div className="flex items-center space-x-4 mb-6">
-            <div className="flex items-center space-x-2">
+          {/* Tags and Upvotes */}
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6">
+            <div className="flex flex-wrap gap-2">
               {bug.tags.map((tag) => (
                 <span
                   key={tag}
@@ -98,11 +103,13 @@ export function BugReportDetail() {
             </button>
           </div>
 
+          {/* Comments Section */}
           <div className="border-t dark:border-gray-700 pt-6">
             <h3 className="text-lg font-semibold mb-4 text-gray-900 dark:text-gray-100">
               {comments.length} {comments.length === 1 ? 'Comment' : 'Comments'}
             </h3>
 
+            {/* Comments List */}
             <div className="space-y-6">
               {comments.map((comment) => (
                 <div key={comment.id} className="flex space-x-4">
@@ -113,7 +120,7 @@ export function BugReportDetail() {
                   />
                   <div className="flex-1">
                     <div className="bg-gray-50 dark:bg-gray-700 rounded-lg p-4">
-                      <div className="flex items-center justify-between mb-2">
+                      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-2">
                         <h4 className="font-medium text-gray-900 dark:text-gray-100">
                           {comment.user.username}
                         </h4>
@@ -144,6 +151,7 @@ export function BugReportDetail() {
               ))}
             </div>
 
+            {/* Comment Form */}
             <form className="mt-6">
               <textarea
                 placeholder="Add a comment..."

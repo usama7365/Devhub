@@ -22,9 +22,10 @@ export function Discussions() {
   });
 
   return (
-    <div className="py-8">
-      <div className="flex justify-between items-center mb-8">
-        <div>
+    <div className="py-8 px-4 sm:px-6 lg:px-8">
+      {/* Header Section */}
+      <div className="flex flex-col sm:flex-row justify-between items-center mb-8">
+        <div className="mb-4 sm:mb-0">
           <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">
             Discussions
           </h1>
@@ -38,14 +39,17 @@ export function Discussions() {
         </button>
       </div>
 
-      <div className="flex gap-6">
-        <div className="w-64 flex-shrink-0">
+      {/* Main Content */}
+      <div className="flex flex-col lg:flex-row gap-6">
+        {/* Filters Section */}
+        <div className="w-full lg:w-64 flex-shrink-0">
           <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-4">
             <div className="flex items-center gap-2 text-gray-900 dark:text-gray-100 font-semibold mb-3">
               <Filter className="w-4 h-4" />
               <span>Filters</span>
             </div>
             <div className="space-y-4">
+              {/* Category Filters */}
               <div>
                 <h3 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                   Categories
@@ -70,6 +74,8 @@ export function Discussions() {
                   ))}
                 </div>
               </div>
+
+              {/* Status Filters */}
               <div>
                 <h3 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                   Status
@@ -107,7 +113,9 @@ export function Discussions() {
           </div>
         </div>
 
+        {/* Posts Section */}
         <div className="flex-1">
+          {/* Search Bar */}
           <div className="mb-6">
             <div className="relative">
               <input
@@ -121,6 +129,7 @@ export function Discussions() {
             </div>
           </div>
 
+          {/* Posts List */}
           <div className="space-y-6">
             {filteredPosts.map((post) => (
               <PostCard key={post.id} post={post} />

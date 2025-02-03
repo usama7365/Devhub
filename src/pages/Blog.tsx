@@ -23,9 +23,10 @@ export function Blog() {
   );
 
   return (
-    <div className="py-8">
-      <div className="flex justify-between items-center mb-8">
-        <div>
+    <div className="py-8 px-4 sm:px-6 lg:px-8">
+      {/* Header Section */}
+      <div className="flex flex-col sm:flex-row justify-between items-center mb-8">
+        <div className="mb-4 sm:mb-0">
           <h1 className="text-3xl font-bold text-[var(--text-primary)]">
             Blog
           </h1>
@@ -42,8 +43,10 @@ export function Blog() {
         </Link>
       </div>
 
-      <div className="flex gap-6">
-        <div className="w-64 flex-shrink-0">
+      {/* Main Content */}
+      <div className="flex flex-col lg:flex-row gap-6">
+        {/* Filters Section */}
+        <div className="w-full lg:w-64 flex-shrink-0">
           <div className="bg-[var(--bg-primary)] rounded-lg shadow-sm p-4 mb-4">
             <h3 className="font-semibold text-[var(--text-primary)] mb-3">
               Popular Tags
@@ -68,7 +71,9 @@ export function Blog() {
           </div>
         </div>
 
+        {/* Blog Posts Section */}
         <div className="flex-1">
+          {/* Search Bar */}
           <div className="mb-6">
             <div className="relative">
               <input
@@ -82,7 +87,8 @@ export function Blog() {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 gap-6">
+          {/* Blog Posts Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2 gap-6">
             {filteredPosts.map((post) => (
               <article
                 key={post.id}
@@ -91,7 +97,7 @@ export function Blog() {
                 <img
                   src={post.cover_image}
                   alt={post.title}
-                  className="w-full h-64 object-cover"
+                  className="w-full h-48 md:h-64 object-cover"
                 />
                 <div className="p-6">
                   <Link to={`/blog/${post.id}`}>
@@ -100,6 +106,7 @@ export function Blog() {
                     </h2>
                   </Link>
 
+                  {/* Author Info */}
                   <div className="mt-4 flex items-center space-x-4">
                     <img
                       src={post.author.avatar_url}
@@ -119,7 +126,8 @@ export function Blog() {
                     </div>
                   </div>
 
-                  <div className="mt-4 flex items-center justify-between">
+                  {/* Metadata */}
+                  <div className="mt-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                     <div className="flex items-center space-x-4 text-sm text-[var(--text-secondary)]">
                       <span className="flex items-center">
                         <Eye className="w-4 h-4 mr-1" />

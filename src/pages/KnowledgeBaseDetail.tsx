@@ -14,42 +14,46 @@ export function KnowledgeBaseDetail() {
   }
 
   return (
-    <div className="py-8">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-8">
-          <div className="mb-8">
-            <div className="flex items-center justify-between mb-4">
-              <div className="flex items-center space-x-4">
-                <img
-                  src={author.avatar_url}
-                  alt={author.username}
-                  className="w-10 h-10 rounded-full"
-                />
-                <div>
-                  <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
-                    {author.username}
-                  </h3>
-                  <div className="flex items-center text-sm text-gray-500 dark:text-gray-400">
-                    <Calendar className="w-4 h-4 mr-1" />
-                    {formatDistanceToNow(new Date(article.created_at), {
-                      addSuffix: true,
-                    })}
-                  </div>
+    <div className="py-8 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-4xl mx-auto">
+        {/* Article Section */}
+        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-6 sm:p-8">
+          {/* Author Info and Views */}
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6">
+            <div className="flex items-center space-x-4 mb-4 sm:mb-0">
+              <img
+                src={author.avatar_url}
+                alt={author.username}
+                className="w-10 h-10 rounded-full"
+              />
+              <div>
+                <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
+                  {author.username}
+                </h3>
+                <div className="flex items-center text-sm text-gray-500 dark:text-gray-400">
+                  <Calendar className="w-4 h-4 mr-1" />
+                  {formatDistanceToNow(new Date(article.created_at), {
+                    addSuffix: true,
+                  })}
                 </div>
               </div>
-              <div className="flex items-center text-gray-500 dark:text-gray-400">
-                <Eye className="w-4 h-4 mr-1" />
-                {article.views} views
-              </div>
             </div>
+            <div className="flex items-center text-gray-500 dark:text-gray-400">
+              <Eye className="w-4 h-4 mr-1" />
+              {article.views} views
+            </div>
+          </div>
 
-            <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-4">
-              {article.title}
-            </h1>
+          {/* Article Title */}
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-4">
+            {article.title}
+          </h1>
 
-            <div className="flex items-center space-x-4 mb-6">
-              <div className="flex items-center space-x-2">
-                <Tag className="w-4 h-4 text-gray-400" />
+          {/* Tags and Category */}
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6">
+            <div className="flex items-center space-x-2">
+              <Tag className="w-4 h-4 text-gray-400" />
+              <div className="flex flex-wrap gap-2">
                 {article.tags.map((tag) => (
                   <span
                     key={tag}
@@ -59,12 +63,13 @@ export function KnowledgeBaseDetail() {
                   </span>
                 ))}
               </div>
-              <span className="text-sm text-gray-500 dark:text-gray-400">
-                {article.category}
-              </span>
             </div>
+            <span className="text-sm text-gray-500 dark:text-gray-400">
+              {article.category}
+            </span>
           </div>
 
+          {/* Article Content */}
           <div className="prose dark:prose-invert max-w-none">
             <div className="whitespace-pre-wrap text-gray-700 dark:text-gray-300">
               {article.content}

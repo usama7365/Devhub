@@ -16,34 +16,40 @@ export function BlogDetail() {
   }
 
   return (
-    <div className="py-8">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="py-8 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-4xl mx-auto">
+        {/* Blog Post Section */}
         <article className="bg-white dark:bg-gray-800 rounded-lg shadow-sm overflow-hidden">
+          {/* Cover Image */}
           <img
             src={post.cover_image}
             alt={post.title}
-            className="w-full h-96 object-cover"
+            className="w-full h-48 sm:h-64 md:h-96 object-cover"
           />
 
-          <div className="p-8">
-            <div className="flex items-center space-x-4 mb-6">
-              <img
-                src={post.author.avatar_url}
-                alt={post.author.username}
-                className="w-12 h-12 rounded-full"
-              />
-              <div>
-                <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
-                  {post.author.username}
-                </h3>
-                <div className="flex items-center text-sm text-gray-500 dark:text-gray-400">
-                  <Calendar className="w-4 h-4 mr-1" />
-                  {formatDistanceToNow(new Date(post.created_at), {
-                    addSuffix: true,
-                  })}
+          {/* Blog Post Content */}
+          <div className="p-6 sm:p-8">
+            {/* Author Info and Metadata */}
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6">
+              <div className="flex items-center space-x-4 mb-4 sm:mb-0">
+                <img
+                  src={post.author.avatar_url}
+                  alt={post.author.username}
+                  className="w-12 h-12 rounded-full"
+                />
+                <div>
+                  <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
+                    {post.author.username}
+                  </h3>
+                  <div className="flex items-center text-sm text-gray-500 dark:text-gray-400">
+                    <Calendar className="w-4 h-4 mr-1" />
+                    {formatDistanceToNow(new Date(post.created_at), {
+                      addSuffix: true,
+                    })}
+                  </div>
                 </div>
               </div>
-              <div className="flex items-center space-x-4 ml-auto text-sm text-gray-500 dark:text-gray-400">
+              <div className="flex items-center space-x-4 text-sm text-gray-500 dark:text-gray-400">
                 <span className="flex items-center">
                   <Eye className="w-4 h-4 mr-1" />
                   {post.views} views
@@ -55,10 +61,12 @@ export function BlogDetail() {
               </div>
             </div>
 
-            <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-4">
+            {/* Title */}
+            <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-gray-100 mb-4">
               {post.title}
             </h1>
 
+            {/* Tags */}
             <div className="flex flex-wrap gap-2 mb-8">
               {post.tags.map((tag) => (
                 <span
@@ -70,6 +78,7 @@ export function BlogDetail() {
               ))}
             </div>
 
+            {/* Content */}
             <div className="prose dark:prose-invert max-w-none">
               <ReactMarkdown
                 components={{
@@ -77,14 +86,13 @@ export function BlogDetail() {
                     const match = /language-(\w+)/.exec(className || '');
                     return !inline && match ? (
                       <SyntaxHighlighter
-                      style={vscDarkPlus}
-                      language={match[1]}
-                      PreTag="div"
-                      {...props}
-                    >
-                      {String(children).replace(/\n$/, '')}
-                    </SyntaxHighlighter>
-                    
+                        style={vscDarkPlus}
+                        language={match[1]}
+                        PreTag="div"
+                        {...props}
+                      >
+                        {String(children).replace(/\n$/, '')}
+                      </SyntaxHighlighter>
                     ) : (
                       <code className={className} {...props}>
                         {children}

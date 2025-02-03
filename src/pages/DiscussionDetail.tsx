@@ -15,10 +15,12 @@ export function DiscussionDetail() {
   }
 
   return (
-    <div className="py-8">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="py-8 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-4xl mx-auto">
+        {/* Post Section */}
         <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-6">
-          <div className="flex items-center justify-between mb-4">
+          {/* Author Info and Resolved Status */}
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-4">
             <div className="flex items-center space-x-4">
               <img
                 src={author.avatar_url}
@@ -37,23 +39,26 @@ export function DiscussionDetail() {
               </div>
             </div>
             {post.is_resolved && (
-              <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">
+              <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200 mt-4 sm:mt-0">
                 <Check className="w-4 h-4 mr-1" />
                 Resolved
               </span>
             )}
           </div>
 
+          {/* Post Title */}
           <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-4">
             {post.title}
           </h1>
 
+          {/* Post Content */}
           <div className="prose dark:prose-invert max-w-none mb-6">
             <p className="text-gray-700 dark:text-gray-300">{post.content}</p>
           </div>
 
-          <div className="flex items-center space-x-4 mb-6">
-            <div className="flex items-center space-x-2">
+          {/* Tags and Upvotes */}
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between space-y-4 sm:space-y-0 mb-6">
+            <div className="flex flex-wrap gap-2">
               {post.tags.map((tag) => (
                 <span
                   key={tag}
@@ -69,11 +74,13 @@ export function DiscussionDetail() {
             </button>
           </div>
 
+          {/* Comments Section */}
           <div className="border-t dark:border-gray-700 pt-6">
             <h3 className="text-lg font-semibold mb-4 text-gray-900 dark:text-gray-100">
               {comments.length} {comments.length === 1 ? 'Comment' : 'Comments'}
             </h3>
 
+            {/* Comments List */}
             <div className="space-y-6">
               {comments.map((comment) => (
                 <div key={comment.id} className="flex space-x-4">
@@ -84,7 +91,7 @@ export function DiscussionDetail() {
                   />
                   <div className="flex-1">
                     <div className="bg-gray-50 dark:bg-gray-700 rounded-lg p-4">
-                      <div className="flex items-center justify-between mb-2">
+                      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-2">
                         <h4 className="font-medium text-gray-900 dark:text-gray-100">
                           {comment.user.username}
                         </h4>
@@ -115,6 +122,7 @@ export function DiscussionDetail() {
               ))}
             </div>
 
+            {/* Comment Form */}
             <form className="mt-6">
               <textarea
                 placeholder="Add a comment..."
