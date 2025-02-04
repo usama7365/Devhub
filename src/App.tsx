@@ -49,7 +49,7 @@ function App() {
 
   return (
     <Router>
-      <div className="min-h-screen bg-[var(--bg-primary)] text-[var(--text-primary)]">
+      <div className="min-h-screen bg-gray-100 w-[100%] text-[var(--text-primary)]">
         <Navbar />
         <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20">
           <Routes>

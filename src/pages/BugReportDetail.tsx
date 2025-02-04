@@ -1,6 +1,6 @@
 import React from 'react';
-import { useParams } from 'react-router-dom';
-import { Bug, ThumbsUp, Check } from 'lucide-react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { Bug, ThumbsUp, Check, ArrowLeft } from 'lucide-react';
 import { formatDistanceToNow } from 'date-fns';
 import { dummyBugReports, dummyComments, dummyUsers } from '../lib/dummy-data';
 import ReactMarkdown from 'react-markdown';
@@ -8,6 +8,8 @@ import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 export function BugReportDetail() {
+  const navigate = useNavigate();
+
   const { id } = useParams<{ id: string }>();
   const bug = dummyBugReports.find((b) => b.id === id);
   const comments = dummyComments.filter((c) => c.post_id === id);
@@ -19,6 +21,15 @@ export function BugReportDetail() {
 
   return (
     <div className="py-8 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-8">
+        <button
+          onClick={() => navigate('/bug-reports')}
+          className="inline-flex items-center text-sm text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
+        >
+          <ArrowLeft className="w-4 h-4 mr-2" />
+          Back to Bug reports
+        </button>
+      </div>
       <div className="max-w-full mx-auto">
         {/* Bug Report Section */}
         <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-6">

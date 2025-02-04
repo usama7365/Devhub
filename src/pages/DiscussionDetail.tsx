@@ -1,10 +1,12 @@
 import React from 'react';
-import { useParams } from 'react-router-dom';
-import { MessageSquare, ThumbsUp, Check } from 'lucide-react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { MessageSquare, ThumbsUp, Check, ArrowLeft } from 'lucide-react';
 import { formatDistanceToNow } from 'date-fns';
 import { dummyPosts, dummyComments, dummyUsers } from '../lib/dummy-data';
 
 export function DiscussionDetail() {
+  const navigate = useNavigate();
+
   const { id } = useParams<{ id: string }>();
   const post = dummyPosts.find((p) => p.id === id);
   const comments = dummyComments.filter((c) => c.post_id === id);
@@ -16,6 +18,15 @@ export function DiscussionDetail() {
 
   return (
     <div className="py-8 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-8">
+        <button
+          onClick={() => navigate('/discussions')}
+          className="inline-flex items-center text-sm text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
+        >
+          <ArrowLeft className="w-4 h-4 mr-2" />
+          Back to Discussions
+        </button>
+      </div>
       <div className="max-w-4xl mx-auto">
         {/* Post Section */}
         <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-6">

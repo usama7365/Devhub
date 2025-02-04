@@ -23,7 +23,7 @@ export function Blog() {
   );
 
   return (
-    <div className="py-8 px-4 sm:px-6 lg:px-8">
+    <div className="py-8 px-4 sm:px-6 lg:px-8 ">
       {/* Header Section */}
       <div className="flex flex-col sm:flex-row justify-between items-center mb-8">
         <div className="mb-4 sm:mb-0">
@@ -92,7 +92,7 @@ export function Blog() {
             {filteredPosts.map((post) => (
               <article
                 key={post.id}
-                className="bg-[var(--bg-primary)] rounded-lg shadow-sm overflow-hidden"
+                className="bg-[var(--bg-primary)] rounded-lg shadow-sm overflow-hidden "
               >
                 <img
                   src={post.cover_image}
@@ -142,7 +142,7 @@ export function Blog() {
                       {post.tags.map((tag) => (
                         <span
                           key={tag}
-                          className="px-2 py-1 text-xs font-medium bg-[var(--accent)]/10 text-[var(--accent)] rounded-full"
+                          className="px-3 py-1 text-sm font-medium bg-indigo-100 text-indigo-800 dark:bg-indigo-900 dark:text-indigo-200 rounded-full"
                         >
                           {tag}
                         </span>

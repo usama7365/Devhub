@@ -1,6 +1,6 @@
 import React from 'react';
-import { useParams } from 'react-router-dom';
-import { Calendar, Eye, Heart } from 'lucide-react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { ArrowLeft, Calendar, Eye, Heart } from 'lucide-react';
 import { formatDistanceToNow } from 'date-fns';
 import { dummyBlogPosts } from '../lib/dummy-data';
 import ReactMarkdown from 'react-markdown';
@@ -8,6 +8,8 @@ import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 export function BlogDetail() {
+  const navigate = useNavigate();
+
   const { id } = useParams<{ id: string }>();
   const post = dummyBlogPosts.find((p) => p.id === id);
 
@@ -17,6 +19,15 @@ export function BlogDetail() {
 
   return (
     <div className="py-8 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-8">
+        <button
+          onClick={() => navigate('/blog')}
+          className="inline-flex items-center text-sm text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
+        >
+          <ArrowLeft className="w-4 h-4 mr-2" />
+          Back to Blogs
+        </button>
+      </div>
       <div className="max-w-4xl mx-auto">
         {/* Blog Post Section */}
         <article className="bg-white dark:bg-gray-800 rounded-lg shadow-sm overflow-hidden">
