@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { MeetingRoom } from '../components/MeetingRoom';
 import {
   Video,
@@ -9,7 +9,13 @@ import {
   Zap,
   Clock,
   Monitor,
+  Plus,
 } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { supabase } from '../lib/supabase';
+import { format, parseISO } from 'date-fns';
+import { dummyMeeting } from '../lib/dummy-data';
+import { Meeting } from '../types';
 
 const sampleParticipants = [
   {
@@ -46,9 +52,73 @@ const sampleParticipants = [
 
 export function Meetings() {
   const [selectedRoom, setSelectedRoom] = useState<string | null>(null);
+  const [upcomingMeetings, setUpcomingMeetings] = useState<Meeting[]>([]);
+  const [loading, setLoading] = useState(true);
 
-  const handleInvite = (email: string) => {
-    console.log('Inviting:', email);
+  useEffect(() => {
+    fetchMeetings();
+  }, []);
+
+  const fetchMeetings = async () => {
+    try {
+      const { data: meetings, error } = await supabase
+        .from('meetings')
+        .select(
+          `
+          id,
+          title,
+          description,
+          start_time,
+          duration,
+          max_participants,
+          room_id,
+          host:users (
+            username,
+            avatar_url
+          )
+        `
+        )
+        .gte('start_time', new Date().toISOString())
+        .order('start_time', { ascending: true });
+
+      if (error) throw error;
+
+      // If no meetings are found, use the dummy meeting
+      setUpcomingMeetings(
+        meetings.length > 0
+          ? meetings.map((meeting) => ({
+              ...meeting,
+              host: meeting.host.map((h) => ({
+                ...h,
+                id: '',
+                username: '',
+                email: '',
+                created_at: '',
+              })),
+            }))
+          : [dummyMeeting]
+      );
+    } catch (error) {
+      console.error('Error fetching meetings:', error);
+      setUpcomingMeetings([dummyMeeting]); // Fallback to dummy meeting on error
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleInvite = async (email: string) => {
+    try {
+      const { error } = await supabase.from('meeting_invitations').insert([
+        {
+          meeting_id: selectedRoom,
+          email,
+        },
+      ]);
+
+      if (error) throw error;
+    } catch (error) {
+      console.error('Error sending invitation:', error);
+    }
   };
 
   return (
@@ -75,6 +145,109 @@ export function Meetings() {
         </div>
       </section>
 
+      {/* Upcoming Meetings */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-8">
+          Upcoming Meetings
+        </h2>
+
+        {loading ? (
+          <div className="text-center py-12 text-lg text-gray-500 dark:text-gray-400">
+            Loading...
+          </div>
+        ) : upcomingMeetings.length > 0 ? (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {upcomingMeetings.map((meeting) => (
+              <div
+                key={meeting.id}
+                className="bg-white dark:bg-gray-800 rounded-2xl shadow-md hover:shadow-lg transition-shadow duration-300 overflow-hidden"
+              >
+                <div className="p-6">
+                  {/* Meeting Title */}
+                  <h3 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-2">
+                    {meeting.title}
+                  </h3>
+
+                  {/* Meeting Description */}
+                  <p className="text-gray-600 dark:text-gray-400 mb-4">
+                    {meeting.description}
+                  </p>
+
+                  {/* Host Information */}
+                  <div className="flex items-center mb-4">
+                    <img
+                      src={meeting.host.avatar_url}
+                      alt={meeting.host.username}
+                      className="w-10 h-10 rounded-full border border-gray-300 dark:border-gray-600 mr-3"
+                    />
+                    <div>
+                      <p className="text-sm font-medium text-gray-800 dark:text-gray-200">
+                        Hosted by {meeting.host.username}
+                      </p>
+                      <p className="text-xs text-gray-500 dark:text-gray-400">
+                        {meeting.host.email}
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Meeting Details */}
+                  <div className="flex items-center justify-between text-sm text-gray-500 dark:text-gray-400 mb-4">
+                    <div className="flex items-center">
+                      <Clock className="w-4 h-4 mr-1 text-indigo-500" />
+                      {format(parseISO(meeting.start_time), 'MMM d, h:mm a')}
+                    </div>
+                    <div className="flex items-center">
+                      <Users className="w-4 h-4 mr-1 text-indigo-500" />
+                      {meeting.max_participants} participants
+                    </div>
+                  </div>
+
+                  {/* Join Meeting Button */}
+                  <button
+                    onClick={() => setSelectedRoom(meeting.room_id)}
+                    className="w-full flex items-center justify-center gap-2 py-2 px-4 text-white bg-indigo-600 hover:bg-indigo-700 transition-all duration-300 rounded-lg text-sm font-medium"
+                  >
+                    <Video className="w-4 h-4" />
+                    Join Meeting
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div className="text-center py-12 text-gray-500 dark:text-gray-400">
+            No upcoming meetings. Why not schedule one?
+          </div>
+        )}
+      </section>
+
+      {/* Active Meeting Room */}
+      {selectedRoom && (
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <MeetingRoom
+            roomId={selectedRoom}
+            participants={sampleParticipants}
+            onInvite={handleInvite}
+          />
+        </section>
+      )}
+
+      {/* Schedule Section */}
+      <section className="bg-gray-50 dark:bg-gray-800/50 -mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8 py-16">
+        <div className="max-w-7xl mx-auto text-center">
+          <h2 className="text-3xl font-bold mb-8">Schedule a Meeting</h2>
+          <p className="text-gray-600 dark:text-gray-400 mb-8 max-w-2xl mx-auto">
+            Plan ahead and schedule meetings with your team. Send automatic
+            invitations and reminders.
+          </p>
+          <Link to="/meetings/schedule">
+            <button className="btn">
+              <Calendar className="w-4 h-4 mr-2" />
+              Schedule Now
+            </button>
+          </Link>
+        </div>
+      </section>
       {/* Features Grid */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <h2 className="text-3xl font-bold text-center mb-12">
@@ -103,63 +276,6 @@ export function Meetings() {
           />
         </div>
       </section>
-
-      {/* Meeting Rooms Section */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 className="text-3xl font-bold mb-12">Available Rooms</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          <RoomCard
-            title="Code Review Room"
-            description="Perfect for code reviews and technical discussions."
-            image="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&h=400&fit=crop"
-            participants={4}
-            duration="1 hour"
-            onJoin={() => setSelectedRoom('code-review')}
-          />
-          <RoomCard
-            title="Pair Programming"
-            description="Collaborative coding sessions with screen sharing."
-            image="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=800&h=400&fit=crop"
-            participants={2}
-            duration="2 hours"
-            onJoin={() => setSelectedRoom('pair-programming')}
-          />
-          <RoomCard
-            title="Team Standup"
-            description="Quick daily meetings and progress updates."
-            image="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=800&h=400&fit=crop"
-            participants={8}
-            duration="30 mins"
-            onJoin={() => setSelectedRoom('standup')}
-          />
-        </div>
-      </section>
-
-      {/* Active Meeting Room */}
-      {selectedRoom && (
-        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <MeetingRoom
-            roomId={selectedRoom}
-            participants={sampleParticipants}
-            onInvite={handleInvite}
-          />
-        </section>
-      )}
-
-      {/* Schedule Section */}
-      <section className="bg-gray-50 dark:bg-gray-800/50 -mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8 py-16">
-        <div className="max-w-7xl mx-auto text-center">
-          <h2 className="text-3xl font-bold mb-8">Schedule a Meeting</h2>
-          <p className="text-gray-600 dark:text-gray-400 mb-8 max-w-2xl mx-auto">
-            Plan ahead and schedule meetings with your team. Send automatic
-            invitations and reminders.
-          </p>
-          <button className="btn">
-            <Calendar className="w-4 h-4 mr-2" />
-            Schedule Now
-          </button>
-        </div>
-      </section>
     </div>
   );
 }
@@ -182,48 +298,6 @@ function FeatureCard({
         {title}
       </h3>
       <p className="text-gray-600 dark:text-gray-400">{description}</p>
-    </div>
-  );
-}
-
-function RoomCard({
-  title,
-  description,
-  image,
-  participants,
-  duration,
-  onJoin,
-}: {
-  title: string;
-  description: string;
-  image: string;
-  participants: number;
-  duration: string;
-  onJoin: () => void;
-}) {
-  return (
-    <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm overflow-hidden">
-      <img src={image} alt={title} className="w-full h-48 object-cover" />
-      <div className="p-6">
-        <h3 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-2">
-          {title}
-        </h3>
-        <p className="text-gray-600 dark:text-gray-400 mb-4">{description}</p>
-        <div className="flex items-center justify-between text-sm text-gray-500 dark:text-gray-400 mb-4">
-          <span className="flex items-center">
-            <Users className="w-4 h-4 mr-1" />
-            {participants} participants
-          </span>
-          <span className="flex items-center">
-            <Clock className="w-4 h-4 mr-1" />
-            {duration}
-          </span>
-        </div>
-        <button onClick={onJoin} className="btn w-full">
-          <Video className="w-4 h-4 mr-2" />
-          Join Room
-        </button>
-      </div>
     </div>
   );
 }

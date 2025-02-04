@@ -1,4 +1,4 @@
-import { User, Post, Comment, Article, BlogPost } from '../types';
+import { User, Post, Comment, Article, BlogPost, Meeting } from '../types';
 
 export const dummyUsers: User[] = [
   {
@@ -455,3 +455,24 @@ TypeScript's type system enables powerful patterns for building robust applicati
     updated_at: '2024-02-18T09:15:00Z',
   },
 ];
+
+// Dummy Meeting
+export const dummyMeeting: Meeting = {
+  id: 'dummy-123',
+  title: 'React Best Practices',
+  description: 'Discussion on React design patterns and best practices.',
+  start_time: new Date(
+    new Date().getTime() + 20 * 60 * 60 * 1000
+  ).toISOString(), // 2 hours from now
+  duration: '45 mins',
+  max_participants: 10,
+  room_id: 'dummy-room-456',
+  host: {
+    username: 'Feline Predator',
+    avatar_url:
+      'https://ui-avatars.com/api/?name=Feline+Predator&background=random',
+    id: '1',
+    email: 'usamaaamirsohail@gmail.com',
+    created_at: '2024-02-18T09:15:00Z',
+  },
+};

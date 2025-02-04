@@ -56,3 +56,14 @@ export interface BlogPost {
   created_at: string;
   updated_at: string;
 }
+
+export interface Meeting {
+  id: string;
+  title: string;
+  description: string;
+  start_time: string;
+  duration: string;
+  max_participants: number;
+  room_id: string;
+  host: User;
+}
