@@ -21,6 +21,8 @@ import { dummyArticles, dummyPosts } from './lib/dummy-data';
 import { formatDistanceToNow } from 'date-fns';
 import { BlogCreate } from './pages/BlogCreate';
 import { MeetingSchedule } from './pages/MeetingSchedule';
+import { CodeEditor } from './pages/CodeEditor';
+import { Notifications } from './pages/Notifications';
 
 function App() {
   const { theme } = useTheme();
@@ -68,6 +70,9 @@ function App() {
             <Route path="/blog/:id" element={<BlogDetail />} />
             <Route path="/meetings" element={<Meetings />} />
             <Route path="/meetings/schedule" element={<MeetingSchedule />} />
+            <Route path="/CodeEditor" element={<CodeEditor />} />
+            <Route path="/notifications" element={<Notifications />} />
+
             <Route path="/profile/:username" element={<Profile />} />
             <Route path="/signin" element={<SignIn />} />
             <Route path="/signup" element={<SignUp />} />
