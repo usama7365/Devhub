@@ -1,8 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { Save, Image, Link as LinkIcon } from 'lucide-react';
 
 interface BlogEditorProps {
   onSave: (content: { title: string; content: string; tags: string[] }) => void;
+}
+
+interface BlogContent {
+  title: string;
+  content: string;
+  tags: string[];
 }
 
 export function BlogEditor({ onSave }: BlogEditorProps) {
@@ -11,25 +17,62 @@ export function BlogEditor({ onSave }: BlogEditorProps) {
   const [tags, setTags] = useState<string[]>([]);
   const [newTag, setNewTag] = useState('');
 
-  const handleAddTag = (e: React.KeyboardEvent) => {
-    if (e.key === 'Enter' && newTag.trim()) {
-      e.preventDefault();
-      setTags([...tags, newTag.trim()]);
-      setNewTag('');
-    }
-  };
+  const handleTitleChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      setTitle(e.target.value);
+    },
+    []
+  );
 
-  const handleSave = () => {
+  const handleContentChange = useCallback(
+    (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+      setContent(e.target.value);
+    },
+    []
+  );
+
+  const handleNewTagChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      setNewTag(e.target.value);
+    },
+    []
+  );
+
+  const handleAddTag = useCallback(
+    (e: React.KeyboardEvent) => {
+      if (e.key === 'Enter' && newTag.trim()) {
+        e.preventDefault();
+        setTags((prevTags) => [...prevTags, newTag.trim()]);
+        setNewTag('');
+      }
+    },
+    [newTag]
+  );
+
+  const handleRemoveTag = useCallback((indexToRemove: number) => {
+    setTags((prevTags) =>
+      prevTags.filter((_, index) => index !== indexToRemove)
+    );
+  }, []);
+
+  const handleSave = useCallback(() => {
     if (!title.trim() || !content.trim()) return;
-    onSave({ title, content, tags });
-  };
+
+    const blogContent: BlogContent = {
+      title,
+      content,
+      tags,
+    };
+
+    onSave(blogContent);
+  }, [title, content, tags, onSave]);
 
   return (
     <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-6">
       <input
         type="text"
         value={title}
-        onChange={(e) => setTitle(e.target.value)}
+        onChange={handleTitleChange}
         placeholder="Title"
         className="w-full text-3xl font-bold mb-4 bg-transparent border-none focus:outline-none focus:ring-0"
       />
@@ -43,7 +86,7 @@ export function BlogEditor({ onSave }: BlogEditorProps) {
             >
               {tag}
               <button
-                onClick={() => setTags(tags.filter((_, i) => i !== index))}
+                onClick={() => handleRemoveTag(index)}
                 className="ml-2 text-indigo-600 dark:text-indigo-400"
               >
                 ×
@@ -54,7 +97,7 @@ export function BlogEditor({ onSave }: BlogEditorProps) {
         <input
           type="text"
           value={newTag}
-          onChange={(e) => setNewTag(e.target.value)}
+          onChange={handleNewTagChange}
           onKeyDown={handleAddTag}
           placeholder="Add tags..."
           className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 dark:bg-gray-700"
@@ -72,7 +115,7 @@ export function BlogEditor({ onSave }: BlogEditorProps) {
 
       <textarea
         value={content}
-        onChange={(e) => setContent(e.target.value)}
+        onChange={handleContentChange}
         placeholder="Write your story..."
         className="w-full min-h-[400px] bg-transparent border-none focus:outline-none focus:ring-0 resize-none"
       />
