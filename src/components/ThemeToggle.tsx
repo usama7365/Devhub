@@ -16,10 +16,10 @@ export function ThemeToggle() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="relative">
+    <div className="relative bg-[var(--bg-primary)] text-[var(--text-primary)]">
       {/* Toggle Button */}
       <button
-        className="p-2 rounded-full text-gray-500 hover:text-gray-900 dark:hover:text-gray-100"
+        className="p-2 rounded-full  text-[var(--accent)]"
         onClick={() => setIsOpen(!isOpen)}
         aria-expanded={isOpen}
         aria-label="Toggle Theme Menu"
@@ -30,7 +30,7 @@ export function ThemeToggle() {
       {/* Dropdown Menu */}
       {isOpen && (
         <div
-          className="absolute right-0 mt-2 w-48 py-2 bg-white dark:bg-gray-800 rounded-lg shadow-xl transition-opacity duration-200"
+          className="absolute right-0 mt-2 w-48 py-2 text-[var(--accent)] bg-[var(--card-bg)] rounded-lg shadow-xl transition-opacity duration-200"
           onMouseLeave={() => setIsOpen(false)}
         >
           {themes.map((t) => (
@@ -38,8 +38,8 @@ export function ThemeToggle() {
               key={t.value}
               className={`w-full px-4 py-2 text-sm text-left flex items-center space-x-2 hover:bg-gray-100 dark:hover:bg-gray-700 ${
                 theme === t.value
-                  ? 'text-indigo-600 dark:text-indigo-400 font-semibold'
-                  : 'text-gray-700 dark:text-gray-300'
+                  ? 'text-[var(--text-primary)] font-semibold'
+                  : 'text-[var(--accent)]'
               }`}
               onClick={() => {
                 setTheme(t.value);

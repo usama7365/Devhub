@@ -22,7 +22,7 @@ interface NavLinkProps {
 const NavLink: React.FC<NavLinkProps> = ({ to, Icon, text }) => (
   <Link
     to={to}
-    className="inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100"
+    className="inline-flex items-center px-1 pt-1 text-sm font-medium text-[var(--accent)]"
   >
     <Icon className="w-4 h-4 mr-2" />
     {text}
@@ -41,7 +41,7 @@ const MobileNavLink: React.FC<MobileNavLinkProps> = ({
 }) => (
   <Link
     to={to}
-    className="block px-3 py-2 rounded-md text-base font-medium text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-700"
+    className="block px-3 py-2 rounded-md text-base font-medium text-[var(--accent)]"
     onClick={() => setIsMobileMenuOpen(false)}
   >
     <Icon className="w-4 h-4 mr-2 inline" />
@@ -53,18 +53,18 @@ export function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   return (
-    <nav className="bg-[var(--bg-primary)] border-b border-[var(--border-color)] fixed w-full z-50 top-0">
+    <nav className="bg-[var(--bg-primary)] border-b border-[var(--border-color)] text-[var(--text-primary)] fixed w-full z-50 top-0">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16">
           {/* Left Side (Logo & Desktop Menu) */}
-          <div className="flex items-center">
+          <div className="flex items-center ">
             <Link
               to="/"
               className="text-xl font-bold text-indigo-600 dark:text-indigo-400"
             >
               DevHub
             </Link>
-            <div className="hidden sm:flex sm:ml-6 sm:space-x-8">
+            <div className="hidden sm:flex sm:ml-6 sm:space-x-8 text-[var(--accent)]">
               <NavLink
                 to="/discussions"
                 Icon={MessageSquare}
@@ -82,22 +82,22 @@ export function Navbar() {
           </div>
 
           {/* Right Side (Icons & Mobile Menu Button) */}
-          <div className="flex items-center space-x-4">
+          <div className="flex items-center space-x-4  text-[var(--accent)]">
             <Link
               to="/notifications"
-              className="p-2 rounded-full text-gray-500 hover:text-gray-900 dark:hover:text-gray-100"
+              className="p-2 rounded-full text-[var(--text-secondary)] hover:text-[var(--text-primary)]"
             >
-              <Bell className="w-6 h-6" />
+              <Bell className="w-6 h-6  text-[var(--accent)]" />
             </Link>
             <ThemeToggle />
             <Link to="/profile/Feline_Predator" className="flex items-center">
-              <Users className="w-6 h-6 text-gray-500 dark:text-gray-400" />
+              <Users className="w-6 h-6  text-[var(--accent)]" />
             </Link>
 
             {/* Mobile Menu Button */}
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="sm:hidden p-2 text-gray-500 hover:text-gray-900 dark:hover:text-gray-100"
+              className="sm:hidden p-2 text-[var(--accent)]"
             >
               {isMobileMenuOpen ? (
                 <X className="w-6 h-6" />
@@ -125,7 +125,7 @@ export function Navbar() {
           </Link>
           <button
             onClick={() => setIsMobileMenuOpen(false)}
-            className="p-2 text-gray-500 hover:text-gray-900 dark:hover:text-gray-100"
+            className="p-2 text-[var(--text-secondary)] hover:text-[var(--text-primary)]"
           >
             <X className="w-6 h-6" />
           </button>

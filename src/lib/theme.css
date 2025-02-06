@@ -6,6 +6,8 @@
   --text-secondary: #4b5563;
   --accent: #4f46e5;
   --border-color: #cdd6e6;
+  --card-bg: #ffffff;
+  --box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Soft shadow */
 }
 
 /* Dark theme */
@@ -16,6 +18,8 @@
   --text-secondary: #d1d5db;
   --accent: #6366f1;
   --border-color: #374151;
+  --card-bg: #2d3748;
+  --box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Stronger shadow */
 }
 
 /* Sepia theme */
@@ -26,6 +30,8 @@
   --text-secondary: #93a1a1;
   --accent: #b58900;
   --border-color: #d1c4a1;
+  --card-bg: #f4e1a1;
+  --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15); /* Medium shadow */
 }
 
 /* Nord theme */
@@ -36,6 +42,8 @@
   --text-secondary: #d8dee9;
   --accent: #88c0d0;
   --border-color: #4c566a;
+  --card-bg: #3b4252;
+  --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25); /* Deep shadow */
 }
 
 /* Dracula theme */
@@ -46,6 +54,8 @@
   --text-secondary: #6272a4;
   --accent: #bd93f9;
   --border-color: #6272a4;
+  --card-bg: #44475a;
+  --box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4); /* Strong glow */
 }
 
 /* Apply theme variables globally */

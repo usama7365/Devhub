@@ -122,7 +122,7 @@ export function Meetings() {
   };
 
   return (
-    <div className="space-y-16 py-8">
+    <div className="space-y-16 py-8 bg-[var(--bg-primary)] text-[var(--text-primary)]">
       {/* Hero Section */}
       <section className="relative -mt-20 mb-16">
         <div className="absolute inset-0">
@@ -146,32 +146,26 @@ export function Meetings() {
       </section>
 
       {/* Upcoming Meetings */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-8">
-          Upcoming Meetings
-        </h2>
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 ">
+        <h2 className="text-3xl font-bold mb-8">Upcoming Meetings</h2>
 
         {loading ? (
-          <div className="text-center py-12 text-lg text-gray-500 dark:text-gray-400">
-            Loading...
-          </div>
+          <div className="text-center py-12 text-lg">Loading...</div>
         ) : upcomingMeetings.length > 0 ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 ">
             {upcomingMeetings.map((meeting) => (
               <div
                 key={meeting.id}
-                className="bg-white dark:bg-gray-800 rounded-2xl shadow-md hover:shadow-lg transition-shadow duration-300 overflow-hidden"
+                className="bg-[var(--bg-primary)] text-[var(--text-primary)] bg-[var(--card-bg)] rounded-2xl shadow-md hover:shadow-lg transition-shadow duration-300 overflow-hidden"
               >
                 <div className="p-6">
                   {/* Meeting Title */}
-                  <h3 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-2">
+                  <h3 className="text-xl font-semibold  mb-2">
                     {meeting.title}
                   </h3>
 
                   {/* Meeting Description */}
-                  <p className="text-gray-600 dark:text-gray-400 mb-4">
-                    {meeting.description}
-                  </p>
+                  <p className="mb-4">{meeting.description}</p>
 
                   {/* Host Information */}
                   <div className="flex items-center mb-4">
@@ -181,23 +175,21 @@ export function Meetings() {
                       className="w-10 h-10 rounded-full border border-gray-300 dark:border-gray-600 mr-3"
                     />
                     <div>
-                      <p className="text-sm font-medium text-gray-800 dark:text-gray-200">
+                      <p className="text-sm font-medium">
                         Hosted by {meeting.host.username}
                       </p>
-                      <p className="text-xs text-gray-500 dark:text-gray-400">
-                        {meeting.host.email}
-                      </p>
+                      <p className="text-xs">{meeting.host.email}</p>
                     </div>
                   </div>
 
                   {/* Meeting Details */}
-                  <div className="flex items-center justify-between text-sm text-gray-500 dark:text-gray-400 mb-4">
+                  <div className="flex items-center justify-between text-sm  mb-4">
                     <div className="flex items-center">
-                      <Clock className="w-4 h-4 mr-1 text-indigo-500" />
+                      <Clock className="w-4 h-4 mr-1 text-[var(--accent)] " />
                       {format(parseISO(meeting.start_time), 'MMM d, h:mm a')}
                     </div>
                     <div className="flex items-center">
-                      <Users className="w-4 h-4 mr-1 text-indigo-500" />
+                      <Users className="w-4 h-4 mr-1 text-[var(--accent)]" />
                       {meeting.max_participants} participants
                     </div>
                   </div>
@@ -205,7 +197,7 @@ export function Meetings() {
                   {/* Join Meeting Button */}
                   <button
                     onClick={() => setSelectedRoom(meeting.room_id)}
-                    className="w-full flex items-center justify-center gap-2 py-2 px-4 text-white bg-indigo-600 hover:bg-indigo-700 transition-all duration-300 rounded-lg text-sm font-medium"
+                    className="w-full flex items-center justify-center gap-2 py-2 px-4 bg-[var(--accent)] text-[var(--bg-primary)] dark:bg-[var(--accent)] dark:text-[var(--bg-primary)] transition-all duration-300 rounded-lg text-sm font-medium"
                   >
                     <Video className="w-4 h-4" />
                     Join Meeting
@@ -233,27 +225,27 @@ export function Meetings() {
       )}
 
       {/* Schedule Section */}
-      <section className="bg-gray-50 dark:bg-gray-800/50 -mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8 py-16">
-        <div className="max-w-7xl mx-auto text-center">
+      <section className="-mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8 py-16 bg-[var(--card-bg)] text-[var(--text-primary)] w">
+        <div className="max-w-7xl mx-auto text-center ">
           <h2 className="text-3xl font-bold mb-8">Schedule a Meeting</h2>
-          <p className="text-gray-600 dark:text-gray-400 mb-8 max-w-2xl mx-auto">
+          <p className=" mb-8 max-w-2xl mx-auto">
             Plan ahead and schedule meetings with your team. Send automatic
             invitations and reminders.
           </p>
           <Link to="/meetings/schedule">
-            <button className="btn">
-              <Calendar className="w-4 h-4 mr-2" />
+            <button className="btn  bg-[var(--accent)] text-[var(--bg-primary)] dark:bg-[var(--accent)] dark:text-[var(--bg-primary)] hover:bg-[var(--accent)]">
+              <Calendar className="w-4 h-4 mr-2 " />
               Schedule Now
             </button>
           </Link>
         </div>
       </section>
       {/* Features Grid */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 ">
         <h2 className="text-3xl font-bold text-center mb-12">
           Meeting Features
         </h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 ">
           <FeatureCard
             icon={<Globe className="w-8 h-8" />}
             title="Global Access"
@@ -290,14 +282,12 @@ function FeatureCard({
   description: string;
 }) {
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-6 text-center">
-      <div className="text-indigo-600 dark:text-indigo-400 flex justify-center mb-4">
+    <div className="bg-[var(--bg-primary)] text-[var(--text-primary)] bg-[var(--card-bg)] rounded-lg shadow-sm p-6 text-center">
+      <div className="flex justify-center mb-4 text-[var(--accent)] ">
         {icon}
       </div>
-      <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-2">
-        {title}
-      </h3>
-      <p className="text-gray-600 dark:text-gray-400">{description}</p>
+      <h3 className="text-lg font-semibold mb-2">{title}</h3>
+      <p className="">{description}</p>
     </div>
   );
 }

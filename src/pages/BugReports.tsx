@@ -36,36 +36,38 @@ export function BugReports() {
   };
 
   return (
-    <div className="py-8 px-4 sm:px-6 lg:px-8">
-      {/* Header Section */}
+    <div className="max-w-7xl py-8 px-4 sm:px-6 lg:px-8">
       <div className="flex flex-col sm:flex-row justify-between items-center mb-8">
         <div className="mb-4 sm:mb-0">
-          <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">
+          <h1 className="text-3xl font-bold text-[var(--text-primary)]">
             Bug Reports
           </h1>
-          <p className="mt-2 text-gray-600 dark:text-gray-400">
+          <p className="mt-2 text-[var(--text-secondary)]">
             Report and track bugs, get help from the community
           </p>
         </div>
-        <Link to="/bug-reports/new" className="btn">
+        <Link
+          to="/bug-reports/new"
+          className="btn bg-[var(--accent)] text-[var(--bg-primary)] dark:bg-[var(--accent)] dark:text-[var(--bg-primary)] hover:bg-[var(--accent)]"
+        >
           <Bug className="w-4 h-4 mr-2" />
           Report Bug
         </Link>
       </div>
 
       {/* Main Content */}
-      <div className="flex flex-col lg:flex-row gap-6">
+      <div className="flex flex-col lg:flex-row gap-6 ">
         {/* Filters Section */}
         <div className="w-full lg:w-64 flex-shrink-0">
-          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-4 mb-4">
-            <div className="flex items-center gap-2 text-gray-900 dark:text-gray-100 font-semibold mb-3">
+          <div className="bg-[var(--card-bg)] rounded-lg shadow-sm p-4 mb-4">
+            <div className="flex items-center gap-2 text-[var(--text-primary)] font-semibold mb-3">
               <Filter className="w-4 h-4" />
               <span>Filters</span>
             </div>
             <div className="space-y-4">
               {/* Status Filters */}
               <div>
-                <h3 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                <h3 className="text-sm font-medium text-[var(--text-secondary)] mb-2">
                   Status
                 </h3>
                 <div className="space-y-2">
@@ -76,9 +78,9 @@ export function BugReports() {
                       onChange={() =>
                         setShowResolved(showResolved === false ? null : false)
                       }
-                      className="rounded text-indigo-600"
+                      className="rounded text-[var(--accent)]"
                     />
-                    <span className="ml-2 text-sm text-gray-600 dark:text-gray-400">
+                    <span className="ml-2 text-sm text-[var(--text-secondary)]">
                       Open
                     </span>
                   </label>
@@ -89,9 +91,9 @@ export function BugReports() {
                       onChange={() =>
                         setShowResolved(showResolved === true ? null : true)
                       }
-                      className="rounded text-indigo-600"
+                      className="rounded text-[var(--accent)]"
                     />
-                    <span className="ml-2 text-sm text-gray-600 dark:text-gray-400">
+                    <span className="ml-2 text-sm text-[var(--text-secondary)]">
                       Resolved
                     </span>
                   </label>
@@ -100,7 +102,7 @@ export function BugReports() {
 
               {/* Tags Filters */}
               <div>
-                <h3 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                <h3 className="text-sm font-medium text-[var(--text-secondary)] mb-2">
                   Tags
                 </h3>
                 <div className="space-y-2">
@@ -110,9 +112,9 @@ export function BugReports() {
                         type="checkbox"
                         checked={selectedTags.includes(tag)}
                         onChange={() => toggleTag(tag)}
-                        className="rounded text-indigo-600"
+                        className="rounded text-[var(--accent)]"
                       />
-                      <span className="ml-2 text-sm text-gray-600 dark:text-gray-400">
+                      <span className="ml-2 text-sm text-[var(--text-secondary)]">
                         {tag}
                       </span>
                     </label>
@@ -133,9 +135,9 @@ export function BugReports() {
                 placeholder="Search bug reports..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-700 dark:text-gray-100"
+                className="w-full pl-10 pr-4 py-2 border border-[var(--border-color)] rounded-lg focus:ring-2 focus:ring-[var(--accent)] focus:border-[var(--accent)] bg-[var(--bg-primary)] text-[var(--text-primary)]"
               />
-              <Search className="w-5 h-5 text-gray-400 absolute left-3 top-2.5" />
+              <Search className="w-5 h-5 text-[var(--text-secondary)] absolute left-3 top-2.5" />
             </div>
           </div>
 
@@ -145,7 +147,7 @@ export function BugReports() {
               <BugReportCard key={bug.id} post={bug} />
             ))}
             {filteredBugs.length === 0 && (
-              <div className="text-center py-12 text-gray-500 dark:text-gray-400">
+              <div className="text-center py-12 text-[var(--text-secondary)]">
                 No bug reports found matching your criteria
               </div>
             )}

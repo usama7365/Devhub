@@ -25,19 +25,22 @@ export function KnowledgeBase() {
   });
 
   return (
-    <div className="py-8 px-4 sm:px-6 lg:px-8">
+    <div className="max-w-7xl py-8 px-4 sm:px-6 lg:px-8 text-[var(--text-primary)] flex-1 w-full border border-[var(--bg-primary)]">
       {/* Header Section */}
       <div className="flex flex-col sm:flex-row justify-between items-center mb-8">
         <div className="mb-4 sm:mb-0">
-          <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">
+          <h1 className="text-3xl font-bold text-[var(--text-primary)]">
             Knowledge Base
           </h1>
-          <p className="mt-2 text-gray-600 dark:text-gray-400">
+          <p className="mt-2 text-[var(--text-secondary)]">
             Explore our community-driven knowledge base of tech stacks and best
             practices.
           </p>
         </div>
-        <Link to="/knowledge-base/new" className="btn">
+        <Link
+          to="/knowledge-base/new"
+          className="btn bg-[var(--accent)] text-[var(--bg-primary)] dark:bg-[var(--accent)] dark:text-[var(--bg-primary)] hover:bg-[var(--accent)]"
+        >
           <Book className="w-4 h-4 mr-2" />
           Write Article
         </Link>
@@ -47,8 +50,8 @@ export function KnowledgeBase() {
       <div className="flex flex-col lg:flex-row gap-6">
         {/* Filters Section */}
         <div className="w-full lg:w-64 flex-shrink-0">
-          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-4">
-            <h3 className="font-semibold text-gray-900 dark:text-gray-100 mb-3">
+          <div className="bg-[var(--card-bg)] rounded-lg shadow-sm p-4">
+            <h3 className="font-semibold text-[var(--text-primary)] mb-3">
               Categories
             </h3>
             <ul className="space-y-2">
@@ -58,7 +61,7 @@ export function KnowledgeBase() {
                   className={`cursor-pointer ${
                     selectedCategory === category
                       ? 'text-indigo-600 dark:text-indigo-400 font-medium'
-                      : 'text-gray-600 dark:text-gray-400 hover:text-indigo-600 dark:hover:text-indigo-400'
+                      : 'text-[var(--text-secondary)] hover:text-indigo-600 dark:hover:text-indigo-400'
                   }`}
                   onClick={() =>
                     setSelectedCategory(
@@ -74,19 +77,17 @@ export function KnowledgeBase() {
         </div>
 
         {/* Articles Section */}
-        <div className="flex-1">
+        <div className="flex-1 w-full">
           {/* Search Bar */}
-          <div className="mb-6">
-            <div className="relative">
-              <input
-                type="text"
-                placeholder="Search articles..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-700 dark:text-gray-100"
-              />
-              <Search className="w-5 h-5 text-gray-400 absolute left-3 top-2.5" />
-            </div>
+          <div className="mb-6 relative">
+            <input
+              type="text"
+              placeholder="Search articles..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="w-full pl-10 pr-4 py-2 border border-[var(--border-color)] rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 bg-[var(--bg-input)] text-[var(--text-primary)]"
+            />
+            <Search className="w-5 h-5 text-[var(--text-secondary)] absolute left-3 top-2.5" />
           </div>
 
           {/* Articles List */}
@@ -94,31 +95,31 @@ export function KnowledgeBase() {
             {filteredArticles.map((article) => (
               <article
                 key={article.id}
-                className="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-6"
+                className="bg-[var(--card-bg)] rounded-lg shadow-sm p-6"
               >
                 <Link to={`/knowledge-base/${article.id}`}>
-                  <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 hover:text-indigo-600 dark:hover:text-indigo-400">
+                  <h2 className="text-xl font-semibold text-[var(--text-primary)] hover:text-indigo-600 dark:hover:text-indigo-400">
                     {article.title}
                   </h2>
                 </Link>
-                <p className="mt-2 text-gray-600 dark:text-gray-400">
+                <p className="mt-2 text-[var(--text-secondary)]">
                   {article.description}
                 </p>
                 <div className="mt-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                   <div className="flex items-center gap-2">
-                    <Tag className="w-4 h-4 text-gray-400" />
+                    <Tag className="w-4 h-4 text-[var(--text-secondary)]" />
                     <div className="flex flex-wrap gap-2">
                       {article.tags.map((tag) => (
                         <span
                           key={tag}
-                          className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-indigo-100 text-indigo-800 dark:bg-indigo-900 dark:text-indigo-200"
+                          className="px-3 py-1 text-sm font-medium bg-[var(--accent)] text-[var(--bg-primary)] dark:bg-[var(--accent)] dark:text-[var(--bg-primary)] rounded-full"
                         >
                           {tag}
                         </span>
                       ))}
                     </div>
                   </div>
-                  <div className="flex items-center gap-4 text-sm text-gray-500 dark:text-gray-400">
+                  <div className="flex items-center gap-4 text-sm text-[var(--text-secondary)]">
                     <span className="flex items-center">
                       <Eye className="w-4 h-4 mr-1" />
                       {article.views} views
@@ -134,7 +135,7 @@ export function KnowledgeBase() {
               </article>
             ))}
             {filteredArticles.length === 0 && (
-              <div className="text-center py-12 text-gray-500 dark:text-gray-400">
+              <div className="text-center py-12 text-[var(--text-secondary)]">
                 No articles found matching your criteria
               </div>
             )}
