@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState, useCallback } from 'react';
+import { useEffect, useRef, useState, useCallback } from 'react';
 import { Video, VideoOff, Mic, MicOff, PhoneOff } from 'lucide-react';
 
 interface VideoCallProps {
