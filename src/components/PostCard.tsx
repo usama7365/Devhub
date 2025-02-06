@@ -10,7 +10,7 @@ interface PostCardProps {
 
 export function PostCard({ post }: PostCardProps) {
   return (
-    <div className="bg-[var(--bg-primary)] rounded-lg shadow-sm p-6 mb-4">
+    <div className="bg-[var(--card-bg)] rounded-lg shadow-sm p-6 mb-4">
       <div className="flex flex-col sm:flex-row items-start justify-between">
         <div>
           <Link
@@ -23,7 +23,7 @@ export function PostCard({ post }: PostCardProps) {
             {post.tags.map((tag) => (
               <span
                 key={tag}
-                className="px-3 py-1 text-sm font-medium bg-indigo-100 text-indigo-800 dark:bg-indigo-900 dark:text-indigo-200 rounded-full"
+                className="px-3 py-1 text-sm font-medium bg-[var(--accent)] text-[var(--bg-primary)] dark:bg-[var(--accent)] dark:text-[var(--bg-primary)] rounded-full"
               >
                 {tag}
               </span>

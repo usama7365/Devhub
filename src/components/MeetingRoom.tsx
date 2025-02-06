@@ -31,7 +31,7 @@ export function MeetingRoom({
   };
 
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm">
+    <div className="bg-[var(--bg-primary)] text-[var(--text-primary)] bg-[var(--card-bg)] rounded-lg shadow-sm">
       {isCallActive ? (
         <VideoCall roomId={roomId} onClose={() => setIsCallActive(false)} />
       ) : (
@@ -40,7 +40,7 @@ export function MeetingRoom({
             <h2 className="text-2xl font-bold">Meeting Room</h2>
             <button
               onClick={() => setIsCallActive(true)}
-              className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700"
+              className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md bg-[var(--accent)] text-[var(--bg-primary)] dark:bg-[var(--accent)] dark:text-[var(--bg-primary)] transition-all duration-300 rounded-lg text-sm font-medium "
             >
               <Video className="w-4 h-4 mr-2" />
               Join Call
@@ -56,7 +56,7 @@ export function MeetingRoom({
               {participants.map((participant) => (
                 <div
                   key={participant.id}
-                  className="flex items-center space-x-2 bg-gray-100 dark:bg-gray-700 rounded-full px-3 py-1"
+                  className="flex items-center space-x-2 bg-[var(--accent)] text-[var(--bg-primary)] dark:bg-[var(--accent)] dark:text-[var(--bg-primary)] rounded-full px-3 py-1"
                 >
                   <img
                     src={participant.avatar}
@@ -75,11 +75,11 @@ export function MeetingRoom({
               value={inviteEmail}
               onChange={(e) => setInviteEmail(e.target.value)}
               placeholder="Invite by email..."
-              className="flex-1 px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 dark:bg-gray-700"
+              className="flex-1 px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 bg-[var(--bg-primary)] text-[var(--text-primary)]"
             />
             <button
               type="submit"
-              className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700"
+              className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md bg-[var(--accent)] text-[var(--bg-primary)] dark:bg-[var(--accent)] dark:text-[var(--bg-primary)]"
             >
               <Phone className="w-4 h-4 mr-2" />
               Invite

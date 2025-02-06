@@ -14,23 +14,27 @@ export function BlogDetail() {
   const post = dummyBlogPosts.find((p) => p.id === id);
 
   if (!post) {
-    return <div className="text-center py-12">Blog post not found</div>;
+    return (
+      <div className="text-center py-12 text-[var(--text-secondary)]">
+        Blog post not found
+      </div>
+    );
   }
 
   return (
-    <div className="py-8 px-4 sm:px-6 lg:px-8">
+    <div className="max-w-7xl py-8 px-4 sm:px-6 lg:px-8 bg-[var(--bg-primary)] text-[var(--text-primary)] flex-1 w-full border border-[var(--bg-primary)]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-8">
         <button
           onClick={() => navigate('/blog')}
-          className="inline-flex items-center text-sm text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
+          className="inline-flex items-center text-sm text-[var(--text-secondary)] hover:text-[var(--text-primary)]"
         >
           <ArrowLeft className="w-4 h-4 mr-2" />
           Back to Blogs
         </button>
       </div>
-      <div className="max-w-4xl mx-auto">
+      <div className="max-w-full mx-auto bg-[var(--card-bg)] text-[var(--text-primary)]">
         {/* Blog Post Section */}
-        <article className="bg-white dark:bg-gray-800 rounded-lg shadow-sm overflow-hidden">
+        <article className="bg-[var(--bg-card)] dark:bg-gray-800 rounded-lg shadow-sm overflow-hidden">
           {/* Cover Image */}
           <img
             src={post.cover_image}
@@ -49,10 +53,10 @@ export function BlogDetail() {
                   className="w-12 h-12 rounded-full"
                 />
                 <div>
-                  <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
+                  <h3 className="text-lg font-semibold text-[var(--text-primary)]">
                     {post.author.username}
                   </h3>
-                  <div className="flex items-center text-sm text-gray-500 dark:text-gray-400">
+                  <div className="flex items-center text-sm text-[var(--text-secondary)]">
                     <Calendar className="w-4 h-4 mr-1" />
                     {formatDistanceToNow(new Date(post.created_at), {
                       addSuffix: true,
@@ -60,7 +64,7 @@ export function BlogDetail() {
                   </div>
                 </div>
               </div>
-              <div className="flex items-center space-x-4 text-sm text-gray-500 dark:text-gray-400">
+              <div className="flex items-center space-x-4 text-sm text-[var(--text-secondary)]">
                 <span className="flex items-center">
                   <Eye className="w-4 h-4 mr-1" />
                   {post.views} views
@@ -73,7 +77,7 @@ export function BlogDetail() {
             </div>
 
             {/* Title */}
-            <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-gray-100 mb-4">
+            <h1 className="text-2xl sm:text-3xl font-bold text-[var(--text-primary)] mb-4">
               {post.title}
             </h1>
 
@@ -82,7 +86,7 @@ export function BlogDetail() {
               {post.tags.map((tag) => (
                 <span
                   key={tag}
-                  className="px-3 py-1 text-sm font-medium bg-indigo-100 text-indigo-800 dark:bg-indigo-900 dark:text-indigo-200 rounded-full"
+                  className="px-3 py-1 text-sm font-medium bg-[var(--accent)] text-[var(--bg-primary)] dark:bg-[var(--accent)] dark:text-[var(--bg-primary)] rounded-full"
                 >
                   {tag}
                 </span>
@@ -90,7 +94,7 @@ export function BlogDetail() {
             </div>
 
             {/* Content */}
-            <div className="prose dark:prose-invert max-w-none">
+            <div className="prose dark:prose-invert max-w-none text-[var(--text-primary)]">
               <ReactMarkdown
                 components={{
                   code({ node, inline, className, children, ...props }) {

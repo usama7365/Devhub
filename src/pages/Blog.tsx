@@ -23,7 +23,7 @@ export function Blog() {
   );
 
   return (
-    <div className="py-8 px-4 sm:px-6 lg:px-8 ">
+    <div className=" max-w-7xl py-8 px-4 sm:px-6 w lg:px-8 bg-[var(--bg-primary)] border-b border-[var(--border-color)]">
       {/* Header Section */}
       <div className="flex flex-col sm:flex-row justify-between items-center mb-8">
         <div className="mb-4 sm:mb-0">
@@ -36,7 +36,7 @@ export function Blog() {
         </div>
         <Link
           to="/blog/new"
-          className="btn bg-[var(--accent)] text-[var(--bg-primary)] hover:bg-[var(--accent)]/90"
+          className="btn bg-[var(--accent)] text-[var(--bg-primary)] dark:bg-[var(--accent)] dark:text-[var(--bg-primary)] hover:bg-[var(--accent)]"
         >
           <Pencil className="w-4 h-4 mr-2" />
           Write Post
@@ -46,8 +46,8 @@ export function Blog() {
       {/* Main Content */}
       <div className="flex flex-col lg:flex-row gap-6">
         {/* Filters Section */}
-        <div className="w-full lg:w-64 flex-shrink-0">
-          <div className="bg-[var(--bg-primary)] rounded-lg shadow-sm p-4 mb-4">
+        <div className=" w-full lg:w-64 flex-shrink-0">
+          <div className="bg-[var(--card-bg)] rounded-lg shadow-sm p-4 mb-4">
             <h3 className="font-semibold text-[var(--text-primary)] mb-3">
               Popular Tags
             </h3>
@@ -74,25 +74,25 @@ export function Blog() {
         {/* Blog Posts Section */}
         <div className="flex-1">
           {/* Search Bar */}
-          <div className="mb-6">
+          <div className="mb-6 ">
             <div className="relative">
               <input
                 type="text"
                 placeholder="Search blog posts..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-10 pr-4 py-2 border border-[var(--border-color)] rounded-lg focus:ring-2 focus:ring-[var(--accent)] focus:border-[var(--accent)] bg-[var(--bg-primary)] text-[var(--text-primary)]"
+                className="bg-[var(--card-bg)] w-full pl-10 pr-4 py-2 border border-[var(--border-color)] rounded-lg focus:ring-2 focus:ring-[var(--accent)] focus:border-[var(--accent)] bg-[var(--bg-primary)] text-[var(--text-primary)]"
               />
               <Search className="w-5 h-5 text-[var(--text-secondary)] absolute left-3 top-2.5" />
             </div>
           </div>
 
           {/* Blog Posts Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2 gap-6">
+          <div className=" grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2 gap-6">
             {filteredPosts.map((post) => (
               <article
                 key={post.id}
-                className="bg-[var(--bg-primary)] rounded-lg shadow-sm overflow-hidden "
+                className="bg-[var(--card-bg)] rounded-lg shadow-sm overflow-hidden "
               >
                 <img
                   src={post.cover_image}
@@ -142,7 +142,7 @@ export function Blog() {
                       {post.tags.map((tag) => (
                         <span
                           key={tag}
-                          className="px-3 py-1 text-sm font-medium bg-indigo-100 text-indigo-800 dark:bg-indigo-900 dark:text-indigo-200 rounded-full"
+                          className="px-3 py-1 text-sm font-medium bg-[var(--accent)] text-[var(--bg-primary)] dark:bg-[var(--accent)] dark:text-[var(--bg-primary)] rounded-full"
                         >
                           {tag}
                         </span>

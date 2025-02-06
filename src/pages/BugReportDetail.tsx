@@ -16,23 +16,27 @@ export function BugReportDetail() {
   const author = dummyUsers.find((u) => u.id === bug?.user_id);
 
   if (!bug || !author) {
-    return <div className="text-center py-12">Bug report not found</div>;
+    return (
+      <div className="text-center py-12 text-[var(--text-secondary)]">
+        Bug report not found
+      </div>
+    );
   }
 
   return (
-    <div className="py-8 px-4 sm:px-6 lg:px-8">
+    <div className="max-w-7xl py-8 px-4 sm:px-6 lg:px-8 bg-[var(--bg-primary)] text-[var(--text-primary)] flex-1 w-full border border-[var(--bg-primary)]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-8">
         <button
           onClick={() => navigate('/bug-reports')}
-          className="inline-flex items-center text-sm text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
+          className="inline-flex items-center text-sm text-[var(--text-secondary)] hover:text-[var(--text-primary)]"
         >
           <ArrowLeft className="w-4 h-4 mr-2" />
           Back to Bug reports
         </button>
       </div>
-      <div className="max-w-full mx-auto">
+      <div className="max-w-full mx-auto bg-[var(--card-bg)] ">
         {/* Bug Report Section */}
-        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-6">
+        <div className="bg-[var(--bg-card)] dark:bg-gray-800 rounded-lg shadow-sm p-6">
           {/* Author Info and Status */}
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6">
             <div className="flex items-center space-x-4 mb-4 sm:mb-0">
@@ -42,10 +46,10 @@ export function BugReportDetail() {
                 className="w-10 h-10 rounded-full"
               />
               <div>
-                <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
+                <h2 className="text-lg font-semibold text-[var(--text-primary)]">
                   {author.username}
                 </h2>
-                <p className="text-sm text-gray-500">
+                <p className="text-sm text-[var(--text-secondary)]">
                   {formatDistanceToNow(new Date(bug.created_at), {
                     addSuffix: true,
                   })}
@@ -67,7 +71,7 @@ export function BugReportDetail() {
           </div>
 
           {/* Bug Title */}
-          <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-4">
+          <h1 className="text-2xl font-bold text-[var(--text-primary)] mb-4">
             {bug.title}
           </h1>
 
@@ -102,13 +106,13 @@ export function BugReportDetail() {
               {bug.tags.map((tag) => (
                 <span
                   key={tag}
-                  className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-indigo-100 text-indigo-800 dark:bg-indigo-900 dark:text-indigo-200"
+                  className="px-3 py-1 text-sm font-medium bg-[var(--accent)] text-[var(--bg-primary)] dark:bg-[var(--accent)] dark:text-[var(--bg-primary)] rounded-full"
                 >
                   {tag}
                 </span>
               ))}
             </div>
-            <button className="inline-flex items-center text-gray-500 hover:text-indigo-600 dark:hover:text-indigo-400">
+            <button className="inline-flex items-center text-[var(--text-secondary)] hover:text-[var(--accent)] dark:hover:text-[var(--accent)]">
               <ThumbsUp className="w-4 h-4 mr-1" />
               <span>{bug.upvotes}</span>
             </button>
@@ -116,7 +120,7 @@ export function BugReportDetail() {
 
           {/* Comments Section */}
           <div className="border-t dark:border-gray-700 pt-6">
-            <h3 className="text-lg font-semibold mb-4 text-gray-900 dark:text-gray-100">
+            <h3 className="text-lg font-semibold mb-4 text-[var(--text-primary)]">
               {comments.length} {comments.length === 1 ? 'Comment' : 'Comments'}
             </h3>
 
@@ -132,21 +136,21 @@ export function BugReportDetail() {
                   <div className="flex-1">
                     <div className="bg-gray-50 dark:bg-gray-700 rounded-lg p-4">
                       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-2">
-                        <h4 className="font-medium text-gray-900 dark:text-gray-100">
+                        <h4 className="font-medium text-[var(--text-primary)]">
                           {comment.user.username}
                         </h4>
-                        <span className="text-sm text-gray-500">
+                        <span className="text-sm text-[var(--text-secondary)]">
                           {formatDistanceToNow(new Date(comment.created_at), {
                             addSuffix: true,
                           })}
                         </span>
                       </div>
-                      <p className="text-gray-700 dark:text-gray-300">
+                      <p className="text-[var(--text-primary)] dark:text-[var(--text-secondary)]">
                         {comment.content}
                       </p>
                     </div>
                     <div className="mt-2 flex items-center space-x-4">
-                      <button className="text-sm text-gray-500 hover:text-indigo-600 dark:hover:text-indigo-400">
+                      <button className="text-sm text-[var(--text-secondary)] hover:text-[var(--accent)] dark:hover:text-[var(--accent)]">
                         <ThumbsUp className="w-4 h-4 inline mr-1" />
                         {comment.upvotes}
                       </button>
@@ -166,11 +170,14 @@ export function BugReportDetail() {
             <form className="mt-6">
               <textarea
                 placeholder="Add a comment..."
-                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-700 dark:text-gray-100"
+                className="w-full px-3 py-2 border  rounded-lg  bg-[var(--bg-primary)] text-[var(--text-primary)]"
                 rows={4}
               />
               <div className="mt-2 flex justify-end">
-                <button type="submit" className="btn">
+                <button
+                  type="submit"
+                  className="btn bg-[var(--accent)] text-[var(--bg-primary)] dark:bg-[var(--accent)] dark:text-[var(--bg-primary)] hover:bg-[var(--accent)]"
+                >
                   Post Comment
                 </button>
               </div>

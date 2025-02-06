@@ -17,19 +17,19 @@ export function DiscussionDetail() {
   }
 
   return (
-    <div className="py-8 px-4 sm:px-6 lg:px-8">
+    <div className="max-w-7xl py-8 px-4 sm:px-6 lg:px-8 bg-[var(--bg-primary)] text-[var(--text-primary)] flex-1 w-full border border-[var(--bg-primary)]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-8">
         <button
           onClick={() => navigate('/discussions')}
-          className="inline-flex items-center text-sm text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
+          className="inline-flex items-center text-sm text-[var(--text-secondary)] hover:text-[var(--text-primary)]"
         >
           <ArrowLeft className="w-4 h-4 mr-2" />
           Back to Discussions
         </button>
       </div>
-      <div className="max-w-4xl mx-auto">
+      <div className="max-w-full mx-auto bg-[var(--card-bg)] text-[var(--text-primary)]">
         {/* Post Section */}
-        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-6">
+        <div className="bg-[var(--bg-card)] dark:bg-gray-800 rounded-lg shadow-sm p-6">
           {/* Author Info and Resolved Status */}
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-4">
             <div className="flex items-center space-x-4">
@@ -39,10 +39,8 @@ export function DiscussionDetail() {
                 className="w-10 h-10 rounded-full"
               />
               <div>
-                <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
-                  {author.username}
-                </h2>
-                <p className="text-sm text-gray-500">
+                <h2 className="text-lg font-semibold">{author.username}</h2>
+                <p className="text-sm ">
                   {formatDistanceToNow(new Date(post.created_at), {
                     addSuffix: true,
                   })}
@@ -58,13 +56,11 @@ export function DiscussionDetail() {
           </div>
 
           {/* Post Title */}
-          <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-4">
-            {post.title}
-          </h1>
+          <h1 className="text-2xl font-bold mb-4">{post.title}</h1>
 
           {/* Post Content */}
           <div className="prose dark:prose-invert max-w-none mb-6">
-            <p className="text-gray-700 dark:text-gray-300">{post.content}</p>
+            <p className="">{post.content}</p>
           </div>
 
           {/* Tags and Upvotes */}
@@ -73,26 +69,26 @@ export function DiscussionDetail() {
               {post.tags.map((tag) => (
                 <span
                   key={tag}
-                  className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-indigo-100 text-indigo-800 dark:bg-indigo-900 dark:text-indigo-200"
+                  className="px-3 py-1 text-sm font-medium bg-[var(--accent)] text-[var(--bg-primary)] dark:bg-[var(--accent)] dark:text-[var(--bg-primary)] rounded-full"
                 >
                   {tag}
                 </span>
               ))}
             </div>
-            <button className="inline-flex items-center text-gray-500 hover:text-indigo-600 dark:hover:text-indigo-400">
+            <button className="inline-flex items-center ">
               <ThumbsUp className="w-4 h-4 mr-1" />
               <span>{post.upvotes}</span>
             </button>
           </div>
 
           {/* Comments Section */}
-          <div className="border-t dark:border-gray-700 pt-6">
-            <h3 className="text-lg font-semibold mb-4 text-gray-900 dark:text-gray-100">
+          <div className="border-t  pt-6">
+            <h3 className="text-lg font-semibold mb-4">
               {comments.length} {comments.length === 1 ? 'Comment' : 'Comments'}
             </h3>
 
             {/* Comments List */}
-            <div className="space-y-6">
+            <div className="space-y-6 bg-[var(--bg-primary)] rounded-xl p-2">
               {comments.map((comment) => (
                 <div key={comment.id} className="flex space-x-4">
                   <img
@@ -101,23 +97,21 @@ export function DiscussionDetail() {
                     className="w-8 h-8 rounded-full"
                   />
                   <div className="flex-1">
-                    <div className="bg-gray-50 dark:bg-gray-700 rounded-lg p-4">
+                    <div className="rounded-lg p-4">
                       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-2">
-                        <h4 className="font-medium text-gray-900 dark:text-gray-100">
-                          {comment.user.username}
-                        </h4>
-                        <span className="text-sm text-gray-500">
+                        <h4 className="font-medium">{comment.user.username}</h4>
+                        <span className="text-sm">
                           {formatDistanceToNow(new Date(comment.created_at), {
                             addSuffix: true,
                           })}
                         </span>
                       </div>
-                      <p className="text-gray-700 dark:text-gray-300">
+                      <p className="text-[var(--text-primary)]">
                         {comment.content}
                       </p>
                     </div>
                     <div className="mt-2 flex items-center space-x-4">
-                      <button className="text-sm text-gray-500 hover:text-indigo-600 dark:hover:text-indigo-400">
+                      <button className="text-sm ">
                         <ThumbsUp className="w-4 h-4 inline mr-1" />
                         {comment.upvotes}
                       </button>
@@ -137,11 +131,14 @@ export function DiscussionDetail() {
             <form className="mt-6">
               <textarea
                 placeholder="Add a comment..."
-                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-700 dark:text-gray-100"
+                className="w-full px-3 py-2 rounded-lg border bg-[var(--bg-primary)] text-[var(--text-primary)]"
                 rows={4}
               />
               <div className="mt-2 flex justify-end">
-                <button type="submit" className="btn">
+                <button
+                  type="submit"
+                  className="btn bg-[var(--accent)] text-[var(--bg-primary)] dark:bg-[var(--accent)] dark:text-[var(--bg-primary)] hover:bg-[var(--accent)]"
+                >
                   <MessageSquare className="w-4 h-4 mr-2" />
                   Post Comment
                 </button>

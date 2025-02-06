@@ -14,10 +14,10 @@ export function Profile() {
   }
 
   return (
-    <div className="py-8 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-5xl mx-auto">
+    <div className="max-w-7xl py-8 px-4 sm:px-6 lg:px-8 bg-[var(--bg-primary)] text-[var(--text-primary)] flex-1 w-full border border-[var(--bg-primary)]">
+      <div className="max-w-5xl mx-auto ">
         {/* Profile Section */}
-        <div className="bg-[var(--bg-primary)] shadow rounded-lg">
+        <div className="bg-[var(--card-bg)] shadow rounded-lg">
           {/* Banner */}
           <div className="h-32 bg-cyan-600 rounded-t-lg"></div>
 
@@ -73,11 +73,11 @@ export function Profile() {
             </div>
 
             {/* Recent Activity */}
-            <div className="mt-12">
+            <div className="mt-12 p-6">
               <h2 className="text-2xl font-bold text-[var(--text-primary)] mb-6">
                 Recent Activity
               </h2>
-              <div className="space-y-6">
+              <div className="space-y-6 rounded-lg shadow-lg shadow-cyan-500/60">
                 {userPosts.map((post) => (
                   <PostCard key={post.id} post={post} />
                 ))}
