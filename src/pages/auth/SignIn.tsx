@@ -110,7 +110,7 @@ export function SignIn() {
           <p className="text-[var(--text-secondary)]">Or continue with</p>
           <button
             onClick={handleGithubSignIn}
-            className="mt-4 w-full flex justify-center py-2 px-4 border border-[var(--border-color)] rounded text-[var(--text-primary)] bg-[var(--bg-secondary)] hover:text-[var(--accent)] /90"
+            className="mt-4 w-full flex justify-center py-2 px-4 border border-[var(--border-color)] rounded text-[var(--text-primary)] bg-[var(--bg-secondary)] hover:bg-[var(--bg-secondary)]/90"
           >
             <Github className="w-4 h-6 mr-2" />
             Sign up with GitHub
