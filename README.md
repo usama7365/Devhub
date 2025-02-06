@@ -174,6 +174,18 @@ The platform is fully responsive and works seamlessly across:
 - [React](https://reactjs.org) for the UI framework
 - [Vite](https://vitejs.dev) for the build tool
 
+
+## 💸 Sponsorship
+
+If you appreciate the work I'm doing on DevHub and want to support the development of the platform, consider becoming a sponsor.
+
+### 💖 Sponsor Links:
+- **GitHub Sponsors:** [usama7365](https://github.com/sponsors/usama7365)
+- **Patreon:** [feline411](https://www.patreon.com/feline411)
+
+Thank you for supporting the DevHub community! 🙏
+
+
 ## 📧 Contact
 
 For questions or support, please open an issue or contact the maintainers:
