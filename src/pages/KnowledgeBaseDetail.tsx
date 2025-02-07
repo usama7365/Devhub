@@ -1,19 +1,69 @@
 import React from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { Tag, Eye, Calendar, ArrowLeft } from 'lucide-react';
+import { Eye, ArrowLeft } from 'lucide-react';
 import { formatDistanceToNow } from 'date-fns';
 import { dummyArticles, dummyUsers } from '../lib/dummy-data';
 import ReactMarkdown from 'react-markdown';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
+// Types
+interface CodeProps {
+  node: any;
+  inline: boolean;
+  className: string;
+  children: React.ReactNode;
+  [key: string]: any;
+}
+
+// Code Block component
+const CodeBlock: React.FC<CodeProps> = ({
+  inline,
+  className,
+  children,
+  ...props
+}) => {
+  const match = /language-(\w+)/.exec(className || '');
+
+  if (!inline && match) {
+    return (
+      <SyntaxHighlighter
+        style={vscDarkPlus}
+        language={match[1]}
+        PreTag="div"
+        {...props}
+      >
+        {String(children).replace(/\n$/, '')}
+      </SyntaxHighlighter>
+    );
+  }
+
+  return (
+    <code className={className} {...props}>
+      {children}
+    </code>
+  );
+};
+
+const markdownComponents = {
+  code: CodeBlock,
+};
+
 export function KnowledgeBaseDetail() {
   const navigate = useNavigate();
   const { id } = useParams<{ id: string }>();
-  const article = dummyArticles.find((a) => a.id === id);
-  const author = dummyUsers.find((u) => u.id === article?.user_id);
 
-  if (!article || !author) {
+  const articleData = React.useMemo(() => {
+    const article = dummyArticles.find((a) => a.id === id);
+    const author = dummyUsers.find((u) => u.id === article?.user_id);
+    return { article, author };
+  }, [id]);
+
+  const handleBackClick = React.useCallback(() => {
+    navigate('/knowledge-base');
+  }, [navigate]);
+
+  if (!articleData.article || !articleData.author) {
     return (
       <div className="text-center py-12 text-[var(--text-secondary)]">
         Article not found
@@ -21,11 +71,13 @@ export function KnowledgeBaseDetail() {
     );
   }
 
+  const { article, author } = articleData;
+
   return (
     <div className="max-w-7xl py-8 px-4 sm:px-6 lg:px-8 bg-[var(--bg-primary)] text-[var(--text-primary)] flex-1 w-full border border-[var(--bg-primary)]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-8">
         <button
-          onClick={() => navigate('/knowledge-base')}
+          onClick={handleBackClick}
           className="inline-flex items-center text-sm text-[var(--text-secondary)] hover:text-[var(--text-primary)]"
         >
           <ArrowLeft className="w-4 h-4 mr-2" />
@@ -33,7 +85,6 @@ export function KnowledgeBaseDetail() {
         </button>
       </div>
       <div className="max-w-full mx-auto bg-[var(--card-bg)]">
-        {/* Article Section */}
         <div className="bg-[var(--bg-card)] dark:bg-gray-800 rounded-lg shadow-sm p-6">
           {/* Author Info and Views */}
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6">
@@ -84,27 +135,9 @@ export function KnowledgeBaseDetail() {
 
           {/* Article Content */}
           <div className="prose dark:prose-invert max-w-none mb-6">
-            <ReactMarkdown
-              children={article.content}
-              components={{
-                code({ node, inline, className, children, ...props }) {
-                  const match = /language-(\w+)/.exec(className || '');
-                  return !inline && match ? (
-                    <SyntaxHighlighter
-                      children={String(children).replace(/\n$/, '')}
-                      style={vscDarkPlus}
-                      language={match[1]}
-                      PreTag="div"
-                      {...props}
-                    />
-                  ) : (
-                    <code className={className} {...props}>
-                      {children}
-                    </code>
-                  );
-                },
-              }}
-            />
+            <ReactMarkdown components={markdownComponents}>
+              {article.content}
+            </ReactMarkdown>
           </div>
         </div>
       </div>
