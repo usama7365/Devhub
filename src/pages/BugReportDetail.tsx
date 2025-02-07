@@ -1,19 +1,76 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Bug, ThumbsUp, Check, ArrowLeft } from 'lucide-react';
 import { formatDistanceToNow } from 'date-fns';
 import { dummyBugReports, dummyComments, dummyUsers } from '../lib/dummy-data';
-import ReactMarkdown from 'react-markdown';
+import ReactMarkdown, { Components } from 'react-markdown';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
+interface CodeProps {
+  node: any;
+  inline: boolean;
+  className: string;
+  children: React.ReactNode;
+  [key: string]: any;
+}
+
+const CodeBlock: React.FC<CodeProps> = ({
+  inline,
+  className,
+  children,
+  ...props
+}) => {
+  const match = /language-(\w+)/.exec(className || '');
+
+  if (!inline && match) {
+    return (
+      <SyntaxHighlighter
+        style={vscDarkPlus}
+        language={match[1]}
+        PreTag="div"
+        {...props}
+      >
+        {String(children).replace(/\n$/, '')}
+      </SyntaxHighlighter>
+    );
+  }
+
+  return (
+    <code className={className} {...props}>
+      {children}
+    </code>
+  );
+};
+
+const markdownComponents: Components = {
+  code: CodeBlock as any,
+};
+
 export function BugReportDetail() {
   const navigate = useNavigate();
-
   const { id } = useParams<{ id: string }>();
-  const bug = dummyBugReports.find((b) => b.id === id);
-  const comments = dummyComments.filter((c) => c.post_id === id);
-  const author = dummyUsers.find((u) => u.id === bug?.user_id);
+
+  const { bug, author, comments } = useMemo(() => {
+    const foundBug = dummyBugReports.find((b) => b.id === id);
+    const foundAuthor = dummyUsers.find((u) => u.id === foundBug?.user_id);
+    const relatedComments = dummyComments.filter((c) => c.post_id === id);
+
+    return {
+      bug: foundBug,
+      author: foundAuthor,
+      comments: relatedComments,
+    };
+  }, [id]);
+
+  const handleNavigateBack = () => {
+    navigate('/bug-reports');
+  };
+
+  const handleCommentSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    // will handle comments through socket
+  };
 
   if (!bug || !author) {
     return (
@@ -27,7 +84,7 @@ export function BugReportDetail() {
     <div className="max-w-7xl py-8 px-4 sm:px-6 lg:px-8 bg-[var(--bg-primary)] text-[var(--text-primary)] flex-1 w-full border border-[var(--bg-primary)]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-8">
         <button
-          onClick={() => navigate('/bug-reports')}
+          onClick={handleNavigateBack}
           className="inline-flex items-center text-sm text-[var(--text-secondary)] hover:text-[var(--text-primary)]"
         >
           <ArrowLeft className="w-4 h-4 mr-2" />
@@ -77,27 +134,9 @@ export function BugReportDetail() {
 
           {/* Bug Content */}
           <div className="prose dark:prose-invert max-w-none mb-6">
-            <ReactMarkdown
-              children={bug.content}
-              components={{
-                code({ node, inline, className, children, ...props }) {
-                  const match = /language-(\w+)/.exec(className || '');
-                  return !inline && match ? (
-                    <SyntaxHighlighter
-                      children={String(children).replace(/\n$/, '')}
-                      style={vscDarkPlus}
-                      language={match[1]}
-                      PreTag="div"
-                      {...props}
-                    />
-                  ) : (
-                    <code className={className} {...props}>
-                      {children}
-                    </code>
-                  );
-                },
-              }}
-            />
+            <ReactMarkdown components={markdownComponents}>
+              {bug.content}
+            </ReactMarkdown>
           </div>
 
           {/* Tags and Upvotes */}
@@ -167,7 +206,7 @@ export function BugReportDetail() {
             </div>
 
             {/* Comment Form */}
-            <form className="mt-6">
+            <form className="mt-6" onSubmit={handleCommentSubmit}>
               <textarea
                 placeholder="Add a comment..."
                 className="w-full px-3 py-2 border  rounded-lg  bg-[var(--bg-primary)] text-[var(--text-primary)]"
