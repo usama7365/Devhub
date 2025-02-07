@@ -125,27 +125,25 @@ export function Notifications() {
         </button>
       </div>
       <div className="max-w-4xl mx-auto">
-        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm">
+        <div className="bg-[var(--card-bg)] rounded-lg shadow-sm">
           {/* Header */}
-          <div className="border-b dark:border-gray-700 p-4">
+          <div className="border-b border-[var(--border)] p-4">
             <div className="flex items-center justify-between">
-              <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100">
+              <h1 className="text-2xl font-bold text-[var(--text-primary)]">
                 Notifications
               </h1>
               <div className="flex items-center space-x-4">
                 <select
                   value={filter}
-                  onChange={(e) =>
-                    setFilter(e.target.value as 'all' | 'unread')
-                  }
-                  className="rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-100"
+                  onChange={(e) => setFilter(e.target.value)}
+                  className="rounded-md border-[var(--border)] shadow-sm focus:border-[var(--accent)] focus:ring-[var(--accent)] bg-[var(--input-bg)] text-[var(--text-primary)]"
                 >
                   <option value="all">All</option>
                   <option value="unread">Unread</option>
                 </select>
                 <button
                   onClick={markAllAsRead}
-                  className="text-sm text-indigo-600 hover:text-indigo-500 dark:text-indigo-400 dark:hover:text-indigo-300"
+                  className="text-sm text-[var(--accent)] hover:opacity-80"
                 >
                   Mark all as read
                 </button>
@@ -154,40 +152,30 @@ export function Notifications() {
           </div>
 
           {/* Notifications List */}
-          <div className="divide-y divide-gray-200 dark:divide-gray-700">
+          <div className="divide-y divide-[var(--border)]">
             {filteredNotifications.length === 0 ? (
-              <div className="p-8 text-center text-gray-500 dark:text-gray-400">
+              <div className="p-8 text-center text-[var(--text-secondary)]">
                 No notifications to display
               </div>
             ) : (
               filteredNotifications.map((notification) => (
                 <div
                   key={notification.id}
-                  className={`p-4 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors ${
-                    !notification.read
-                      ? 'bg-indigo-50 dark:bg-indigo-900/20'
-                      : ''
-                  }`}
+                  className={`p-4 hover:bg-[var(--hover-bg)] transition-colors ${!notification.read ? 'bg-[var(--highlight-bg)]' : ''}`}
                 >
                   <div className="flex items-start justify-between">
                     <div className="flex items-start space-x-3">
-                      <div
-                        className={`mt-1 ${
-                          !notification.read
-                            ? 'text-indigo-600 dark:text-indigo-400'
-                            : 'text-gray-400 dark:text-gray-500'
-                        }`}
-                      >
+                      <div className="mt-1 text-[var(--icon-color)]">
                         {getNotificationIcon(notification.type)}
                       </div>
                       <div>
-                        <h3 className="text-sm font-medium text-gray-900 dark:text-gray-100">
+                        <h3 className="text-sm font-medium text-[var(--text-primary)]">
                           {notification.title}
                         </h3>
-                        <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">
+                        <p className="mt-1 text-sm text-[var(--text-secondary)]">
                           {notification.message}
                         </p>
-                        <p className="mt-1 text-xs text-gray-500 dark:text-gray-500">
+                        <p className="mt-1 text-xs text-[var(--text-tertiary)]">
                           {formatDistanceToNow(
                             new Date(notification.timestamp),
                             { addSuffix: true }
@@ -199,7 +187,7 @@ export function Notifications() {
                       {!notification.read && (
                         <button
                           onClick={() => markAsRead(notification.id)}
-                          className="p-1 text-gray-400 hover:text-gray-500 dark:hover:text-gray-300"
+                          className="p-1 text-[var(--icon-muted)] hover:text-[var(--icon-hover)]"
                           title="Mark as read"
                         >
                           <Check className="w-4 h-4" />
@@ -207,7 +195,7 @@ export function Notifications() {
                       )}
                       <button
                         onClick={() => deleteNotification(notification.id)}
-                        className="p-1 text-gray-400 hover:text-red-500 dark:hover:text-red-400"
+                        className="p-1 text-[var(--icon-muted)] hover:text-red-500 dark:hover:text-red-400"
                         title="Delete notification"
                       >
                         <X className="w-4 h-4" />
