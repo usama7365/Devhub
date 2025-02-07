@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback, useMemo } from 'react';
 import { Bug, Search, Filter } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { dummyBugReports } from '../lib/dummy-data';
@@ -9,31 +9,62 @@ export function BugReports() {
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const [showResolved, setShowResolved] = useState<boolean | null>(null);
 
-  const allTags = Array.from(
-    new Set(dummyBugReports.flatMap((bug) => bug.tags))
+  const allTags = useMemo(() => {
+    return Array.from(new Set(dummyBugReports.flatMap((bug) => bug.tags)));
+  }, []);
+
+  const handleSearchChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      setSearchTerm(e.target.value);
+    },
+    []
   );
 
-  const filteredBugs = dummyBugReports.filter((bug) => {
-    const matchesSearch =
-      bug.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      bug.content.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      bug.tags.some((tag) =>
-        tag.toLowerCase().includes(searchTerm.toLowerCase())
-      );
-    const matchesTags =
-      selectedTags.length === 0 ||
-      selectedTags.every((tag) => bug.tags.includes(tag));
-    const matchesResolved =
-      showResolved === null || bug.is_resolved === showResolved;
-
-    return matchesSearch && matchesTags && matchesResolved;
-  });
-
-  const toggleTag = (tag: string) => {
+  const toggleTag = useCallback((tag: string) => {
     setSelectedTags((prev) =>
       prev.includes(tag) ? prev.filter((t) => t !== tag) : [...prev, tag]
     );
-  };
+  }, []);
+
+  const handleResolvedToggle = useCallback((value: boolean) => {
+    setShowResolved((prev) => (prev === value ? null : value));
+  }, []);
+
+  const matchesSearchTerm = useCallback(
+    (bug: (typeof dummyBugReports)[0]) => {
+      const searchLower = searchTerm.toLowerCase();
+      return (
+        bug.title.toLowerCase().includes(searchLower) ||
+        bug.content.toLowerCase().includes(searchLower) ||
+        bug.tags.some((tag) => tag.toLowerCase().includes(searchLower))
+      );
+    },
+    [searchTerm]
+  );
+
+  const matchesTags = useCallback(
+    (bug: (typeof dummyBugReports)[0]) => {
+      return (
+        selectedTags.length === 0 ||
+        selectedTags.every((tag) => bug.tags.includes(tag))
+      );
+    },
+    [selectedTags]
+  );
+
+  const matchesResolved = useCallback(
+    (bug: (typeof dummyBugReports)[0]) => {
+      return showResolved === null || bug.is_resolved === showResolved;
+    },
+    [showResolved]
+  );
+
+  const filteredBugs = useMemo(() => {
+    return dummyBugReports.filter(
+      (bug) =>
+        matchesSearchTerm(bug) && matchesTags(bug) && matchesResolved(bug)
+    );
+  }, [matchesSearchTerm, matchesTags, matchesResolved]);
 
   return (
     <div className="max-w-7xl py-8 px-4 sm:px-6 lg:px-8">
@@ -75,9 +106,7 @@ export function BugReports() {
                     <input
                       type="checkbox"
                       checked={showResolved === false}
-                      onChange={() =>
-                        setShowResolved(showResolved === false ? null : false)
-                      }
+                      onChange={() => handleResolvedToggle(false)}
                       className="rounded text-[var(--accent)]"
                     />
                     <span className="ml-2 text-sm text-[var(--text-secondary)]">
@@ -88,9 +117,7 @@ export function BugReports() {
                     <input
                       type="checkbox"
                       checked={showResolved === true}
-                      onChange={() =>
-                        setShowResolved(showResolved === true ? null : true)
-                      }
+                      onChange={() => handleResolvedToggle(true)}
                       className="rounded text-[var(--accent)]"
                     />
                     <span className="ml-2 text-sm text-[var(--text-secondary)]">
@@ -134,7 +161,7 @@ export function BugReports() {
                 type="text"
                 placeholder="Search bug reports..."
                 value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
+                onChange={handleSearchChange}
                 className="w-full pl-10 pr-4 py-2 border border-[var(--border-color)] rounded-lg focus:ring-2 focus:ring-[var(--accent)] focus:border-[var(--accent)] bg-[var(--bg-primary)] text-[var(--text-primary)]"
               />
               <Search className="w-5 h-5 text-[var(--text-secondary)] absolute left-3 top-2.5" />

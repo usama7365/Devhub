@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Plus, X, ArrowLeft, Video, Globe } from 'lucide-react';
 import { supabase } from '../lib/supabase';
@@ -8,29 +8,99 @@ interface Invitation {
   email: string;
 }
 
+interface MeetingFormData {
+  title: string;
+  description: string;
+  date: string;
+  time: string;
+  duration: string;
+  maxParticipants: string;
+}
+
+const INITIAL_FORM_STATE: MeetingFormData = {
+  title: '',
+  description: '',
+  date: '',
+  time: '',
+  duration: '1',
+  maxParticipants: '10',
+};
+
+const INITIAL_INVITATION: Invitation = { email: '' };
+
 export function MeetingSchedule() {
   const navigate = useNavigate();
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
-  const [date, setDate] = useState('');
-  const [time, setTime] = useState('');
-  const [duration, setDuration] = useState('1');
-  const [maxParticipants, setMaxParticipants] = useState('10');
-  const [invitations, setInvitations] = useState<Invitation[]>([{ email: '' }]);
+  const [formData, setFormData] = useState<MeetingFormData>(INITIAL_FORM_STATE);
+  const [invitations, setInvitations] = useState<Invitation[]>([
+    INITIAL_INVITATION,
+  ]);
   const [error, setError] = useState<string | null>(null);
 
-  const handleAddInvitation = () => {
-    setInvitations([...invitations, { email: '' }]);
+  const handleFormChange = useCallback(
+    (
+      e: React.ChangeEvent<
+        HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+      >
+    ) => {
+      const { name, value } = e.target;
+      setFormData((prev) => ({ ...prev, [name]: value }));
+    },
+    []
+  );
+
+  const handleAddInvitation = useCallback(() => {
+    setInvitations((prev) => [...prev, INITIAL_INVITATION]);
+  }, []);
+
+  const handleRemoveInvitation = useCallback((index: number) => {
+    setInvitations((prev) => prev.filter((_, i) => i !== index));
+  }, []);
+
+  const handleInvitationChange = useCallback((index: number, email: string) => {
+    setInvitations((prev) => {
+      const newInvitations = [...prev];
+      newInvitations[index].email = email;
+      return newInvitations;
+    });
+  }, []);
+
+  const createMeeting = async (startTime: Date, userId: string) => {
+    const { data: meeting, error: meetingError } = await supabase
+      .from('meetings')
+      .insert([
+        {
+          title: formData.title,
+          description: formData.description,
+          host_id: userId,
+          start_time: startTime.toISOString(),
+          duration: `${formData.duration} hours`,
+          room_id: crypto.randomUUID(),
+          max_participants: parseInt(formData.maxParticipants, 10),
+        },
+      ])
+      .select()
+      .single();
+
+    if (meetingError) throw meetingError;
+    return meeting;
   };
 
-  const handleRemoveInvitation = (index: number) => {
-    setInvitations(invitations.filter((_, i) => i !== index));
-  };
+  const createInvitations = async (
+    meetingId: string,
+    validInvitations: Invitation[]
+  ) => {
+    if (validInvitations.length === 0) return;
 
-  const handleInvitationChange = (index: number, email: string) => {
-    const newInvitations = [...invitations];
-    newInvitations[index].email = email;
-    setInvitations(newInvitations);
+    const { error: invitationError } = await supabase
+      .from('meeting_invitations')
+      .insert(
+        validInvitations.map((inv) => ({
+          meeting_id: meetingId,
+          email: inv.email.trim(),
+        }))
+      );
+
+    if (invitationError) throw invitationError;
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -48,42 +118,14 @@ export function MeetingSchedule() {
       }
 
       const startTime = parse(
-        `${date} ${time}`,
+        `${formData.date} ${formData.time}`,
         'yyyy-MM-dd HH:mm',
         new Date()
       );
 
-      const { data: meeting, error: meetingError } = await supabase
-        .from('meetings')
-        .insert([
-          {
-            title,
-            description,
-            host_id: user.id,
-            start_time: startTime.toISOString(),
-            duration: `${duration} hours`,
-            room_id: crypto.randomUUID(),
-            max_participants: parseInt(maxParticipants, 10),
-          },
-        ])
-        .select()
-        .single();
-
-      if (meetingError) throw meetingError;
-
+      const meeting = await createMeeting(startTime, user.id);
       const validInvitations = invitations.filter((inv) => inv.email.trim());
-      if (validInvitations.length > 0) {
-        const { error: invitationError } = await supabase
-          .from('meeting_invitations')
-          .insert(
-            validInvitations.map((inv) => ({
-              meeting_id: meeting.id,
-              email: inv.email.trim(),
-            }))
-          );
-
-        if (invitationError) throw invitationError;
-      }
+      await createInvitations(meeting.id, validInvitations);
 
       navigate('/meetings');
     } catch (err) {
@@ -137,8 +179,9 @@ export function MeetingSchedule() {
                     <input
                       type="text"
                       id="title"
-                      value={title}
-                      onChange={(e) => setTitle(e.target.value)}
+                      name="title"
+                      value={formData.title}
+                      onChange={handleFormChange}
                       required
                       placeholder="e.g., Weekly Team Sync"
                       className="w-full h-10 px-3 rounded-lg border border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-100"
@@ -155,8 +198,9 @@ export function MeetingSchedule() {
                     </label>
                     <textarea
                       id="description"
-                      value={description}
-                      onChange={(e) => setDescription(e.target.value)}
+                      name="description"
+                      value={formData.description}
+                      onChange={handleFormChange}
                       rows={4}
                       placeholder="Meeting agenda and details..."
                       className="w-full h-32 px-3 py-2 rounded-lg border border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-100"
@@ -176,8 +220,9 @@ export function MeetingSchedule() {
                         <input
                           type="date"
                           id="date"
-                          value={date}
-                          onChange={(e) => setDate(e.target.value)}
+                          name="date"
+                          value={formData.date}
+                          onChange={handleFormChange}
                           required
                           min={format(new Date(), 'yyyy-MM-dd')}
                           className="w-full h-10 px-3 rounded-lg border border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-100"
@@ -196,8 +241,9 @@ export function MeetingSchedule() {
                         <input
                           type="time"
                           id="time"
-                          value={time}
-                          onChange={(e) => setTime(e.target.value)}
+                          name="time"
+                          value={formData.time}
+                          onChange={handleFormChange}
                           required
                           className="w-full h-10 px-3 rounded-lg border border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-100"
                         />
@@ -216,8 +262,9 @@ export function MeetingSchedule() {
                       </label>
                       <select
                         id="duration"
-                        value={duration}
-                        onChange={(e) => setDuration(e.target.value)}
+                        name="duration"
+                        value={formData.duration}
+                        onChange={handleFormChange}
                         className="w-full h-10 px-3 rounded-lg border border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-100"
                       >
                         {[0.5, 1, 1.5, 2, 2.5, 3].map((value) => (
@@ -239,8 +286,9 @@ export function MeetingSchedule() {
                         <input
                           type="number"
                           id="maxParticipants"
-                          value={maxParticipants}
-                          onChange={(e) => setMaxParticipants(e.target.value)}
+                          name="maxParticipants"
+                          value={formData.maxParticipants}
+                          onChange={handleFormChange}
                           min="2"
                           max="50"
                           required
@@ -260,6 +308,8 @@ export function MeetingSchedule() {
                         <div key={index} className="flex gap-2">
                           <input
                             type="email"
+                            id={`invitation-${index}`}
+                            name={`invitation-${index}`}
                             value={invitation.email}
                             onChange={(e) =>
                               handleInvitationChange(index, e.target.value)

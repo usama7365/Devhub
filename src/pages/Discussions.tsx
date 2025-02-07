@@ -1,25 +1,108 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback, useMemo } from 'react';
 import { MessageSquare, Search, Filter } from 'lucide-react';
 import { PostCard } from '../components/PostCard';
 import { dummyPosts } from '../lib/dummy-data';
+
+const CATEGORIES = ['Frontend', 'Backend', 'DevOps'] as const;
 
 export function Discussions() {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [showResolved, setShowResolved] = useState<boolean | null>(null);
 
-  const filteredPosts = dummyPosts.filter((post) => {
-    const matchesSearch =
-      post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      post.tags.some((tag) =>
-        tag.toLowerCase().includes(searchTerm.toLowerCase())
-      );
-    const matchesCategory =
-      !selectedCategory || post.category === selectedCategory;
-    const matchesResolved =
-      showResolved === null || post.is_resolved === showResolved;
-    return matchesSearch && matchesCategory && matchesResolved;
-  });
+  const handleSearchChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      setSearchTerm(e.target.value);
+    },
+    []
+  );
+
+  const handleCategoryChange = useCallback((category: string) => {
+    setSelectedCategory((prev) => (prev === category ? null : category));
+  }, []);
+
+  const handleResolvedChange = useCallback((isResolved: boolean) => {
+    setShowResolved((prev) => (prev === isResolved ? null : isResolved));
+  }, []);
+
+  const filteredPosts = useMemo(() => {
+    return dummyPosts.filter((post) => {
+      const matchesSearch =
+        searchTerm === '' ||
+        post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        post.tags.some((tag) =>
+          tag.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+
+      const matchesCategory =
+        !selectedCategory || post.category === selectedCategory;
+      const matchesResolved =
+        showResolved === null || post.is_resolved === showResolved;
+
+      return matchesSearch && matchesCategory && matchesResolved;
+    });
+  }, [searchTerm, selectedCategory, showResolved]);
+
+  const renderCategoryFilters = useCallback(
+    () => (
+      <div>
+        <h3 className="text-sm font-medium text-[var(--text-secondary)] mb-2">
+          Categories
+        </h3>
+        <div className="space-y-2">
+          {CATEGORIES.map((category) => (
+            <label key={category} className="flex items-center">
+              <input
+                type="checkbox"
+                checked={selectedCategory === category}
+                onChange={() => handleCategoryChange(category)}
+                className="rounded text-indigo-600"
+              />
+              <span className="ml-2 text-sm text-[var(--text-secondary)]">
+                {category}
+              </span>
+            </label>
+          ))}
+        </div>
+      </div>
+    ),
+    [selectedCategory, handleCategoryChange]
+  );
+
+  const renderStatusFilters = useCallback(
+    () => (
+      <div>
+        <h3 className="text-sm font-medium text-[var(--text-secondary)] mb-2">
+          Status
+        </h3>
+        <div className="space-y-2">
+          <label className="flex items-center">
+            <input
+              type="checkbox"
+              checked={showResolved === false}
+              onChange={() => handleResolvedChange(false)}
+              className="rounded text-indigo-600"
+            />
+            <span className="ml-2 text-sm text-[var(--text-secondary)]">
+              Open
+            </span>
+          </label>
+          <label className="flex items-center">
+            <input
+              type="checkbox"
+              checked={showResolved === true}
+              onChange={() => handleResolvedChange(true)}
+              className="rounded text-indigo-600"
+            />
+            <span className="ml-2 text-sm text-[var(--text-secondary)]">
+              Resolved
+            </span>
+          </label>
+        </div>
+      </div>
+    ),
+    [showResolved, handleResolvedChange]
+  );
 
   return (
     <div className="max-w-7xl py-8 px-4 sm:px-6 lg:px-8 text-[var(--text-primary)] flex-1 w-full border border-[var(--bg-primary)]">
@@ -49,66 +132,8 @@ export function Discussions() {
               <span>Filters</span>
             </div>
             <div className="space-y-4">
-              {/* Category Filters */}
-              <div>
-                <h3 className="text-sm font-medium text-[var(--text-secondary)] mb-2">
-                  Categories
-                </h3>
-                <div className="space-y-2">
-                  {['Frontend', 'Backend', 'DevOps'].map((category) => (
-                    <label key={category} className="flex items-center">
-                      <input
-                        type="checkbox"
-                        checked={selectedCategory === category}
-                        onChange={() =>
-                          setSelectedCategory(
-                            selectedCategory === category ? null : category
-                          )
-                        }
-                        className="rounded text-indigo-600"
-                      />
-                      <span className="ml-2 text-sm text-[var(--text-secondary)]">
-                        {category}
-                      </span>
-                    </label>
-                  ))}
-                </div>
-              </div>
-
-              {/* Status Filters */}
-              <div>
-                <h3 className="text-sm font-medium text-[var(--text-secondary)] mb-2">
-                  Status
-                </h3>
-                <div className="space-y-2">
-                  <label className="flex items-center">
-                    <input
-                      type="checkbox"
-                      checked={showResolved === false}
-                      onChange={() =>
-                        setShowResolved(showResolved === false ? null : false)
-                      }
-                      className="rounded text-indigo-600"
-                    />
-                    <span className="ml-2 text-sm text-[var(--text-secondary)]">
-                      Open
-                    </span>
-                  </label>
-                  <label className="flex items-center">
-                    <input
-                      type="checkbox"
-                      checked={showResolved === true}
-                      onChange={() =>
-                        setShowResolved(showResolved === true ? null : true)
-                      }
-                      className="rounded text-indigo-600"
-                    />
-                    <span className="ml-2 text-sm text-[var(--text-secondary)]">
-                      Resolved
-                    </span>
-                  </label>
-                </div>
-              </div>
+              {renderCategoryFilters()}
+              {renderStatusFilters()}
             </div>
           </div>
         </div>
@@ -122,7 +147,7 @@ export function Discussions() {
                 type="text"
                 placeholder="Search discussions..."
                 value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
+                onChange={handleSearchChange}
                 className="w-full pl-10 pr-4 py-2 border border-[var(--border-color)] rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 bg-[var(--bg-input)] text-[var(--text-primary)]"
               />
               <Search className="w-5 h-5 text-[var(--text-secondary)] absolute left-3 top-2.5" />

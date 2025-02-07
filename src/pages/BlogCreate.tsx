@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { BlogEditor } from '../components/BlogEditor';
+import { supabase } from '../lib/supabase';
 
 export function BlogCreate() {
   const navigate = useNavigate();

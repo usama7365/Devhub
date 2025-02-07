@@ -8,6 +8,42 @@ interface BugReportCardProps {
   post: Post;
 }
 
+const Tag: React.FC<{ tag: string }> = ({ tag }) => (
+  <span className="px-3 py-1 text-sm font-medium bg-[var(--accent)] text-[var(--bg-primary)] dark:bg-[var(--accent)] dark:text-[var(--bg-primary)] rounded-full">
+    {tag}
+  </span>
+);
+
+const ResolvedBadge: React.FC = () => (
+  <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200 mt-2 sm:mt-0">
+    <Check className="w-4 h-4 mr-1" />
+    Resolved
+  </span>
+);
+
+const UpvoteButton: React.FC<{ count: number }> = ({ count }) => (
+  <button className="inline-flex items-center text-[var(--text-secondary)] dark:text-[var(--text-secondary)] hover:text-[var(--accent)] dark:hover:text-[var(--accent)]">
+    <ThumbsUp className="w-4 h-4 mr-1" />
+    <span>{count}</span>
+  </button>
+);
+
+const DiscussButton: React.FC<{ postId: string }> = ({ postId }) => (
+  <Link
+    to={`/discussions/${postId}`}
+    className="inline-flex items-center text-[var(--text-secondary)] dark:text-[var(--text-secondary)] hover:text-[var(--accent)] dark:hover:text-[var(--accent)]"
+  >
+    <MessageSquare className="w-4 h-4 mr-1" />
+    <span>Discuss</span>
+  </Link>
+);
+
+const TimeStamp: React.FC<{ date: string }> = ({ date }) => (
+  <span className="text-sm text-[var(--text-secondary)] dark:text-[var(--text-secondary)]">
+    {formatDistanceToNow(new Date(date), { addSuffix: true })}
+  </span>
+);
+
 export function BugReportCard({ post }: BugReportCardProps) {
   return (
     <div className="bg-[var(--card-bg)] dark:bg-[var(--card-bg)] rounded-lg shadow-sm p-6 mb-4">
@@ -22,21 +58,11 @@ export function BugReportCard({ post }: BugReportCardProps) {
           </Link>
           <div className="mt-2 flex flex-wrap gap-2">
             {post.tags.map((tag) => (
-              <span
-                key={tag}
-                className="px-3 py-1 text-sm font-medium bg-[var(--accent)] text-[var(--bg-primary)] dark:bg-[var(--accent)] dark:text-[var(--bg-primary)] rounded-full"
-              >
-                {tag}
-              </span>
+              <Tag key={tag} tag={tag} />
             ))}
           </div>
         </div>
-        {post.is_resolved && (
-          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200 mt-2 sm:mt-0">
-            <Check className="w-4 h-4 mr-1" />
-            Resolved
-          </span>
-        )}
+        {post.is_resolved && <ResolvedBadge />}
       </div>
 
       {/* Content */}
@@ -47,21 +73,10 @@ export function BugReportCard({ post }: BugReportCardProps) {
       {/* Metadata */}
       <div className="mt-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div className="flex items-center space-x-4">
-          <button className="inline-flex items-center text-[var(--text-secondary)] dark:text-[var(--text-secondary)] hover:text-[var(--accent)] dark:hover:text-[var(--accent)]">
-            <ThumbsUp className="w-4 h-4 mr-1" />
-            <span>{post.upvotes}</span>
-          </button>
-          <Link
-            to={`/discussions/${post.id}`}
-            className="inline-flex items-center text-[var(--text-secondary)] dark:text-[var(--text-secondary)] hover:text-[var(--accent)] dark:hover:text-[var(--accent)]"
-          >
-            <MessageSquare className="w-4 h-4 mr-1" />
-            <span>Discuss</span>
-          </Link>
+          <UpvoteButton count={post.upvotes} />
+          <DiscussButton postId={post.id} />
         </div>
-        <span className="text-sm text-[var(--text-secondary)] dark:text-[var(--text-secondary)]">
-          {formatDistanceToNow(new Date(post.created_at), { addSuffix: true })}
-        </span>
+        <TimeStamp date={post.created_at} />
       </div>
     </div>
   );

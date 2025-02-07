@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, useCallback } from 'react';
 import { Video, VideoOff, Mic, MicOff, PhoneOff } from 'lucide-react';
 
 interface VideoCallProps {
@@ -11,26 +11,58 @@ export function VideoCall({ roomId, onClose }: VideoCallProps) {
   const [isAudioEnabled, setIsAudioEnabled] = useState(true);
   const localVideoRef = useRef<HTMLVideoElement>(null);
   const remoteVideoRef = useRef<HTMLVideoElement>(null);
+  const localStreamRef = useRef<MediaStream | null>(null);
+
+  const initializeMediaStream = useCallback(async () => {
+    try {
+      if (!navigator.mediaDevices) {
+        throw new Error('Media devices not supported');
+      }
+
+      const stream = await navigator.mediaDevices.getUserMedia({
+        video: true,
+        audio: true,
+      });
+
+      localStreamRef.current = stream;
+
+      if (localVideoRef.current) {
+        localVideoRef.current.srcObject = stream;
+      }
+    } catch (err) {
+      console.error('Error accessing media devices:', err);
+    }
+  }, []);
+
+  const handleVideoToggle = useCallback(() => {
+    setIsVideoEnabled((prev) => !prev);
+    if (localStreamRef.current) {
+      localStreamRef.current
+        .getVideoTracks()
+        .forEach((track) => (track.enabled = !isVideoEnabled));
+    }
+  }, [isVideoEnabled]);
+
+  const handleAudioToggle = useCallback(() => {
+    setIsAudioEnabled((prev) => !prev);
+    if (localStreamRef.current) {
+      localStreamRef.current
+        .getAudioTracks()
+        .forEach((track) => (track.enabled = !isAudioEnabled));
+    }
+  }, [isAudioEnabled]);
+
+  const cleanupMediaStream = useCallback(() => {
+    if (localStreamRef.current) {
+      localStreamRef.current.getTracks().forEach((track) => track.stop());
+      localStreamRef.current = null;
+    }
+  }, []);
 
   useEffect(() => {
-    let localStream: MediaStream | null = null;
-    if (navigator.mediaDevices) {
-      navigator.mediaDevices
-        .getUserMedia({ video: true, audio: true })
-        .then((stream) => {
-          localStream = stream; // Store reference
-          if (localVideoRef.current) {
-            localVideoRef.current.srcObject = stream;
-          }
-        })
-        .catch((err) => console.error('Error accessing media devices:', err));
-    }
-    return () => {
-      if (localStream) {
-        localStream.getTracks().forEach((track) => track.stop());
-      }
-    };
-  }, [roomId]); // ✅ Dependencies are correct
+    initializeMediaStream();
+    return cleanupMediaStream;
+  }, [roomId, initializeMediaStream, cleanupMediaStream]);
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50">
@@ -53,7 +85,7 @@ export function VideoCall({ roomId, onClose }: VideoCallProps) {
 
         <div className="flex justify-center space-x-4">
           <button
-            onClick={() => setIsVideoEnabled(!isVideoEnabled)}
+            onClick={handleVideoToggle}
             className={`p-4 rounded-full ${
               isVideoEnabled
                 ? 'bg-gray-200 text-gray-800'
@@ -67,7 +99,7 @@ export function VideoCall({ roomId, onClose }: VideoCallProps) {
             )}
           </button>
           <button
-            onClick={() => setIsAudioEnabled(!isAudioEnabled)}
+            onClick={handleAudioToggle}
             className={`p-4 rounded-full ${
               isAudioEnabled
                 ? 'bg-gray-200 text-gray-800'

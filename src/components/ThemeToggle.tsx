@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { Sun, Moon, Coffee, Snowflake, Droplet } from 'lucide-react';
 import { useTheme, type Theme } from '../lib/theme';
 
@@ -15,23 +15,41 @@ export function ThemeToggle() {
   const { theme, setTheme } = useTheme();
   const [isOpen, setIsOpen] = useState(false);
 
+  const handleToggleMenu = useCallback(() => {
+    setIsOpen((prev) => !prev);
+  }, []);
+
+  const handleMouseLeave = useCallback(() => {
+    setIsOpen(false);
+  }, []);
+
+  const handleThemeChange = useCallback(
+    (newTheme: Theme) => {
+      setTheme(newTheme);
+      setTimeout(() => setIsOpen(false), 100);
+    },
+    [setTheme]
+  );
+
+  const currentThemeIcon = themes.find((t) => t.value === theme)?.icon;
+
   return (
     <div className="relative bg-[var(--bg-primary)] text-[var(--text-primary)]">
       {/* Toggle Button */}
       <button
         className="p-2 rounded-full  text-[var(--accent)]"
-        onClick={() => setIsOpen(!isOpen)}
+        onClick={handleToggleMenu}
         aria-expanded={isOpen}
         aria-label="Toggle Theme Menu"
       >
-        {themes.find((t) => t.value === theme)?.icon}
+        {currentThemeIcon}
       </button>
 
       {/* Dropdown Menu */}
       {isOpen && (
         <div
           className="absolute right-0 mt-2 w-48 py-2 text-[var(--accent)] bg-[var(--card-bg)] rounded-lg shadow-xl transition-opacity duration-200"
-          onMouseLeave={() => setIsOpen(false)}
+          onMouseLeave={handleMouseLeave}
         >
           {themes.map((t) => (
             <button
@@ -41,10 +59,7 @@ export function ThemeToggle() {
                   ? 'text-[var(--text-primary)] font-semibold'
                   : 'text-[var(--accent)]'
               }`}
-              onClick={() => {
-                setTheme(t.value);
-                setTimeout(() => setIsOpen(false), 100);
-              }}
+              onClick={() => handleThemeChange(t.value)}
             >
               {t.icon}
               <span>{t.label}</span>

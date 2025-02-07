@@ -44,17 +44,21 @@ export interface Article {
   updated_at: string;
 }
 
+export interface Author {
+  username: string;
+  avatar_url: string;
+}
+
 export interface BlogPost {
   id: string;
   title: string;
   content: string;
-  cover_image?: string;
-  author: User;
-  tags: string[];
-  likes: number;
-  views: number;
+  cover_image: string;
   created_at: string;
-  updated_at: string;
+  tags: string[];
+  views: number;
+  likes: number;
+  author: Author;
 }
 
 export interface Meeting {

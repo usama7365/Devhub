@@ -1,16 +1,77 @@
-import React from 'react';
+import React, { useCallback, useMemo } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { MessageSquare, ThumbsUp, Check, ArrowLeft } from 'lucide-react';
 import { formatDistanceToNow } from 'date-fns';
 import { dummyPosts, dummyComments, dummyUsers } from '../lib/dummy-data';
 
+const CommentItem = React.memo(
+  ({ comment }: { comment: (typeof dummyComments)[0] }) => (
+    <div className="flex space-x-4">
+      <img
+        src={comment.user.avatar_url}
+        alt={comment.user.username}
+        className="w-8 h-8 rounded-full"
+      />
+      <div className="flex-1">
+        <div className="rounded-lg p-4">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-2">
+            <h4 className="font-medium">{comment.user.username}</h4>
+            <span className="text-sm">
+              {formatDistanceToNow(new Date(comment.created_at), {
+                addSuffix: true,
+              })}
+            </span>
+          </div>
+          <p className="text-[var(--text-primary)]">{comment.content}</p>
+        </div>
+        <div className="mt-2 flex items-center space-x-4">
+          <button className="text-sm">
+            <ThumbsUp className="w-4 h-4 inline mr-1" />
+            {comment.upvotes}
+          </button>
+          {comment.is_accepted && (
+            <span className="text-sm text-green-600 dark:text-green-400 flex items-center">
+              <Check className="w-4 h-4 mr-1" />
+              Accepted Answer
+            </span>
+          )}
+        </div>
+      </div>
+    </div>
+  )
+);
+
+const PostTag = React.memo(({ tag }: { tag: string }) => (
+  <span className="px-3 py-1 text-sm font-medium bg-[var(--accent)] text-[var(--bg-primary)] dark:bg-[var(--accent)] dark:text-[var(--bg-primary)] rounded-full">
+    {tag}
+  </span>
+));
+
 export function DiscussionDetail() {
   const navigate = useNavigate();
-
   const { id } = useParams<{ id: string }>();
-  const post = dummyPosts.find((p) => p.id === id);
-  const comments = dummyComments.filter((c) => c.post_id === id);
-  const author = dummyUsers.find((u) => u.id === post?.user_id);
+
+  const { post, author, comments } = useMemo(() => {
+    const foundPost = dummyPosts.find((p) => p.id === id);
+    const foundAuthor = dummyUsers.find((u) => u.id === foundPost?.user_id);
+    const relatedComments = dummyComments.filter((c) => c.post_id === id);
+
+    return {
+      post: foundPost,
+      author: foundAuthor,
+      comments: relatedComments,
+    };
+  }, [id]);
+
+  // Event handlers
+  const handleNavigateBack = useCallback(() => {
+    navigate('/discussions');
+  }, [navigate]);
+
+  const handleCommentSubmit = useCallback((e: React.FormEvent) => {
+    e.preventDefault();
+    // Add comment submission logic here
+  }, []);
 
   if (!post || !author) {
     return <div className="text-center py-12">Discussion not found</div>;
@@ -20,7 +81,7 @@ export function DiscussionDetail() {
     <div className="max-w-7xl py-8 px-4 sm:px-6 lg:px-8 bg-[var(--bg-primary)] text-[var(--text-primary)] flex-1 w-full border border-[var(--bg-primary)]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-8">
         <button
-          onClick={() => navigate('/discussions')}
+          onClick={handleNavigateBack}
           className="inline-flex items-center text-sm text-[var(--text-secondary)] hover:text-[var(--text-primary)]"
         >
           <ArrowLeft className="w-4 h-4 mr-2" />
@@ -42,6 +103,7 @@ export function DiscussionDetail() {
                 <h2 className="text-lg font-semibold">{author.username}</h2>
                 <p className="text-sm ">
                   {formatDistanceToNow(new Date(post.created_at), {
+                    // please wrap this in useMemo
                     addSuffix: true,
                   })}
                 </p>
@@ -67,12 +129,7 @@ export function DiscussionDetail() {
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between space-y-4 sm:space-y-0 mb-6">
             <div className="flex flex-wrap gap-2">
               {post.tags.map((tag) => (
-                <span
-                  key={tag}
-                  className="px-3 py-1 text-sm font-medium bg-[var(--accent)] text-[var(--bg-primary)] dark:bg-[var(--accent)] dark:text-[var(--bg-primary)] rounded-full"
-                >
-                  {tag}
-                </span>
+                <PostTag key={tag} tag={tag} />
               ))}
             </div>
             <button className="inline-flex items-center ">
@@ -90,45 +147,12 @@ export function DiscussionDetail() {
             {/* Comments List */}
             <div className="space-y-6 bg-[var(--bg-primary)] rounded-xl p-2">
               {comments.map((comment) => (
-                <div key={comment.id} className="flex space-x-4">
-                  <img
-                    src={comment.user.avatar_url}
-                    alt={comment.user.username}
-                    className="w-8 h-8 rounded-full"
-                  />
-                  <div className="flex-1">
-                    <div className="rounded-lg p-4">
-                      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-2">
-                        <h4 className="font-medium">{comment.user.username}</h4>
-                        <span className="text-sm">
-                          {formatDistanceToNow(new Date(comment.created_at), {
-                            addSuffix: true,
-                          })}
-                        </span>
-                      </div>
-                      <p className="text-[var(--text-primary)]">
-                        {comment.content}
-                      </p>
-                    </div>
-                    <div className="mt-2 flex items-center space-x-4">
-                      <button className="text-sm ">
-                        <ThumbsUp className="w-4 h-4 inline mr-1" />
-                        {comment.upvotes}
-                      </button>
-                      {comment.is_accepted && (
-                        <span className="text-sm text-green-600 dark:text-green-400 flex items-center">
-                          <Check className="w-4 h-4 mr-1" />
-                          Accepted Answer
-                        </span>
-                      )}
-                    </div>
-                  </div>
-                </div>
+                <CommentItem key={comment.id} comment={comment} />
               ))}
             </div>
 
             {/* Comment Form */}
-            <form className="mt-6">
+            <form onSubmit={handleCommentSubmit} className="mt-6">
               <textarea
                 placeholder="Add a comment..."
                 className="w-full px-3 py-2 rounded-lg border bg-[var(--bg-primary)] text-[var(--text-primary)]"
