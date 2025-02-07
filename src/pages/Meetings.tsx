@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { MeetingRoom } from '../components/MeetingRoom';
 import {
   Video,
@@ -9,7 +9,6 @@ import {
   Zap,
   Clock,
   Monitor,
-  Plus,
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { supabase } from '../lib/supabase';
@@ -50,76 +49,174 @@ const sampleParticipants = [
   },
 ];
 
+const MEETING_SELECT_QUERY = `
+  id,
+  title,
+  description,
+  start_time,
+  duration,
+  max_participants,
+  room_id,
+  host:users (
+    username,
+    avatar_url
+  )
+`;
+
+// Meeting Card
+interface MeetingCardProps {
+  meeting: Meeting;
+  onJoin: (roomId: string) => void;
+}
+
+const MeetingCard: React.FC<MeetingCardProps> = React.memo(
+  ({ meeting, onJoin }) => {
+    return (
+      <div className="bg-[var(--bg-primary)] text-[var(--text-primary)] bg-[var(--card-bg)] rounded-2xl shadow-md hover:shadow-lg transition-shadow duration-300 overflow-hidden">
+        <div className="p-6">
+          <h3 className="text-xl font-semibold mb-2">{meeting.title}</h3>
+          <p className="mb-4">{meeting.description}</p>
+
+          <div className="flex items-center mb-4">
+            <img
+              src={meeting.host.avatar_url}
+              alt={meeting.host.username}
+              className="w-10 h-10 rounded-full border border-gray-300 dark:border-gray-600 mr-3"
+            />
+            <div>
+              <p className="text-sm font-medium">
+                Hosted by {meeting.host.username}
+              </p>
+              <p className="text-xs">{meeting.host.email}</p>
+            </div>
+          </div>
+
+          <div className="flex items-center justify-between text-sm mb-4">
+            <div className="flex items-center">
+              <Clock className="w-4 h-4 mr-1 text-[var(--accent)]" />
+              {format(parseISO(meeting.start_time), 'MMM d, h:mm a')}
+            </div>
+            <div className="flex items-center">
+              <Users className="w-4 h-4 mr-1 text-[var(--accent)]" />
+              {meeting.max_participants} participants
+            </div>
+          </div>
+
+          <button
+            onClick={() => onJoin(meeting.room_id)}
+            className="w-full flex items-center justify-center gap-2 py-2 px-4 bg-[var(--accent)] text-[var(--bg-primary)] dark:bg-[var(--accent)] dark:text-[var(--bg-primary)] transition-all duration-300 rounded-lg text-sm font-medium"
+          >
+            <Video className="w-4 h-4" />
+            Join Meeting
+          </button>
+        </div>
+      </div>
+    );
+  }
+);
+
+function FeatureCard({
+  icon,
+  title,
+  description,
+}: {
+  icon: React.ReactNode;
+  title: string;
+  description: string;
+}) {
+  return (
+    <div className="bg-[var(--bg-primary)] text-[var(--text-primary)] bg-[var(--card-bg)] rounded-lg shadow-sm p-6 text-center">
+      <div className="flex justify-center mb-4 text-[var(--accent)] ">
+        {icon}
+      </div>
+      <h3 className="text-lg font-semibold mb-2">{title}</h3>
+      <p className="">{description}</p>
+    </div>
+  );
+}
+
 export function Meetings() {
   const [selectedRoom, setSelectedRoom] = useState<string | null>(null);
   const [upcomingMeetings, setUpcomingMeetings] = useState<Meeting[]>([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    fetchMeetings();
-  }, []);
-
-  const fetchMeetings = async () => {
+  const fetchMeetings = useCallback(async () => {
     try {
       const { data: meetings, error } = await supabase
         .from('meetings')
-        .select(
-          `
-          id,
-          title,
-          description,
-          start_time,
-          duration,
-          max_participants,
-          room_id,
-          host:users (
-            username,
-            avatar_url
-          )
-        `
-        )
+        .select(MEETING_SELECT_QUERY)
         .gte('start_time', new Date().toISOString())
         .order('start_time', { ascending: true });
 
       if (error) throw error;
 
-      // If no meetings are found, use the dummy meeting
-      setUpcomingMeetings(
-        meetings.length > 0
-          ? meetings.map((meeting) => ({
-              ...meeting,
-              host: meeting.host.map((h) => ({
-                ...h,
-                id: '',
-                username: '',
-                email: '',
-                created_at: '',
-              })),
-            }))
-          : [dummyMeeting]
-      );
+      const processedMeetings =
+        meetings.length > 0 ? meetings.map(processMeetingData) : [dummyMeeting];
+
+      setUpcomingMeetings(processedMeetings);
     } catch (error) {
       console.error('Error fetching meetings:', error);
-      setUpcomingMeetings([dummyMeeting]); // Fallback to dummy meeting on error
+      setUpcomingMeetings([dummyMeeting]);
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
 
-  const handleInvite = async (email: string) => {
-    try {
-      const { error } = await supabase.from('meeting_invitations').insert([
-        {
-          meeting_id: selectedRoom,
-          email,
-        },
-      ]);
+  useEffect(() => {
+    fetchMeetings();
+  }, [fetchMeetings]);
 
-      if (error) throw error;
-    } catch (error) {
-      console.error('Error sending invitation:', error);
-    }
-  };
+  const processMeetingData = useCallback(
+    (meeting: any): Meeting => ({
+      ...meeting,
+      host: {
+        ...meeting.host[0],
+        id: meeting.host[0]?.id || '',
+        username: meeting.host[0]?.username || '',
+        email: meeting.host[0]?.email || '',
+        created_at: meeting.host[0]?.created_at || '',
+      },
+    }),
+    []
+  );
+
+  // Extract invite handling logic
+  const handleInvite = useCallback(
+    async (email: string) => {
+      if (!selectedRoom) return;
+
+      try {
+        const { error } = await supabase.from('meeting_invitations').insert([
+          {
+            meeting_id: selectedRoom,
+            email,
+          },
+        ]);
+
+        if (error) throw error;
+      } catch (error) {
+        console.error('Error sending invitation:', error);
+      }
+    },
+    [selectedRoom]
+  );
+
+  // Extract room selection handler
+  const handleRoomSelect = useCallback((roomId: string) => {
+    setSelectedRoom(roomId);
+  }, []);
+
+  // Extract meeting card rendering logic
+  const renderMeetingCard = useCallback(
+    (meeting: Meeting) => (
+      <MeetingCard
+        key={meeting.id}
+        meeting={meeting}
+        onJoin={handleRoomSelect}
+      />
+    ),
+    [handleRoomSelect]
+  );
 
   return (
     <div className="space-y-16 py-8 bg-[var(--bg-primary)] text-[var(--text-primary)]">
@@ -153,58 +250,7 @@ export function Meetings() {
           <div className="text-center py-12 text-lg">Loading...</div>
         ) : upcomingMeetings.length > 0 ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 ">
-            {upcomingMeetings.map((meeting) => (
-              <div
-                key={meeting.id}
-                className="bg-[var(--bg-primary)] text-[var(--text-primary)] bg-[var(--card-bg)] rounded-2xl shadow-md hover:shadow-lg transition-shadow duration-300 overflow-hidden"
-              >
-                <div className="p-6">
-                  {/* Meeting Title */}
-                  <h3 className="text-xl font-semibold  mb-2">
-                    {meeting.title}
-                  </h3>
-
-                  {/* Meeting Description */}
-                  <p className="mb-4">{meeting.description}</p>
-
-                  {/* Host Information */}
-                  <div className="flex items-center mb-4">
-                    <img
-                      src={meeting.host.avatar_url}
-                      alt={meeting.host.username}
-                      className="w-10 h-10 rounded-full border border-gray-300 dark:border-gray-600 mr-3"
-                    />
-                    <div>
-                      <p className="text-sm font-medium">
-                        Hosted by {meeting.host.username}
-                      </p>
-                      <p className="text-xs">{meeting.host.email}</p>
-                    </div>
-                  </div>
-
-                  {/* Meeting Details */}
-                  <div className="flex items-center justify-between text-sm  mb-4">
-                    <div className="flex items-center">
-                      <Clock className="w-4 h-4 mr-1 text-[var(--accent)] " />
-                      {format(parseISO(meeting.start_time), 'MMM d, h:mm a')}
-                    </div>
-                    <div className="flex items-center">
-                      <Users className="w-4 h-4 mr-1 text-[var(--accent)]" />
-                      {meeting.max_participants} participants
-                    </div>
-                  </div>
-
-                  {/* Join Meeting Button */}
-                  <button
-                    onClick={() => setSelectedRoom(meeting.room_id)}
-                    className="w-full flex items-center justify-center gap-2 py-2 px-4 bg-[var(--accent)] text-[var(--bg-primary)] dark:bg-[var(--accent)] dark:text-[var(--bg-primary)] transition-all duration-300 rounded-lg text-sm font-medium"
-                  >
-                    <Video className="w-4 h-4" />
-                    Join Meeting
-                  </button>
-                </div>
-              </div>
-            ))}
+            {upcomingMeetings.map(renderMeetingCard)}
           </div>
         ) : (
           <div className="text-center py-12 text-gray-500 dark:text-gray-400">
@@ -268,26 +314,6 @@ export function Meetings() {
           />
         </div>
       </section>
-    </div>
-  );
-}
-
-function FeatureCard({
-  icon,
-  title,
-  description,
-}: {
-  icon: React.ReactNode;
-  title: string;
-  description: string;
-}) {
-  return (
-    <div className="bg-[var(--bg-primary)] text-[var(--text-primary)] bg-[var(--card-bg)] rounded-lg shadow-sm p-6 text-center">
-      <div className="flex justify-center mb-4 text-[var(--accent)] ">
-        {icon}
-      </div>
-      <h3 className="text-lg font-semibold mb-2">{title}</h3>
-      <p className="">{description}</p>
     </div>
   );
 }
