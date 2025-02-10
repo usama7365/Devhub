@@ -1,0 +1,1 @@
+// Auth state management
