@@ -67,3 +67,77 @@
 body {
   background-color: var(--bg-secondary);
 }
+
+
+
+
+/* ReactQuill Toolbar Custom Styling */
+.ql-toolbar {
+  background: var(--bg-secondary) !important; /* Toolbar background */
+  border-color: var(--border-color) !important;
+}
+
+.ql-toolbar button {
+  color: var(--text-secondary) !important; /* Default icon color */
+}
+
+.ql-toolbar button:hover,
+.ql-toolbar button.ql-active {
+  color: var(--text-primary) !important; /* Active & hover icon color */
+}
+
+/* Dropdown styles */
+.ql-picker {
+  color: var(--text-secondary) !important;
+}
+
+.ql-picker-label {
+  color: var(--text-secondary) !important;
+}
+
+.ql-picker-label:hover {
+  color: var(--text-primary) !important;
+}
+
+
+/* Fix Quill Toolbar Icons */
+.ql-toolbar button svg {
+  fill: var(--text-secondary) !important; /* Default icon color */
+  stroke: var(--text-secondary) !important; /* Some icons use stroke */
+}
+
+.ql-toolbar button:hover svg,
+.ql-toolbar button.ql-active svg {
+  fill: var(--text-primary) !important; /* Active & hover icon color */
+  stroke: var(--text-primary) !important;
+}
+
+
+.ql-snow .ql-stroke {
+  /* fill: var(--text-primary) !important; Active & hover icon color */
+  stroke: var(--text-primary) !important;
+}
+
+.ql-toolbar.ql-snow .ql-picker.ql-expanded .ql-picker-options {
+
+  background: var(--bg-secondary) !important;
+  color: var(--text-primary) !important;
+  border-color: var(--border-color) !important;
+
+
+}
+
+/* .ql-container.ql-snow {
+border: none !important;
+} */
+
+.ql-toolbar.ql-snow + .ql-container.ql-snow {
+  min-height: 350px !important;
+}
+
+/* Custom placeholder styling for ReactQuill */
+.custom-quill .ql-editor.ql-blank::before {
+  color: var(--text-secondary) !important; /* Use theme-based color */
+  font-style: italic; /* Optional: Make it visually distinct */
+  opacity: 0.8; /* Adjust opacity for better readability */
+}
