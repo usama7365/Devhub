@@ -23,6 +23,7 @@ import { BlogCreate } from './pages/BlogCreate';
 import { MeetingSchedule } from './pages/MeetingSchedule';
 import { CodeEditor } from './pages/CodeEditor';
 import { Notifications } from './pages/Notifications';
+import 'react-quill/dist/quill.snow.css';
 
 function App() {
   const { theme } = useTheme();

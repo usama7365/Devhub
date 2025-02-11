@@ -1,14 +1,22 @@
-import React, { useState, useCallback } from 'react';
-import { Save, Image, Link as LinkIcon } from 'lucide-react';
+import React, { useState, useCallback, useEffect } from 'react';
+import { Save, Image, Link as LinkIcon, Eye, Edit } from 'lucide-react';
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
+import { BlogPreview } from './BlogPreview';
+import TurndownService from 'turndown';
+import { dummyUsers } from '../lib/dummy-data';
+
+const turndownService = new TurndownService();
+
+const loggedInUser = dummyUsers[0];
 
 interface BlogEditorProps {
-  onSave: (content: { title: string; content: string; tags: string[] }) => void;
-}
-
-interface BlogContent {
-  title: string;
-  content: string;
-  tags: string[];
+  onSave: (content: {
+    title: string;
+    content: string;
+    tags: string[];
+    coverImage?: string;
+  }) => void;
 }
 
 export function BlogEditor({ onSave }: BlogEditorProps) {
@@ -16,6 +24,8 @@ export function BlogEditor({ onSave }: BlogEditorProps) {
   const [content, setContent] = useState('');
   const [tags, setTags] = useState<string[]>([]);
   const [newTag, setNewTag] = useState('');
+  const [coverImage, setCoverImage] = useState<string | null>(null);
+  const [isPreview, setIsPreview] = useState(false);
 
   const handleTitleChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -24,12 +34,9 @@ export function BlogEditor({ onSave }: BlogEditorProps) {
     []
   );
 
-  const handleContentChange = useCallback(
-    (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-      setContent(e.target.value);
-    },
-    []
-  );
+  const handleContentChange = useCallback((value: string) => {
+    setContent(value);
+  }, []);
 
   const handleNewTagChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -58,36 +65,70 @@ export function BlogEditor({ onSave }: BlogEditorProps) {
   const handleSave = useCallback(() => {
     if (!title.trim() || !content.trim()) return;
 
-    const blogContent: BlogContent = {
+    onSave({
       title,
       content,
       tags,
-    };
+      coverImage: coverImage || undefined,
+    });
+  }, [title, content, tags, coverImage, onSave]);
 
-    onSave(blogContent);
-  }, [title, content, tags, onSave]);
+  const togglePreview = useCallback(() => {
+    setIsPreview((prev) => !prev);
+  }, []);
+
+  const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files && event.target.files[0]) {
+      const file = event.target.files[0];
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setCoverImage(reader.result as string);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
 
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-6">
+    <div className="bg-[var(--card-bg)] rounded-lg shadow-[var(--box-shadow)] p-6 border border-[var(--border-color)]">
+      {/* Title */}
       <input
         type="text"
         value={title}
         onChange={handleTitleChange}
         placeholder="Title"
-        className="w-full text-3xl font-bold mb-4 bg-transparent border-none focus:outline-none focus:ring-0"
+        className="w-full text-2xl font-bold mb-4 border border-[var(--border-color)] rounded-lg focus:ring-2 focus:ring-[var(--accent)] bg-[var(--bg-secondary)] text-[var(--text-primary)] p-2"
       />
 
+      {/* Cover Image */}
+      {coverImage && (
+        <img
+          src={coverImage}
+          alt="Cover"
+          className="w-full h-48 object-cover rounded-lg mb-4"
+        />
+      )}
+      <label className="cursor-pointer text-[var(--text-secondary)] hover:text-[var(--text-primary)] flex items-center gap-2 p-3">
+        <Image className="w-5 h-5" /> Upload Cover Image
+        <input
+          type="file"
+          accept="image/*"
+          className="hidden"
+          onChange={handleImageUpload}
+        />
+      </label>
+
+      {/* Tags */}
       <div className="mb-4">
         <div className="flex flex-wrap gap-2 mb-2">
           {tags.map((tag, index) => (
             <span
               key={index}
-              className="px-2 py-1 rounded-full text-sm bg-indigo-100 text-indigo-800 dark:bg-indigo-900 dark:text-indigo-200"
+              className="px-2 py-1 rounded-full text-sm bg-[var(--accent)] text-[var(--bg-primary)]"
             >
               {tag}
               <button
                 onClick={() => handleRemoveTag(index)}
-                className="ml-2 text-indigo-600 dark:text-indigo-400"
+                className="ml-2 text-[var(--text-secondary)]"
               >
                 ×
               </button>
@@ -100,33 +141,64 @@ export function BlogEditor({ onSave }: BlogEditorProps) {
           onChange={handleNewTagChange}
           onKeyDown={handleAddTag}
           placeholder="Add tags..."
-          className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 dark:bg-gray-700"
+          className="w-full px-3 py-2 border border-[var(--border-color)] rounded-lg focus:ring-2 focus:ring-[var(--accent)] bg-[var(--bg-secondary)] text-[var(--text-primary)]"
         />
       </div>
 
-      <div className="mb-4 border-b dark:border-gray-700 pb-2">
-        <button className="p-2 text-gray-500 hover:text-gray-700 dark:hover:text-gray-300">
-          <Image className="w-5 h-5" />
-        </button>
-        <button className="p-2 text-gray-500 hover:text-gray-700 dark:hover:text-gray-300">
-          <LinkIcon className="w-5 h-5" />
+      {/* Toolbar */}
+      <div className="mb-4 border-b border-[var(--border-color)] pb-2 flex items-center gap-2">
+        <button
+          onClick={togglePreview}
+          className="p-2 text-[var(--text-secondary)] hover:text-[var(--text-primary)]"
+        >
+          {isPreview ? (
+            <Edit className="w-5 h-5" />
+          ) : (
+            <div className="flex items-center space-x-2">
+              <p>Preview Blog before post</p>
+              <Eye className="w-5 h-5" />
+            </div>
+          )}
         </button>
       </div>
 
-      <textarea
-        value={content}
-        onChange={handleContentChange}
-        placeholder="Write your story..."
-        className="w-full min-h-[400px] bg-transparent border-none focus:outline-none focus:ring-0 resize-none"
-      />
+      {/* Content Editor / Preview */}
+      {isPreview ? (
+        <BlogPreview
+          blog={{
+            title,
+            content: turndownService.turndown(content),
+            tags,
+            cover_image: coverImage || '',
+            author: loggedInUser,
+            created_at: new Date().toISOString(),
+            views: 0,
+            likes: 0,
+          }}
+          onBack={togglePreview}
+        />
+      ) : (
+        <div className="mb-4 relative">
+          <div className="rounded-lg overflow-hidden">
+            <ReactQuill
+              theme="snow"
+              value={content}
+              placeholder="Write your blog content here..."
+              onChange={handleContentChange}
+              className="custom-quill bg-[var(--bg-primary)] text-[var(--text-primary)] w-full"
+              style={{ minHeight: '350px' }}
+            />
+          </div>
+        </div>
+      )}
 
-      <div className="mt-4 flex justify-end">
+      {/* Save Button */}
+      <div className="mt-5 flex justify-end">
         <button
           onClick={handleSave}
-          className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+          className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-[var(--bg-primary)] bg-[var(--accent)] hover:bg-opacity-80 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[var(--accent)]"
         >
-          <Save className="w-4 h-4 mr-2" />
-          Save
+          <Save className="w-4 h-4 mr-2" /> Save
         </button>
       </div>
     </div>
