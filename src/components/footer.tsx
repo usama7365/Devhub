@@ -1,14 +1,16 @@
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { Github, Twitter, Linkedin, Mail, Heart } from 'lucide-react';
+import LOGO from '../assets/images/logo-dark.png';
 
 export function Footer() {
   return (
-    <footer className="bg-[var(--bg-secondary)] border-t border-[var(--border-color)] ">
+    <footer className="bg-[var(--bg-secondary)] border-t border-[var(--border-color)]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div className="col-span-1 md:col-span-2">
-            <Link to="/" className="text-2xl font-bold text-[var(--accent)]">
-              DevHub
+            <Link to="/" className="flex items-center">
+              <img src={LOGO} alt="DevHub Logo" style={{ height: '5.5rem' }} />
             </Link>
             <p className="mt-4 text-[var(--text-secondary)]">
               A community platform for developers to share knowledge, discuss
