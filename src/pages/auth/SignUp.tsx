@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Github, Mail } from 'lucide-react';
 import { supabase } from '../../lib/supabase';
+import LOGO from '../../assets/images/logo-dark.png';
 
 export function SignUp() {
   const navigate = useNavigate();
@@ -60,6 +61,16 @@ export function SignUp() {
   return (
     <div className="min-h-screen flex items-center justify-center py-8 px-4 sm:px-6 lg:px-8 bg-[var(--bg-primary)] border-b border-[var(--border-color)]">
       <div className="max-w-md w-full space-y-8">
+        {/* Add Logo here */}
+        <div className="text-center mb-6">
+          <img
+            src={LOGO}
+            alt="DevHub Logo"
+            className="mx-auto"
+            style={{ height: '8rem' }}
+          />
+        </div>
+
         <div>
           <h2 className="text-center text-3xl font-extrabold text-[var(--text-primary)]">
             Create your account
