@@ -5,7 +5,7 @@
   <p>Connect, collaborate, and grow with fellow developers</p>
 </div>
 
-![DevHub Preview](https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1200&h=400&fit=crop)
+![DevHub Preview](https://lh3.googleusercontent.com/fife/ALs6j_GQKtyp6Nv09uRNnR5fl0LQFTYi-TpHTxh6rNmSQpZohU3TcWAlhoc1fE2dB0KyVNBgbiBdAe9Okg0p9c6eKsIZkHWCfh_QB0mYYGTXnr9c0Xdk92maWZy4LW-KexAdEEaIRMd0eoUux28DSLsNwERAYfp8G8ODZq1N93GjXtPpo_2Tjfc5CxtF3YBKQ4vmBy5SALeELRWGzbyaKKvxoIxhwDcm1i_h3ElrmkUEv__-YSbTYR0STWO-hNjwWlcq7rCCTus6oFuBfKUVkLMktSLCEN95GxGhvoeLdd6R9Mf9hV9hin6cvB8LnvaFw_Ph7BX0eZGzNgmx4qSggx7i5Ea64pk5cEjXNxIL00KXmGplYNgQRSjI0md5A7RU4Yt3Ii11l3rb4P2cilLrA9XFc2Yf1gALIRiKl3gO8_8DcMdfHyIDns5ukWbw96R855-hgRMf9fJAQd4ifLEAOaHhuLknjBw7i9g7bsmUrM4LhVScZiRgTfkaSgrbeiMMSE5P_KC2bmdgBX3he53Vap0X7SGm0kjPEauO9IN6kOHXHP8mfZZFufev2mo-EX2nYOMqXElaI4tE9F19-2GvG2NH8hUSVgNCdEKyyL6Z6KCsPzigpW3xwowbmKtNI_1bvl7c-cIlc4NgaaP88m5_BejDNSfH0oEIFX1ZZgCmpVyIwAZSwG9-YjdCgu4hBFysdb0F-Qu-9DPw9tFLCG1gosZ2BC20yYWg67N9L1313EVBZxBFo6zi_uUnWe9hZWC8MM9RbsJ-SZN85G7cSEGt8MjhDxRdv6qj1T81rviiuHKivqfjMiIsq6PgPZeZTHvuptbWQE-NYVnBBe8hkg6DKFAW9c4oAsY6sJ1r6WZ1VRzkrkB-kJjd6FOWehHehr2C85kNBIga_QvH3V-O50NC_M7Jq5h_0dleLE1qLESJKXmx2MwjQbbFmtibTrtKYY2kbqk7uW77oV9hjTJ02_WBRBjigG94R9Zi_ZtAzppP42_4w3afgtZ-GS9BOViGKoZSCot838Z3VBxhMT9XDzn3FK9Z384o1aCschPPqdzv2Yejc8ls46xrg4hgvVFJOYyCR6bOLQniGRfvrxSVbxkNzINgmu4oNr7sjcw7TM0_Iaawwg7IKKqk4z0exZ8mSG03i8408GJ2d57RHvx-yPvFyWZbwve1UqrMa_QyaASNDMmoNh0ZVyXOC8UiyaTSbxsrCUHnyA6W7ozloGDrxn_qZ4i6eIEW_sWpEf_-enjzWCN9FMj1h3Ihxl7hceBIXhwjJKM2MBOrpsc-EzAPTMlWjZ2_AvCVtD0pluUjDPz774gpB64LJoTBiMqHlZxRZvdCCWRIJl9nslJgztoS5IF6j_AFMgs7Xvvk8NZRPorw7c708iLHXUnXk5ox7V9pRQNde6kA9ODFVWMRDwoGFBd0ykDm_s0LphRSQDmcR87mRrxXpW2rztccbHqOf-NxZfZzO6Lq8tu5TtoapgZDfI5pbWyThUbxWJo3YYJg2aRjwxKGKFBTncNiYjc0CW5qdmAmzpX8h471w4vXmG8cHw7FBscdRqAxjGbM9A2155t8HAjarvGN_6wCdFYGZkJazOVNywGMa4pQ78sax3xW3iHfQNg=w3360-h1194)
 
 ## ✨ Features
 
@@ -15,7 +15,7 @@
 - 📝 **Blog Platform** - Share your insights and experiences
 - 🎥 **Virtual Meetings** - Real-time collaboration spaces
 - 🌙 **Multiple Themes** - Light, Dark, and other beautiful themes
-- 🔒 **Authentication** - Secure user authentication with Supabase
+- 🔒 **Authentication** - Secure user authentication with custom backend
 - 🎨 **Modern UI** - Beautiful and responsive design with Tailwind CSS
 
 ## 🛠️ Tech Stack
@@ -28,9 +28,10 @@
   - Lucide Icons
 
 - **Backend:**
-  - Supabase (Database & Authentication)
-  - Row Level Security
-  - Real-time subscriptions
+  - Node.js
+  - Express.js
+  - Custom authentication system
+  - REST API
 
 ## 🚀 Getting Started
 
@@ -38,7 +39,6 @@
 
 - Node.js 18+
 - npm or yarn
-- Supabase account
 
 ### Installation
 
@@ -53,13 +53,8 @@ cd devhub
 npm install
 ```
 
-3. Create a `.env` file in the root directory:
-```env
-VITE_SUPABASE_URL=your_supabase_url
-VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
-```
 
-4. Start the development server:
+3. Start the development server:
 ```bash
 npm run dev
 ```
@@ -143,8 +138,7 @@ The platform is fully responsive and works seamlessly across:
 
 ## 🔒 Security
 
-- Secure authentication with Supabase
-- Row Level Security (RLS) policies
+- Custom authentication system (JWT)
 - Protected API routes
 - Secure data handling
 
@@ -168,7 +162,8 @@ The platform is fully responsive and works seamlessly across:
 
 ## 💖 Acknowledgments
 
-- [Supabase](https://supabase.com) for backend infrastructure
+- [Node.js](https://nodejs.org/en) for backend infrastructure
+- [Express.js](https://expressjs.com) for the server framework
 - [Tailwind CSS](https://tailwindcss.com) for styling
 - [Lucide](https://lucide.dev) for beautiful icons
 - [React](https://reactjs.org) for the UI framework
