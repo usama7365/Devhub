@@ -12,6 +12,7 @@ import {
   Bell,
 } from 'lucide-react';
 import { ThemeToggle } from './ThemeToggle';
+import LOGO from '../assets/images/logo-dark.png';
 
 interface NavLinkProps {
   to: string;
@@ -26,7 +27,7 @@ interface MobileNavLinkProps extends NavLinkProps {
 const NavLink: React.FC<NavLinkProps> = ({ to, Icon, text }) => (
   <Link
     to={to}
-    className="inline-flex items-center px-1 pt-1 text-sm font-medium text-[var(--accent)]"
+    className="inline-flex items-center px-1 pt-1 text-sm font-medium text-[var(--accent)] hover:text-[var(--text-hover)] rounded-md transition-all duration-200 ease-in-out"
   >
     <Icon className="w-4 h-4 mr-2" />
     {text}
@@ -80,7 +81,7 @@ const MobileMenu: React.FC<{
             className="text-xl font-bold text-indigo-600 dark:text-indigo-400"
             onClick={onClose}
           >
-            DevHub
+            <img src={LOGO} alt="DevHub Logo" style={{ height: '5.5rem' }} />
           </Link>
           <button
             onClick={onClose}
@@ -127,11 +128,13 @@ export function Navbar() {
         <div className="flex justify-between h-16">
           {/* Left Side (Logo & Desktop Menu) */}
           <div className="flex items-center">
-            <Link
-              to="/"
-              className="text-xl font-bold text-indigo-600 dark:text-indigo-400"
-            >
-              DevHub
+            <Link to="/" className="flex items-center">
+              <img
+                className="text-xl font-bold text-indigo-600 dark:text-indigo-400"
+                src={LOGO}
+                alt="DevHub Logo"
+                style={{ height: '4.5rem' }}
+              />
             </Link>
             <div className="hidden sm:flex sm:ml-6 sm:space-x-8 text-[var(--accent)]">
               {NAVIGATION_ITEMS.map((item) => (
@@ -141,22 +144,22 @@ export function Navbar() {
           </div>
 
           {/* Right Side (Icons & Mobile Menu Button) */}
-          <div className="flex items-center space-x-4 text-[var(--accent)]">
+          <div className="flex items-center space-x-4 text-[var(--accent)] hover:text-[var(--text-hover)] rounded-md transition-all duration-200 ease-in-out">
             <Link
               to="/notifications"
               className="p-2 rounded-full text-[var(--text-secondary)] hover:text-[var(--text-primary)]"
             >
-              <Bell className="w-6 h-6 text-[var(--accent)]" />
+              <Bell className="w-6 h-6 text-[var(--accent)] hover:text-[var(--text-hover)] rounded-md transition-all duration-200 ease-in-out" />
             </Link>
             <ThemeToggle />
             <Link to="/profile/Feline_Predator" className="flex items-center">
-              <Users className="w-6 h-6 text-[var(--accent)]" />
+              <Users className="w-6 h-6 text-[var(--accent)] hover:text-[var(--text-hover)] rounded-md transition-all duration-200 ease-in-out" />
             </Link>
 
             {/* Mobile Menu Button */}
             <button
               onClick={handleMobileMenuToggle}
-              className="sm:hidden p-2 text-[var(--accent)]"
+              className="sm:hidden p-2 text-[var(--accent)] hover:text-[var(--text-hover)] rounded-md transition-all duration-200 ease-in-out"
             >
               {isMobileMenuOpen ? (
                 <X className="w-6 h-6" />

@@ -8,7 +8,9 @@
   --border-color: #cdd6e6;
   --card-bg: #ffffff;
   --box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Soft shadow */
+  --text-hover: #4B5563; /* Light background hover effect */
 }
+
 
 /* Dark theme */
 .theme-dark {
