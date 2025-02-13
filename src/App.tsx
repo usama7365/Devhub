@@ -19,6 +19,7 @@ import './lib/theme.css';
 import { Footer } from './components/footer';
 import { dummyArticles, dummyPosts } from './lib/dummy-data';
 import { formatDistanceToNow } from 'date-fns';
+import { BugReportCreate } from './pages/BugReportCreate';
 import { BlogCreate } from './pages/BlogCreate';
 import { MeetingSchedule } from './pages/MeetingSchedule';
 import { CodeEditor } from './pages/CodeEditor';
@@ -65,6 +66,7 @@ function App() {
               element={<KnowledgeBaseDetail />}
             />
             <Route path="/bug-reports" element={<BugReports />} />
+            <Route path="/bug-reports/new" element={<BugReportCreate />} />
             <Route path="/bug-reports/:id" element={<BugReportDetail />} />
             <Route path="/blog" element={<Blog />} />
             <Route path="/blog/new" element={<BlogCreate />} />

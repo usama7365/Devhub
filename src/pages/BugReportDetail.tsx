@@ -98,23 +98,23 @@ export function BugReportDetail() {
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6">
             <div className="flex items-center space-x-4 mb-4 sm:mb-0">
               <img
-                src={author.avatar_url}
-                alt={author.username}
+                src={author?.avatar_url}
+                alt={author?.username}
                 className="w-10 h-10 rounded-full"
               />
               <div>
                 <h2 className="text-lg font-semibold text-[var(--text-primary)]">
-                  {author.username}
+                  {author?.username}
                 </h2>
                 <p className="text-sm text-[var(--text-secondary)]">
-                  {formatDistanceToNow(new Date(bug.created_at), {
+                  {formatDistanceToNow(new Date(bug?.created_at), {
                     addSuffix: true,
                   })}
                 </p>
               </div>
             </div>
             <div className="flex items-center space-x-2">
-              {bug.is_resolved && (
+              {bug?.is_resolved && (
                 <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">
                   <Check className="w-4 h-4 mr-1" />
                   Resolved
@@ -129,20 +129,20 @@ export function BugReportDetail() {
 
           {/* Bug Title */}
           <h1 className="text-2xl font-bold text-[var(--text-primary)] mb-4">
-            {bug.title}
+            {bug?.title}
           </h1>
 
           {/* Bug Content */}
           <div className="prose dark:prose-invert max-w-none mb-6">
             <ReactMarkdown components={markdownComponents}>
-              {bug.content}
+              {bug?.content}
             </ReactMarkdown>
           </div>
 
           {/* Tags and Upvotes */}
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6">
             <div className="flex flex-wrap gap-2">
-              {bug.tags.map((tag) => (
+              {bug?.tags.map((tag) => (
                 <span
                   key={tag}
                   className="px-3 py-1 text-sm font-medium bg-[var(--accent)] text-[var(--bg-primary)] dark:bg-[var(--accent)] dark:text-[var(--bg-primary)] rounded-full"
@@ -153,7 +153,7 @@ export function BugReportDetail() {
             </div>
             <button className="inline-flex items-center text-[var(--text-secondary)] hover:text-[var(--accent)] dark:hover:text-[var(--accent)]">
               <ThumbsUp className="w-4 h-4 mr-1" />
-              <span>{bug.upvotes}</span>
+              <span>{bug?.upvotes}</span>
             </button>
           </div>
 
