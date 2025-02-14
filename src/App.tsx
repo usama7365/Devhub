@@ -23,6 +23,7 @@ import { BlogCreate } from './pages/BlogCreate';
 import { MeetingSchedule } from './pages/MeetingSchedule';
 import { CodeEditor } from './pages/CodeEditor';
 import { Notifications } from './pages/Notifications';
+import { BugReportCreate } from './pages/BugReportCreate';
 import 'react-quill/dist/quill.snow.css';
 
 function App() {
@@ -66,6 +67,7 @@ function App() {
             />
             <Route path="/bug-reports" element={<BugReports />} />
             <Route path="/bug-reports/:id" element={<BugReportDetail />} />
+            <Route path="/bug-reports/new" element={<BugReportCreate />} />
             <Route path="/blog" element={<Blog />} />
             <Route path="/blog/new" element={<BlogCreate />} />
             <Route path="/blog/:id" element={<BlogDetail />} />
