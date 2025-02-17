@@ -1,9 +1,25 @@
-# DevHub Community Platform
+![GitHub contributors](https://img.shields.io/github/contributors/Leo-Corporation/Qrix)
+![GitHub issues](https://img.shields.io/github/issues/usama7365/Devhub)
+![GitHub](https://img.shields.io/github/license/usama7365/Devhub)
 
-<div align="center">
-  <h3>🚀 A modern community platform for developers</h3>
-  <p>Connect, collaborate, and grow with fellow developers</p>
-</div>
+<br />
+<p align="center">
+  <a href="https://github.com/usama7365/Devhub">
+    <img src="https://github.com/usama7365/Devhub/blob/main/vite.png" alt="Logo" width="80" height="80">
+  </a>
+
+<h1 align="center">DevHub Community Platform</h1>
+<p align="center">
+  Devhub is a web app that is A modern community platform for developers to Connect, collaborate, and grow with fellow developers.
+    <br />
+    <a href="https://github.com/usama7365/Devhub/issues/new?assignees=&labels=bug&template=bug-report.yml&title=%5BBug%5D+">Report Bug</a>
+        ·
+    <a href="https://github.com/usama7365/Devhub/issues?q=is%3Aopen+is%3Aissue+label%3Abug">Known Issues</a>
+
+</p>
+</p>
+
+## What is it?
 
 ![DevHub Preview](https://lh3.googleusercontent.com/fife/ALs6j_GQKtyp6Nv09uRNnR5fl0LQFTYi-TpHTxh6rNmSQpZohU3TcWAlhoc1fE2dB0KyVNBgbiBdAe9Okg0p9c6eKsIZkHWCfh_QB0mYYGTXnr9c0Xdk92maWZy4LW-KexAdEEaIRMd0eoUux28DSLsNwERAYfp8G8ODZq1N93GjXtPpo_2Tjfc5CxtF3YBKQ4vmBy5SALeELRWGzbyaKKvxoIxhwDcm1i_h3ElrmkUEv__-YSbTYR0STWO-hNjwWlcq7rCCTus6oFuBfKUVkLMktSLCEN95GxGhvoeLdd6R9Mf9hV9hin6cvB8LnvaFw_Ph7BX0eZGzNgmx4qSggx7i5Ea64pk5cEjXNxIL00KXmGplYNgQRSjI0md5A7RU4Yt3Ii11l3rb4P2cilLrA9XFc2Yf1gALIRiKl3gO8_8DcMdfHyIDns5ukWbw96R855-hgRMf9fJAQd4ifLEAOaHhuLknjBw7i9g7bsmUrM4LhVScZiRgTfkaSgrbeiMMSE5P_KC2bmdgBX3he53Vap0X7SGm0kjPEauO9IN6kOHXHP8mfZZFufev2mo-EX2nYOMqXElaI4tE9F19-2GvG2NH8hUSVgNCdEKyyL6Z6KCsPzigpW3xwowbmKtNI_1bvl7c-cIlc4NgaaP88m5_BejDNSfH0oEIFX1ZZgCmpVyIwAZSwG9-YjdCgu4hBFysdb0F-Qu-9DPw9tFLCG1gosZ2BC20yYWg67N9L1313EVBZxBFo6zi_uUnWe9hZWC8MM9RbsJ-SZN85G7cSEGt8MjhDxRdv6qj1T81rviiuHKivqfjMiIsq6PgPZeZTHvuptbWQE-NYVnBBe8hkg6DKFAW9c4oAsY6sJ1r6WZ1VRzkrkB-kJjd6FOWehHehr2C85kNBIga_QvH3V-O50NC_M7Jq5h_0dleLE1qLESJKXmx2MwjQbbFmtibTrtKYY2kbqk7uW77oV9hjTJ02_WBRBjigG94R9Zi_ZtAzppP42_4w3afgtZ-GS9BOViGKoZSCot838Z3VBxhMT9XDzn3FK9Z384o1aCschPPqdzv2Yejc8ls46xrg4hgvVFJOYyCR6bOLQniGRfvrxSVbxkNzINgmu4oNr7sjcw7TM0_Iaawwg7IKKqk4z0exZ8mSG03i8408GJ2d57RHvx-yPvFyWZbwve1UqrMa_QyaASNDMmoNh0ZVyXOC8UiyaTSbxsrCUHnyA6W7ozloGDrxn_qZ4i6eIEW_sWpEf_-enjzWCN9FMj1h3Ihxl7hceBIXhwjJKM2MBOrpsc-EzAPTMlWjZ2_AvCVtD0pluUjDPz774gpB64LJoTBiMqHlZxRZvdCCWRIJl9nslJgztoS5IF6j_AFMgs7Xvvk8NZRPorw7c708iLHXUnXk5ox7V9pRQNde6kA9ODFVWMRDwoGFBd0ykDm_s0LphRSQDmcR87mRrxXpW2rztccbHqOf-NxZfZzO6Lq8tu5TtoapgZDfI5pbWyThUbxWJo3YYJg2aRjwxKGKFBTncNiYjc0CW5qdmAmzpX8h471w4vXmG8cHw7FBscdRqAxjGbM9A2155t8HAjarvGN_6wCdFYGZkJazOVNywGMa4pQ78sax3xW3iHfQNg=w3360-h1194)
 
