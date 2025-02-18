@@ -1,4 +1,4 @@
-![GitHub contributors](https://img.shields.io/github/contributors/Leo-Corporation/Qrix)
+![GitHub contributors](https://img.shields.io/github/contributors/usama7365/Devhub)
 ![GitHub issues](https://img.shields.io/github/issues/usama7365/Devhub)
 ![GitHub](https://img.shields.io/github/license/usama7365/Devhub)
 
@@ -48,6 +48,32 @@
   - Express.js
   - Custom authentication system
   - REST API
+
+## 🔗 Contributor Guidelines
+
+Before contributing to DevHub, please follow these steps:
+
+### 1️⃣ Contact Me for Slack & Jira Access 📩
+To be added to **Slack** and **Jira**, you need to send me an email first. 
+
+- **Email:** usamaaamirsohail@gmail.com  
+- **LinkedIn:** [Contact Me Here](https://www.linkedin.com/in/usama-aamir-0434b6229/)
+
+Once added, you can proceed to the next steps.
+
+### 2️⃣ Create a Jira Ticket 📌
+- After being added, create a **ticket in Jira** with a clear description of your feature or issue.
+- Provide relevant details, screenshots, or references if needed.
+
+### 3️⃣ Work on a New Branch 🚀
+- After approval, **create a new branch** for your changes.
+- Implement the enhancement and commit your changes.
+
+### 4️⃣ Submit a PR for Review ✅
+- Once done, **create a Pull Request (PR)** and assign it for review.
+- The changes will be reviewed and merged upon approval.
+
+Thank you for contributing to DevHub! 🚀
 
 ## 🚀 Getting Started
 
