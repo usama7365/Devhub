@@ -8,9 +8,8 @@
   --border-color: #cdd6e6;
   --card-bg: #ffffff;
   --box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Soft shadow */
-  --text-hover: #4B5563; /* Light background hover effect */
+  --text-hover: #4b5563; /* Light background hover effect */
 }
-
 
 /* Dark theme */
 .theme-dark {
@@ -70,9 +69,6 @@ body {
   background-color: var(--bg-secondary);
 }
 
-
-
-
 /* ReactQuill Toolbar Custom Styling */
 .ql-toolbar {
   background: var(--bg-secondary) !important; /* Toolbar background */
@@ -101,7 +97,6 @@ body {
   color: var(--text-primary) !important;
 }
 
-
 /* Fix Quill Toolbar Icons */
 .ql-toolbar button svg {
   fill: var(--text-secondary) !important; /* Default icon color */
@@ -114,19 +109,15 @@ body {
   stroke: var(--text-primary) !important;
 }
 
-
 .ql-snow .ql-stroke {
   /* fill: var(--text-primary) !important; Active & hover icon color */
   stroke: var(--text-primary) !important;
 }
 
 .ql-toolbar.ql-snow .ql-picker.ql-expanded .ql-picker-options {
-
   background: var(--bg-secondary) !important;
   color: var(--text-primary) !important;
   border-color: var(--border-color) !important;
-
-
 }
 
 /* .ql-container.ql-snow {
