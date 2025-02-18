@@ -41,6 +41,7 @@ export function SignIn() {
       setLoading(false);
     }
   };
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
@@ -104,6 +105,16 @@ export function SignIn() {
                 placeholder={field.charAt(0).toUpperCase() + field.slice(1)}
               />
             ))}
+          </div>
+
+          {/* Forgot Password Link */}
+          <div className="text-right">
+            <Link
+              to="/forgot-password"
+              className="text-sm font-medium text-[var(--accent)] hover:text-[var(--accent)]/90"
+            >
+              Forgot Password?
+            </Link>
           </div>
 
           <button
