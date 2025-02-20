@@ -20,7 +20,7 @@ const useUserPosts = (userId: string | undefined) => {
 };
 
 const ProfileHeader: React.FC<{ user: User }> = ({ user }) => (
-  <div className="relative pt-8 sm:pt-16">
+  <div className="relative pt-8 sm:pt-6">
     <div className="flex flex-col sm:flex-row items-center sm:items-start gap-4">
       <img
         src={user.avatar_url}

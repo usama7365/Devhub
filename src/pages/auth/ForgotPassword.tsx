@@ -30,7 +30,7 @@ export function ForgotPassword() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center py-8 px-4 sm:px-6 lg:px-8 bg-[var(--bg-primary)] border-b border-[var(--border-color)]">
+    <div className="mt-[4rem] mb-[7rem]  flex items-center justify-center py-8 px-4 sm:px-6 lg:px-8 bg-[var(--bg-primary)] border-b border-[var(--border-color)]">
       <div className="max-w-md w-full space-y-8">
         <div className="text-center mb-6">
           <img
@@ -45,9 +45,6 @@ export function ForgotPassword() {
           <h2 className="text-center text-3xl font-extrabold text-[var(--text-primary)]">
             Forgot Password
           </h2>
-          <p className="text-center text-sm text-[var(--text-secondary)]">
-            Enter your email to reset your password
-          </p>
         </div>
 
         {error && (
@@ -64,6 +61,9 @@ export function ForgotPassword() {
 
         <form className="space-y-6" onSubmit={handleResetPassword}>
           <div className="space-y-2">
+            <p className=" text-center text-sm text-[var(--text-secondary)]">
+              Enter your email to receive a password reset link.
+            </p>
             <input
               name="email"
               type="email"
@@ -78,7 +78,7 @@ export function ForgotPassword() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full flex justify-center py-2 px-4 bg-[var(--accent)] text-[var(--bg-primary)] rounded hover:bg-[var(--accent)]/90"
+            className="w-full flex items-center justify-center py-2 px-4 bg-[var(--accent)] text-[var(--bg-primary)] rounded hover:bg-[var(--accent)]/90"
           >
             <Mail className="w-4 h-4 mr-2" />
             Send Reset Link
