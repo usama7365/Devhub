@@ -37,6 +37,7 @@
 ## 🛠️ Tech Stack
 
 - **Frontend:**
+
   - React 18
   - TypeScript
   - Tailwind CSS
@@ -54,22 +55,26 @@
 Before contributing to DevHub, please follow these steps:
 
 ### 1️⃣ Contact Me for Slack & Jira Access 📩
-To be added to **Slack** and **Jira**, you need to send me an email first. 
 
-- **Email:** usamaaamirsohail@gmail.com  
+To be added to **Slack** and **Jira**, you need to send me an email first.
+
+- **Email:** usamaaamirsohail@gmail.com
 - **LinkedIn:** [Contact Me Here](https://www.linkedin.com/in/usama-aamir-0434b6229/)
 
 Once added, you can proceed to the next steps.
 
 ### 2️⃣ Create a Jira Ticket 📌
+
 - After being added, create a **ticket in Jira** with a clear description of your feature or issue.
 - Provide relevant details, screenshots, or references if needed.
 
 ### 3️⃣ Work on a New Branch 🚀
+
 - After approval, **create a new branch** for your changes.
 - Implement the enhancement and commit your changes.
 
 ### 4️⃣ Submit a PR for Review ✅
+
 - Once done, **create a Pull Request (PR)** and assign it for review.
 - The changes will be reviewed and merged upon approval.
 
@@ -85,18 +90,20 @@ Thank you for contributing to DevHub! 🚀
 ### Installation
 
 1. Clone the repository:
+
 ```bash
 git clone https://github.com/usama7365/Devhub.git
 cd devhub
 ```
 
 2. Install dependencies:
+
 ```bash
 npm install
 ```
 
-
 3. Start the development server:
+
 ```bash
 npm run dev
 ```
@@ -130,30 +137,35 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## 🌟 Core Features
 
 ### Discussions
+
 - Create and participate in technical discussions
 - Tag-based categorization
 - Upvoting system
 - Mark solutions as accepted
 
 ### Knowledge Base
+
 - Community-driven documentation
 - Categorized articles
 - Search functionality
 - Version history
 
 ### Bug Reports
+
 - Structured bug reporting
 - Status tracking
 - Solution sharing
 - Integration with discussions
 
 ### Blog Platform
+
 - Rich text editor
 - Image uploads
 - Tags and categories
 - Social sharing
 
 ### Virtual Meetings
+
 - Real-time video conferencing
 - Screen sharing
 - Chat functionality
@@ -162,6 +174,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## 🎨 Theme Support
 
 DevHub supports multiple themes:
+
 - Light
 - Dark
 - Sepia
@@ -174,6 +187,7 @@ DevHub supports multiple themes:
 ## 📱 Responsive Design
 
 The platform is fully responsive and works seamlessly across:
+
 - Desktop
 - Tablet
 - Mobile devices
@@ -211,17 +225,16 @@ The platform is fully responsive and works seamlessly across:
 - [React](https://reactjs.org) for the UI framework
 - [Vite](https://vitejs.dev) for the build tool
 
-
 ## 💸 Sponsorship
 
 If you appreciate the work I'm doing on DevHub and want to support the development of the platform, consider becoming a sponsor.
 
 ### 💖 Sponsor Links:
+
 - **GitHub Sponsors:** [usama7365](https://github.com/sponsors/usama7365)
 - **Patreon:** [feline411](https://www.patreon.com/feline411)
 
 Thank you for supporting the DevHub community! 🙏
-
 
 ## 📧 Contact
 

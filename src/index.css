@@ -17,3 +17,25 @@
     @apply inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500;
   }
 }
+
+@layer base {
+  :root {
+    --shadow-color: rgba(96, 90, 232, 0.25);
+  }
+
+  [data-theme='dark'] {
+    --shadow-color: rgba(56, 189, 248, 0.25);
+  }
+
+  [data-theme='sepia'] {
+    --shadow-color: rgba(180, 83, 9, 0.2);
+  }
+
+  [data-theme='nord'] {
+    --shadow-color: rgba(136, 192, 208, 0.25);
+  }
+
+  [data-theme='dracula'] {
+    --shadow-color: rgba(189, 147, 249, 0.25);
+  }
+}
