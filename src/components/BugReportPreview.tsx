@@ -121,55 +121,6 @@ export function BugReportPreview({ bugReport, onBack }: BugReportPreviewProps) {
           {bugReport.content}
         </ReactMarkdown>
       </div>
-      <div className="prose dark:prose-invert max-w-none">
-        <ReactMarkdown
-          remarkPlugins={[remarkGfm]}
-          components={{
-            code({ node, className, children, ...props }) {
-              const match = /language-(\w+)/.exec(className || '');
-              return match ? (
-                <SyntaxHighlighter
-                  style={vscDarkPlus}
-                  language={match[1]}
-                  PreTag="div"
-                  {...props}
-                >
-                  {String(children).replace(/\n$/, '')}
-                </SyntaxHighlighter>
-              ) : (
-                <code
-                  className="px-1 py-0.5 bg-gray-200 dark:bg-gray-700 rounded"
-                  {...props}
-                >
-                  {children}
-                </code>
-              );
-            },
-            ul: ({ node, ...props }) => (
-              <ul className="list-disc ml-5" {...props} />
-            ),
-            ol: ({ node, ...props }) => (
-              <ol className="list-decimal ml-5" {...props} />
-            ),
-            li: ({ node, ...props }) => <li className="mb-1" {...props} />,
-            img: ({ node, ...props }) => (
-              <img className="w-full rounded-lg my-4" {...props} />
-            ),
-            a: ({ href, children }) => (
-              <a
-                href={href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-blue-500 underline"
-              >
-                {children}
-              </a>
-            ),
-          }}
-        >
-          {bugReport.content}
-        </ReactMarkdown>
-      </div>
 
       {/* Tags and Upvotes */}
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6">
