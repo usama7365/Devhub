@@ -4,7 +4,7 @@ import { Pencil, Search, Calendar, Eye, Heart } from 'lucide-react';
 import { dummyBlogPosts } from '../lib/dummy-data';
 import { formatDistanceToNow } from 'date-fns';
 import type { BlogPost } from '../types';
-
+import { Button } from '../components/Button';
 interface TagButtonProps {
   tag: string;
   isSelected: boolean;
@@ -167,13 +167,14 @@ export function Blog() {
             Share your knowledge and experiences
           </p>
         </div>
-        <Link
-          to="/blog/new"
-          className="btn bg-[var(--accent)] text-[var(--bg-primary)] dark:bg-[var(--accent)] dark:text-[var(--bg-primary)] hover:bg-[var(--accent)]"
-        >
-          <Pencil className="w-4 h-4 mr-2" />
-          Write Post
-        </Link>
+        <Button
+  variant="accent"
+  href="/blog/new"
+  leftIcon={Pencil}
+  size="md"
+>
+  Write Post
+</Button>
       </div>
 
       {/* Main Content */}

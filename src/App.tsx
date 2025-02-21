@@ -27,7 +27,7 @@ import { CodeEditor } from './pages/CodeEditor';
 import { Notifications } from './pages/Notifications';
 import { BugReportCreate } from './pages/BugReportCreate';
 import 'react-quill/dist/quill.snow.css';
-
+import { Button } from './components/Button';
 function App() {
   const { theme } = useTheme();
 
@@ -105,12 +105,24 @@ function Home() {
           knowledge, and grow together.
         </p>
         <div className="flex justify-center gap-4">
-          <Link to="/signup" className="btn">
-            Join Community
-          </Link>
-          <Link to="/knowledge-base" className="btn-secondary">
-            Explore Resources
-          </Link>
+        <Button
+    href="/signup"
+    variant="primary"
+    size="lg"
+    withArrow
+    className="hover:shadow-lg hover:shadow-[var(--shadow-color)] hover:scale-[1.02] transform transition-transform duration-300"
+  >
+    Join Community
+  </Button>
+          <Button
+    href="/knowledge-base"
+    variant="secondary"
+    size="lg"
+    leftIcon={BookOpen}
+    className="transform-none hover:shadow-none"
+  >
+    Explore Resources
+  </Button>
         </div>
       </section>
 
@@ -205,12 +217,15 @@ function Home() {
           Start collaborating with developers from around the world. Join our
           community today!
         </p>
-        <Link
-          to="/signup"
-          className="inline-flex items-center px-6 py-3 border border-transparent text-lg font-medium rounded-md bg-[var(--accent)] text-[var(--bg-primary)] dark:bg-[var(--accent)] dark:text-[var(--bg-primary)] "
-        >
-          Get Started
-        </Link>
+        <Button
+  href="/signup"
+  variant="accent"
+  size="xl"
+  withArrow
+  className="hover:shadow-lg hover:shadow-[var(--shadow-color)]"
+>
+  Get Started
+</Button>
       </section>
     </div>
   );

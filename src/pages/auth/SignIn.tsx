@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Github, Mail } from 'lucide-react';
 import { supabase } from '../../lib/supabase';
 import LOGO from '../../assets/images/logo-dark.png';
-
+import { Button } from '../../components/Button';
 export function SignIn() {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
@@ -117,25 +117,27 @@ export function SignIn() {
             </Link>
           </div>
 
-          <button
-            type="submit"
-            disabled={loading}
-            className="w-full flex items-center justify-center py-2 px-4 bg-[var(--accent)] text-[var(--bg-primary)] rounded hover:bg-[var(--accent)]/90"
-          >
-            <Mail className="w-4 h-4 mr-2" />
-            Sign in with Email
-          </button>
+          <Button 
+  variant="accent" 
+  size="full" 
+  leftIcon={Mail}
+  isLoading={loading}
+  type="submit"
+>
+  Sign in with Email
+</Button>
         </form>
 
         <div className="mt-6 text-center">
           <p className="text-[var(--text-secondary)]">or continue with</p>
-          <button
-            onClick={handleGithubSignIn}
-            className="mt-4 w-full flex items-center justify-center py-2 px-4 border border-[var(--border-color)] rounded text-[var(--text-primary)] bg-[var(--bg-secondary)] hover:bg-[var(--bg-secondary)]/90"
-          >
-            <Github className="w-4 h-4 mr-2" />
-            Sign up with GitHub
-          </button>
+          <Button 
+  variant="github" 
+  size="full" 
+  leftIcon={Github}
+  onClick={handleGithubSignIn}
+>
+  Sign in with GitHub
+</Button>
         </div>
       </div>
     </div>
