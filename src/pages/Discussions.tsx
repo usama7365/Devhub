@@ -2,7 +2,7 @@ import React, { useState, useCallback, useMemo } from 'react';
 import { MessageSquare, Search, Filter } from 'lucide-react';
 import { PostCard } from '../components/PostCard';
 import { dummyPosts } from '../lib/dummy-data';
-
+import { Button } from '../components/Button';
 const CATEGORIES = ['Frontend', 'Backend', 'DevOps'] as const;
 
 export function Discussions() {
@@ -116,10 +116,9 @@ export function Discussions() {
             Join the conversation with fellow developers
           </p>
         </div>
-        <button className="btn bg-[var(--accent)] text-[var(--bg-primary)] dark:bg-[var(--accent)] dark:text-[var(--bg-primary)] hover:bg-[var(--accent)]">
-          <MessageSquare className="w-4 h-4 mr-2" />
-          New Discussion
-        </button>
+        <Button variant="accent" leftIcon={MessageSquare}>
+  New Discussion
+</Button>
       </div>
 
       {/* Main Content */}
