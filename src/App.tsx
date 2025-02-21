@@ -14,6 +14,8 @@ import { Meetings } from './pages/Meetings';
 import { Profile } from './pages/Profile';
 import { SignIn } from './pages/auth/SignIn';
 import { SignUp } from './pages/auth/SignUp';
+import { ForgotPassword } from './pages/auth/ForgotPassword';
+import { ResetPassword } from './pages/auth/ResetPassword';
 import { useTheme } from './lib/theme';
 import './lib/theme.css';
 import { Footer } from './components/footer';
@@ -79,6 +81,9 @@ function App() {
             <Route path="/profile/:username" element={<Profile />} />
             <Route path="/signin" element={<SignIn />} />
             <Route path="/signup" element={<SignUp />} />
+            <Route path="/signup" element={<SignUp />} />
+            <Route path="/forgot-password" element={<ForgotPassword />} />
+            <Route path="/reset-password" element={<ResetPassword />} />
           </Routes>
         </main>
         <Footer />

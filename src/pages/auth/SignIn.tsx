@@ -41,6 +41,7 @@ export function SignIn() {
       setLoading(false);
     }
   };
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
@@ -58,7 +59,7 @@ export function SignIn() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center py-8 px-4 sm:px-6 lg:px-8 bg-[var(--bg-primary)] border-b border-[var(--border-color)]">
+    <div className="mt-[4rem] mb-[7rem] flex items-center justify-center py-8 px-4 sm:px-6 lg:px-8 bg-[var(--bg-primary)] border-b border-[var(--border-color)]">
       <div className="max-w-md w-full space-y-8">
         <div className="text-center mb-6">
           <img
@@ -74,7 +75,7 @@ export function SignIn() {
             Sign in to DevHub
           </h2>
           <p className="text-center text-sm text-[var(--text-secondary)]">
-            Or{' '}
+            or{' '}
             <Link
               to="/signup"
               className="font-medium text-[var(--accent)] hover:text-[var(--accent)]/90"
@@ -106,10 +107,20 @@ export function SignIn() {
             ))}
           </div>
 
+          {/* Forgot Password Link */}
+          <div className="text-right">
+            <Link
+              to="/forgot-password"
+              className="text-sm font-medium text-[var(--accent)] hover:text-[var(--accent)]/90"
+            >
+              Forgot Password?
+            </Link>
+          </div>
+
           <button
             type="submit"
             disabled={loading}
-            className="w-full flex justify-center py-2 px-4 bg-[var(--accent)] text-[var(--bg-primary)] rounded hover:bg-[var(--accent)]/90"
+            className="w-full flex items-center justify-center py-2 px-4 bg-[var(--accent)] text-[var(--bg-primary)] rounded hover:bg-[var(--accent)]/90"
           >
             <Mail className="w-4 h-4 mr-2" />
             Sign in with Email
@@ -117,10 +128,10 @@ export function SignIn() {
         </form>
 
         <div className="mt-6 text-center">
-          <p className="text-[var(--text-secondary)]">Or continue with</p>
+          <p className="text-[var(--text-secondary)]">or continue with</p>
           <button
             onClick={handleGithubSignIn}
-            className="mt-4 w-full flex justify-center py-2 px-4 border border-[var(--border-color)] rounded text-[var(--text-primary)] bg-[var(--bg-secondary)] hover:bg-[var(--bg-secondary)]/90"
+            className="mt-4 w-full flex items-center justify-center py-2 px-4 border border-[var(--border-color)] rounded text-[var(--text-primary)] bg-[var(--bg-secondary)] hover:bg-[var(--bg-secondary)]/90"
           >
             <Github className="w-4 h-4 mr-2" />
             Sign up with GitHub

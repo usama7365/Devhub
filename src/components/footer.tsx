@@ -4,19 +4,26 @@ import { Github, Twitter, Linkedin, Mail, Heart } from 'lucide-react';
 import LOGO from '../assets/images/logo-dark.png';
 
 export function Footer() {
+
+  const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+  const today = new Date().getDay();
+
   return (
     <footer className="bg-[var(--bg-secondary)] border-t border-[var(--border-color)]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-          <div className="col-span-1 md:col-span-2">
-            <Link to="/" className="flex items-center">
+        <div className="grid grid-cols-1 gap-8 sm:grid-cols-4">
+          <div className="col-span-1 sm:col-span-2 text-center sm:text-left">
+            <Link
+              to="/"
+              className="inline-flex sm:flex items-center justify-center sm:justify-start"
+            >
               <img src={LOGO} alt="DevHub Logo" style={{ height: '5.5rem' }} />
             </Link>
             <p className="mt-4 text-[var(--text-secondary)]">
               A community platform for developers to share knowledge, discuss
               ideas, and grow together.
             </p>
-            <div className="mt-6 flex space-x-4">
+            <div className="mt-6 flex space-x-4 justify-center sm:justify-start">
               <a
                 href="https://github.com"
                 className="text-[var(--text-secondary)] hover:text-[var(--accent)]"
@@ -38,7 +45,7 @@ export function Footer() {
             </div>
           </div>
 
-          <div>
+          <div className="text-center sm:text-left">
             <h3 className="text-sm font-semibold text-[var(--text-primary)] uppercase tracking-wider">
               Resources
             </h3>
@@ -78,7 +85,7 @@ export function Footer() {
             </ul>
           </div>
 
-          <div>
+          <div className="text-center sm:text-left">
             <h3 className="text-sm font-semibold text-[var(--text-primary)] uppercase tracking-wider">
               Contact
             </h3>
@@ -86,7 +93,7 @@ export function Footer() {
               <li>
                 <a
                   href="mailto:support@devhub.com"
-                  className="text-[var(--text-secondary)] hover:text-[var(--accent)] flex items-center"
+                  className="text-[var(--text-secondary)] hover:text-[var(--accent)] inline-flex items-center justify-center sm:justify-start"
                 >
                   <Mail className="w-4 h-4 mr-2" />
                   support@devhub.com
@@ -103,12 +110,15 @@ export function Footer() {
             </ul>
           </div>
         </div>
-
         <div className="mt-8 pt-8 border-t border-[var(--border-color)]">
-          <p className="text-center text-[var(--text-secondary)] flex items-center justify-center">
-            Made with <Heart className="w-4 h-4 mx-1 text-red-500" /> by DevHub
-            Team
-          </p>
+          <div className="flex flex-col md:flex-row items-center justify-center gap-2">
+            <p className="text-center text-[var(--text-secondary)] flex items-center">
+              Made with <Heart className="w-4 h-4 mx-1 text-red-500" /> by DevHub Team ||
+            </p>
+            <p className="text-center text-[var(--text-secondary)]">
+              Have a nice <span className="text-cyan-700">{days[today]}!</span>
+            </p>
+          </div>
         </div>
       </div>
     </footer>

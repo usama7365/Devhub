@@ -8,9 +8,9 @@
   --border-color: #cdd6e6;
   --card-bg: #ffffff;
   --box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Soft shadow */
-  --text-hover: #4B5563; /* Light background hover effect */
+  --text-hover: #4b5563; /* Light background hover effect */
+  --shadow-color: rgba(96, 90, 232, 0.25);
 }
-
 
 /* Dark theme */
 .theme-dark {
@@ -22,6 +22,7 @@
   --border-color: #374151;
   --card-bg: #2d3748;
   --box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Stronger shadow */
+  --shadow-color: rgba(56, 189, 248, 0.25);
 }
 
 /* Sepia theme */
@@ -34,6 +35,7 @@
   --border-color: #d1c4a1;
   --card-bg: #f4e1a1;
   --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15); /* Medium shadow */
+  --shadow-color: rgba(180, 83, 9, 0.2);
 }
 
 /* Nord theme */
@@ -46,6 +48,7 @@
   --border-color: #4c566a;
   --card-bg: #3b4252;
   --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25); /* Deep shadow */
+  --shadow-color: rgba(136, 192, 208, 0.25);
 }
 
 /* Dracula theme */
@@ -58,6 +61,7 @@
   --border-color: #6272a4;
   --card-bg: #44475a;
   --box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4); /* Strong glow */
+  --shadow-color: rgba(189, 147, 249, 0.6);
 }
 
 /* Apply theme variables globally */
@@ -69,9 +73,6 @@
 body {
   background-color: var(--bg-secondary);
 }
-
-
-
 
 /* ReactQuill Toolbar Custom Styling */
 .ql-toolbar {
@@ -101,7 +102,6 @@ body {
   color: var(--text-primary) !important;
 }
 
-
 /* Fix Quill Toolbar Icons */
 .ql-toolbar button svg {
   fill: var(--text-secondary) !important; /* Default icon color */
@@ -114,19 +114,15 @@ body {
   stroke: var(--text-primary) !important;
 }
 
-
 .ql-snow .ql-stroke {
   /* fill: var(--text-primary) !important; Active & hover icon color */
   stroke: var(--text-primary) !important;
 }
 
 .ql-toolbar.ql-snow .ql-picker.ql-expanded .ql-picker-options {
-
   background: var(--bg-secondary) !important;
   color: var(--text-primary) !important;
   border-color: var(--border-color) !important;
-
-
 }
 
 /* .ql-container.ql-snow {

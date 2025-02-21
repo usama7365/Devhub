@@ -8,7 +8,7 @@ export default [
   {
     ignores: ['dist', 'node_modules'],
   },
-  
+
   {
     files: ['**/*.{ts,tsx}'],
     languageOptions: {
@@ -22,9 +22,9 @@ export default [
     },
     plugins: {
       '@typescript-eslint': tseslint.plugin,
-      'react': react,
+      react: react,
       'react-hooks': reactHooks,
-      'prettier': prettier,
+      prettier: prettier,
     },
     rules: {
       ...tseslint.configs.recommended.rules,
@@ -34,9 +34,8 @@ export default [
     },
     settings: {
       react: {
-        version: "detect"
-      }
-    }
+        version: 'detect',
+      },
+    },
   },
-  
 ];

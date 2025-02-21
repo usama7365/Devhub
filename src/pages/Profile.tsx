@@ -1,9 +1,69 @@
 import React, { useMemo } from 'react';
 import { useParams } from 'react-router-dom';
-import { Github, Mail, Calendar } from 'lucide-react';
+import { Award, Star, Trophy, Target, Zap, Heart } from 'lucide-react';
 import { dummyUsers, dummyPosts } from '../lib/dummy-data';
-import { PostCard } from '../components/PostCard';
-import { User, Post } from '../types';
+import ProfileHeader from '../components/UserProfile/ProfileHeader';
+import ContactInfo from '../components/UserProfile/ContactInfo';
+import AdditionalInfo from '../components/UserProfile/AdditionalInfo';
+import RecentActivity from '../components/UserProfile/RecentActivity';
+import StatCard from '../components/UserProfile/StatCard';
+import Achievements from '../components/UserProfile/Achievements';
+import Badges from '../components/UserProfile/Badges';
+
+const dummyAchievements = [
+  {
+    id: '1',
+    name: 'Bug Hunter',
+    description: 'Fixed 10 bugs',
+    category: 'bugs',
+    icon: '🔍',
+    earned_at: '2024-02-01T00:00:00Z',
+  },
+  {
+    id: '2',
+    name: 'Prolific Writer',
+    description: 'Published 10 blog posts',
+    category: 'blogs',
+    icon: '✍️',
+    earned_at: '2024-02-15T00:00:00Z',
+  },
+];
+
+const dummyBadges = [
+  {
+    id: '1',
+    name: 'Bug Fixer Silver',
+    description: 'Fixed 25 bugs',
+    category: 'bugs',
+    level: 'silver',
+    icon: '🥈',
+    current_count: 27,
+    requirement_count: 30,
+    earned_at: '2024-02-10T00:00:00Z',
+  },
+  {
+    id: '2',
+    name: 'Content Creator Gold',
+    description: 'Created 50 pieces of content',
+    category: 'content',
+    level: 'gold',
+    icon: '🥇',
+    current_count: 52,
+    requirement_count: 60,
+    earned_at: '2024-02-20T00:00:00Z',
+  },
+];
+
+const dummyStats = {
+  bugs_resolved: 27,
+  blogs_written: 15,
+  discussions_started: 32,
+  discussions_participated: 84,
+  kb_articles_written: 8,
+  total_upvotes_received: 156,
+  contribution_streak: 7,
+  level: 3,
+};
 
 const useUserData = (username: string | undefined) => {
   return useMemo(() => {
@@ -19,73 +79,6 @@ const useUserPosts = (userId: string | undefined) => {
   }, [userId]);
 };
 
-const ProfileHeader: React.FC<{ user: User }> = ({ user }) => (
-  <div className="relative">
-    <div className="absolute -top-16">
-      <img
-        src={user.avatar_url}
-        alt={user.username}
-        className="w-24 h-24 sm:w-32 sm:h-32 rounded-full border-4 border-[var(--bg-primary)]"
-      />
-    </div>
-    <div className="ml-28 sm:ml-36 pt-4">
-      <h1 className="text-2xl sm:text-3xl font-bold text-[var(--text-primary)]">
-        {user.username}
-      </h1>
-      <p className="text-[var(--text-secondary)] mt-1">{user.bio}</p>
-    </div>
-  </div>
-);
-
-const ContactInfo: React.FC<{ user: User }> = ({ user }) => (
-  <div className="space-y-4">
-    <div className="flex items-center text-[var(--text-secondary)]">
-      <Mail className="w-5 h-5 mr-2" />
-      {user.email}
-    </div>
-    {user.github_username && (
-      <div className="flex items-center text-[var(--text-secondary)]">
-        <Github className="w-5 h-5 mr-2" />
-        <a
-          href={`https://github.com/${user.github_username}`}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="hover:text-[var(--accent)]"
-        >
-          {user.github_username}
-        </a>
-      </div>
-    )}
-  </div>
-);
-
-const AdditionalInfo: React.FC<{ user: User }> = ({ user }) => (
-  <div className="space-y-4">
-    <div className="flex items-center text-[var(--text-secondary)]">
-      <Calendar className="w-5 h-5 mr-2" />
-      Joined {new Date(user.created_at).toLocaleDateString()}
-    </div>
-  </div>
-);
-
-const RecentActivity: React.FC<{ posts: Post[] }> = ({ posts }) => (
-  <div className="mt-12 p-6">
-    <h2 className="text-2xl font-bold text-[var(--text-primary)] mb-6">
-      Recent Activity
-    </h2>
-    <div className="space-y-6 rounded-lg shadow-lg shadow-cyan-500/60">
-      {posts.map((post) => (
-        <PostCard key={post.id} post={post} />
-      ))}
-      {posts.length === 0 && (
-        <p className="text-[var(--text-secondary)] text-center py-8">
-          No activity yet
-        </p>
-      )}
-    </div>
-  </div>
-);
-
 export function Profile() {
   const { username } = useParams<{ username: string }>();
   const user = useUserData(username);
@@ -96,16 +89,60 @@ export function Profile() {
   }
 
   return (
-    <div className="max-w-7xl py-8 px-4 sm:px-6 lg:px-8 bg-[var(--bg-primary)] text-[var(--text-primary)] flex-1 w-full border border-[var(--bg-primary)]">
+    <div className="max-w-7xl py-8 px-4 sm:px-6 lg:px-8 bg-[var(--bg-primary)] text-[var(--text-primary)] flex-1 w-full">
       <div className="max-w-5xl mx-auto">
-        <div className="bg-[var(--card-bg)] shadow rounded-lg">
-          <div className="h-32 bg-cyan-600 rounded-t-lg"></div>
+        <div className="bg-[var(--card-bg)] rounded-lg">
+          <div className="h-32 bg-[var(--accent)] rounded-t-lg opacity-90"></div>
           <div className="px-4 sm:px-6 lg:px-8 pb-8">
             <ProfileHeader user={user} />
-            <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-6">
               <ContactInfo user={user} />
               <AdditionalInfo user={user} />
             </div>
+            {/* Contribution Stats */}
+            <h2 className="text-xl font-bold text-[var(--text-primary)] mb-0 mt-5">
+              Contributions
+            </h2>
+            <div className="mt-8 w-full grid grid-cols-1 md:grid-cols-3 gap-6">
+              <StatCard
+                icon={<Trophy className="w-6 h-6" />}
+                label="Content Creator"
+                value={dummyStats.level}
+              />
+              <StatCard
+                icon={<Heart className="w-6 h-6" />}
+                label="Likes"
+                value={dummyStats.total_upvotes_received}
+              />
+              <StatCard
+                icon={<Target className="w-6 h-6" />}
+                label="Bugs Resolved"
+                value={dummyStats.bugs_resolved}
+              />
+              <StatCard
+                icon={<Award className="w-6 h-6" />}
+                label="Blog Posts"
+                value={dummyStats.blogs_written}
+              />
+              <StatCard
+                icon={<Star className="w-6 h-6" />}
+                label="Discussions"
+                value={dummyStats.discussions_started}
+              />
+              <StatCard
+                icon={<Zap className="w-6 h-6" />}
+                label="Contribution Streak"
+                value={`${dummyStats.contribution_streak} days`}
+              />
+            </div>
+            {/* Achievements */}
+            <div className="mt-8 w-full">
+              <Achievements achievements={dummyAchievements} />
+            </div>{' '}
+            {/* Badges */}
+            <div className="mt-8 w-full">
+              <Badges badges={dummyBadges} />
+            </div>{' '}
             <RecentActivity posts={userPosts} />
           </div>
         </div>
@@ -113,3 +150,4 @@ export function Profile() {
     </div>
   );
 }
+export default Profile;
