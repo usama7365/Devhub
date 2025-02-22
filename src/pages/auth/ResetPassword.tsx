@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Eye, EyeOff } from 'lucide-react'; // Import eye icons
 import { supabase } from '../../lib/supabase';
 import LOGO from '../../assets/images/logo-dark.png';
-
+import { Button } from '../../components/Button';
 export function ResetPassword() {
   const navigate = useNavigate();
   const [password, setPassword] = useState('');
@@ -158,13 +158,16 @@ export function ResetPassword() {
             )}
           </div>
 
-          <button
-            type="submit"
-            disabled={loading || !!passwordError} // Disable if passwords don't match
-            className="w-full flex justify-center py-2 px-4 bg-[var(--accent)] text-[var(--bg-primary)] rounded hover:bg-[var(--accent)]/90 disabled:opacity-50"
-          >
-            Reset Password
-          </button>
+          <Button
+  variant="solid"
+  type="submit"
+  fullWidth
+  isLoading={loading}
+  disabled={loading || !!passwordError} // Disable if loading or passwords don't match
+>
+  Reset Password
+</Button>
+
         </form>
       </div>
     </div>
