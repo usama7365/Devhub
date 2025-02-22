@@ -107,8 +107,8 @@ function Home() {
         <div className="flex justify-center gap-4">
         <Button
     href="/signup"
-    variant="primary"
-    size="lg"
+    variant="solid"
+   
     withArrow
     className="hover:shadow-lg hover:shadow-[var(--shadow-color)] hover:scale-[1.02] transform transition-transform duration-300"
   >
@@ -116,8 +116,8 @@ function Home() {
   </Button>
           <Button
     href="/knowledge-base"
-    variant="secondary"
-    size="lg"
+    variant="soft"
+  
     leftIcon={BookOpen}
     className="transform-none hover:shadow-none"
   >
@@ -219,8 +219,7 @@ function Home() {
         </p>
         <Button
   href="/signup"
-  variant="accent"
-  size="xl"
+  variant="brand"
   withArrow
   className="hover:shadow-lg hover:shadow-[var(--shadow-color)]"
 >
