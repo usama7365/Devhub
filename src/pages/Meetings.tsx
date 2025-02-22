@@ -102,9 +102,14 @@ const MeetingCard: React.FC<MeetingCardProps> = React.memo(
             </div>
           </div>
 
-          <Button variant="brand" fullWidth leftIcon={Video} onClick={() => onJoin(meeting.room_id)}>
-  Join Meeting
-</Button> 
+          <Button
+            variant="brand"
+            fullWidth
+            leftIcon={Video}
+            onClick={() => onJoin(meeting.room_id)}
+          >
+            Join Meeting
+          </Button>
         </div>
       </div>
     );
@@ -274,9 +279,9 @@ export function Meetings() {
             Plan ahead and schedule meetings with your team. Send automatic
             invitations and reminders.
           </p>
-          <Button variant="accent" leftIcon={Calendar} href="/meetings/schedule">
-  Schedule Now
-</Button>
+          <Button variant="brand" leftIcon={Calendar} href="/meetings/schedule">
+            Schedule Now
+          </Button>
         </div>
       </section>
       {/* Features Grid */}

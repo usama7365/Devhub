@@ -4,8 +4,15 @@ import { Github, Twitter, Linkedin, Mail, Heart } from 'lucide-react';
 import LOGO from '../assets/images/logo-dark.png';
 
 export function Footer() {
-
-  const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+  const days = [
+    'Sunday',
+    'Monday',
+    'Tuesday',
+    'Wednesday',
+    'Thursday',
+    'Friday',
+    'Saturday',
+  ];
   const today = new Date().getDay();
 
   return (
@@ -113,7 +120,8 @@ export function Footer() {
         <div className="mt-8 pt-8 border-t border-[var(--border-color)]">
           <div className="flex flex-col md:flex-row items-center justify-center gap-2">
             <p className="text-center text-[var(--text-secondary)] flex items-center">
-              Made with <Heart className="w-4 h-4 mx-1 text-red-500" /> by DevHub Team ||
+              Made with <Heart className="w-4 h-4 mx-1 text-red-500" /> by
+              DevHub Team ||
             </p>
             <p className="text-center text-[var(--text-secondary)]">
               Have a nice <span className="text-cyan-700">{days[today]}!</span>

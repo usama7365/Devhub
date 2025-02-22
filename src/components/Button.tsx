@@ -4,10 +4,18 @@ import type { LucideIcon } from 'lucide-react';
 import { Loader2, ArrowRight } from 'lucide-react';
 import { buttonUtils } from '../utils/buttonUtils';
 
-type ButtonVariant = 'solid' | 'soft' | 'outlined' | 'subtle' | 'brand' | 'social' | 'link';
+type ButtonVariant =
+  | 'solid'
+  | 'soft'
+  | 'outlined'
+  | 'subtle'
+  | 'brand'
+  | 'social'
+  | 'link';
 
-export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: ButtonVariant;
+export interface ButtonProps
+  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  variant?: ButtonVariant; // defines custom styling for buttons(hover, border etc)
   href?: string;
   isExternal?: boolean;
   isLoading?: boolean;
@@ -22,15 +30,20 @@ const styles = {
   base: buttonUtils(
     'inline-flex items-center justify-center font-medium rounded-md transition-all duration-300',
     'disabled:opacity-50 disabled:cursor-not-allowed group whitespace-nowrap',
-    'px-4 py-2 text-base' // 👈 Default Tailwind button sizing
+    'px-4 py-2 text-base' // Default Tailwind button sizing
   ),
   variant: {
-    solid: 'bg-[var(--accent)] text-[var(--bg-primary)] hover:opacity-95 border border-transparent hover:scale-[1.02] hover:shadow-lg hover:shadow-[var(--shadow-color)]/20 active:scale-[0.98] transform transition-all duration-300',
+    solid:
+      'bg-[var(--accent)] text-[var(--bg-primary)] hover:opacity-95 border border-transparent hover:scale-[1.02] hover:shadow-lg hover:shadow-[var(--shadow-color)]/20 active:scale-[0.98] transform transition-all duration-300',
     soft: 'bg-[var(--bg-secondary)] text-[var(--text-primary)] hover:bg-opacity-90 border border-transparent hover:shadow-md hover:shadow-[var(--shadow-color)]/10 active:scale-[0.98] transform transition-all duration-300',
-    outlined: 'border border-[var(--accent)] text-[var(--accent)] hover:bg-[var(--accent)]/10 hover:border-[var(--accent)] hover:shadow-md hover:shadow-[var(--shadow-color)]/10 active:scale-[0.98] transform transition-all duration-300',
-    subtle: 'text-[var(--text-primary)] hover:bg-[var(--bg-secondary)]/80 border border-transparent hover:shadow-sm active:scale-[0.98] transform transition-all duration-300',
-    brand: 'bg-[var(--accent)] text-[var(--bg-primary)] hover:bg-[var(--accent)]/90 border border-transparent hover:scale-[1.02] hover:shadow-lg hover:shadow-[var(--shadow-color)]/20 active:scale-[0.98] transform transition-all duration-300',
-    social: 'border border-[var(--border-color)] text-[var(--text-primary)] bg-[var(--bg-secondary)] hover:bg-[var(--bg-secondary)]/90 hover:border-[var(--text-secondary)] hover:shadow-md hover:shadow-[var(--shadow-color)]/10 active:scale-[0.98] transform transition-all duration-300',
+    outlined:
+      'border border-[var(--accent)] text-[var(--accent)] hover:bg-[var(--accent)]/10 hover:border-[var(--accent)] hover:shadow-md hover:shadow-[var(--shadow-color)]/10 active:scale-[0.98] transform transition-all duration-300',
+    subtle:
+      'text-[var(--text-primary)] hover:bg-[var(--bg-secondary)]/80 border border-transparent hover:shadow-sm active:scale-[0.98] transform transition-all duration-300',
+    brand:
+      'bg-[var(--accent)] text-[var(--bg-primary)] hover:bg-[var(--accent)]/90 border border-transparent hover:scale-[1.02] hover:shadow-lg hover:shadow-[var(--shadow-color)]/20 active:scale-[0.98] transform transition-all duration-300',
+    social:
+      'border border-[var(--border-color)] text-[var(--text-primary)] bg-[var(--bg-secondary)] hover:bg-[var(--bg-secondary)]/90 hover:border-[var(--text-secondary)] hover:shadow-md hover:shadow-[var(--shadow-color)]/10 active:scale-[0.98] transform transition-all duration-300',
     link: 'font-medium text-[var(--accent)] hover:text-[var(--accent)]/90 p-0 hover:underline decoration-2 underline-offset-4 transition-all duration-300',
   },
   icon: {
@@ -67,29 +80,49 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       className
     );
 
-    const iconClasses = (isLeft: boolean) => buttonUtils(
-      styles.icon.base,
-      isLeft ? styles.icon.spacing.left : styles.icon.spacing.right
-    );
+    const iconClasses = (isLeft: boolean) =>
+      buttonUtils(
+        styles.icon.base,
+        isLeft ? styles.icon.spacing.left : styles.icon.spacing.right
+      );
 
     const content = (
       <>
         {isLoading ? (
-          <Loader2 className={buttonUtils('animate-spin flex-shrink-0', styles.icon.spacing.left)} />
+          <Loader2
+            className={buttonUtils(
+              'animate-spin flex-shrink-0',
+              styles.icon.spacing.left
+            )}
+          />
         ) : (
           LeftIcon && <LeftIcon className={iconClasses(true)} />
         )}
         <span className="relative inline-block">
           {children}
-          {withArrow && <ArrowRight className={buttonUtils('inline-block transition-transform duration-300 group-hover:translate-x-1 flex-shrink-0', styles.icon.spacing.right)} />}
+          {withArrow && (
+            <ArrowRight
+              className={buttonUtils(
+                'inline-block transition-transform duration-300 group-hover:translate-x-1 flex-shrink-0',
+                styles.icon.spacing.right
+              )}
+            />
+          )}
         </span>
-        {!isLoading && RightIcon && <RightIcon className={iconClasses(false)} />}
+        {!isLoading && RightIcon && (
+          <RightIcon className={iconClasses(false)} />
+        )}
       </>
     );
 
     return href ? (
       isExternal ? (
-        <a href={href} className={buttonClasses} target="_blank" rel="noopener noreferrer">
+        <a
+          href={href}
+          className={buttonClasses}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           {content}
         </a>
       ) : (
@@ -98,7 +131,12 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         </Link>
       )
     ) : (
-      <button ref={ref} className={buttonClasses} disabled={isLoading || disabled} {...props}>
+      <button
+        ref={ref}
+        className={buttonClasses}
+        disabled={isLoading || disabled}
+        {...props}
+      >
         {content}
       </button>
     );
@@ -106,11 +144,6 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 );
 
 Button.displayName = 'Button';
-
-
-
-
-
 
 // import React from 'react';
 // import { Link } from 'react-router-dom';

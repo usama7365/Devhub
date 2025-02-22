@@ -76,14 +76,14 @@ export function ForgotPassword() {
           </div>
 
           <Button
-  variant="brand"
-  leftIcon={Mail}
-  type="submit"
-  isLoading={loading}
-  disabled={loading}
->
-  Send Reset Link
-</Button>
+            variant="brand"
+            leftIcon={Mail}
+            type="submit"
+            isLoading={loading}
+            disabled={loading}
+          >
+            Send Reset Link
+          </Button>
         </form>
 
         <div className="mt-6 text-center">

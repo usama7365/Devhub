@@ -77,13 +77,9 @@ export function BugReports() {
             Report and track bugs, get help from the community
           </p>
         </div>
-        <Button
-  variant="brand"
-  href="/bug-reports/new"
-  leftIcon={Bug}
->
-  Report Bug
-</Button>
+        <Button variant="brand" href="/bug-reports/new" leftIcon={Bug}>
+          Report Bug
+        </Button>
       </div>
 
       {/* Main Content */}

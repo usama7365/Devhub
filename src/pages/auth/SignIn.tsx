@@ -116,28 +116,27 @@ export function SignIn() {
               Forgot Password?
             </Link>
           </div>
-
-          <Button 
-  variant="brand" 
-  leftIcon={Mail}
-  isLoading={loading}
-  type="submit"
-  fullWidth
->
-  Sign in with Email
-</Button>
+          <Button
+            variant="brand"
+            leftIcon={Mail}
+            isLoading={loading}
+            type="submit"
+            fullWidth
+          >
+            Sign in with Email
+          </Button>
         </form>
 
         <div className="mt-6 text-center">
           <p className="text-[var(--text-secondary)]">or continue with</p>
-          <Button 
-          fullWidth
-  variant="social"
-  leftIcon={Github}
-  onClick={handleGithubSignIn}
->
-  Sign in with GitHub
-</Button>
+          <Button
+            fullWidth
+            variant="social"
+            leftIcon={Github}
+            onClick={handleGithubSignIn}
+          >
+            Sign in with GitHub
+          </Button>
         </div>
       </div>
     </div>

@@ -167,14 +167,9 @@ export function Blog() {
             Share your knowledge and experiences
           </p>
         </div>
-        <Button
-  variant="brand"
-  href="/blog/new"
-  leftIcon={Pencil}
-
->
-  Write Post
-</Button>
+        <Button variant="brand" href="/blog/new" leftIcon={Pencil}>
+          Write Post
+        </Button>
       </div>
 
       {/* Main Content */}

@@ -117,8 +117,8 @@ export function Discussions() {
           </p>
         </div>
         <Button variant="accent" leftIcon={MessageSquare}>
-  New Discussion
-</Button>
+          New Discussion
+        </Button>
       </div>
 
       {/* Main Content */}
