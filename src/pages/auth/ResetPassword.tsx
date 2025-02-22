@@ -159,15 +159,14 @@ export function ResetPassword() {
           </div>
 
           <Button
-  variant="solid"
-  type="submit"
-  fullWidth
-  isLoading={loading}
-  disabled={loading || !!passwordError} // Disable if loading or passwords don't match
->
-  Reset Password
-</Button>
-
+            variant="solid"
+            type="submit"
+            fullWidth
+            isLoading={loading}
+            disabled={loading || !!passwordError} // Disable if loading or passwords don't match
+          >
+            Reset Password
+          </Button>
         </form>
       </div>
     </div>
