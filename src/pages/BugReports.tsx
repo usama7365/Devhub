@@ -3,7 +3,7 @@ import { Bug, Search, Filter } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { dummyBugReports } from '../lib/dummy-data';
 import { BugReportCard } from '../components/BugReportCard';
-
+import { Button } from '../components/Button';
 export function BugReports() {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
@@ -77,13 +77,9 @@ export function BugReports() {
             Report and track bugs, get help from the community
           </p>
         </div>
-        <Link
-          to="/bug-reports/new"
-          className="btn bg-[var(--accent)] text-[var(--bg-primary)] dark:bg-[var(--accent)] dark:text-[var(--bg-primary)] hover:bg-[var(--accent)]"
-        >
-          <Bug className="w-4 h-4 mr-2" />
+        <Button variant="brand" href="/bug-reports/new" leftIcon={Bug}>
           Report Bug
-        </Link>
+        </Button>
       </div>
 
       {/* Main Content */}

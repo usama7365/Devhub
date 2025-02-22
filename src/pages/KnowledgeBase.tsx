@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { Book, Search, Tag, Eye, Calendar } from 'lucide-react';
 import { dummyArticles } from '../lib/dummy-data';
 import { formatDistanceToNow } from 'date-fns';
-
+import { Button } from '../components/Button';
 interface Article {
   id: string;
   title: string;
@@ -128,13 +128,9 @@ export function KnowledgeBase() {
             practices.
           </p>
         </div>
-        <Link
-          to="/knowledge-base/new"
-          className="btn bg-[var(--accent)] text-[var(--bg-primary)] dark:bg-[var(--accent)] dark:text-[var(--bg-primary)] hover:bg-[var(--accent)]"
-        >
-          <Book className="w-4 h-4 mr-2" />
+        <Button variant="brand" href="/knowledge-base/new" leftIcon={Book}>
           Write Article
-        </Link>
+        </Button>
       </div>
 
       {/* Main Content */}

@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { Mail } from 'lucide-react';
 import { supabase } from '../../lib/supabase';
 import LOGO from '../../assets/images/logo-dark.png';
-
+import { Button } from '../../components/Button';
 export function ForgotPassword() {
   const [email, setEmail] = useState('');
   const [loading, setLoading] = useState(false);
@@ -75,14 +75,15 @@ export function ForgotPassword() {
             />
           </div>
 
-          <button
+          <Button
+            variant="brand"
+            leftIcon={Mail}
             type="submit"
+            isLoading={loading}
             disabled={loading}
-            className="w-full flex items-center justify-center py-2 px-4 bg-[var(--accent)] text-[var(--bg-primary)] rounded hover:bg-[var(--accent)]/90"
           >
-            <Mail className="w-4 h-4 mr-2" />
             Send Reset Link
-          </button>
+          </Button>
         </form>
 
         <div className="mt-6 text-center">

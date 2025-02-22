@@ -27,7 +27,7 @@ import { CodeEditor } from './pages/CodeEditor';
 import { Notifications } from './pages/Notifications';
 import { BugReportCreate } from './pages/BugReportCreate';
 import 'react-quill/dist/quill.snow.css';
-
+import { Button } from './components/Button';
 function App() {
   const { theme } = useTheme();
 
@@ -105,12 +105,12 @@ function Home() {
           knowledge, and grow together.
         </p>
         <div className="flex justify-center gap-4">
-          <Link to="/signup" className="btn">
+          <Button href="/signup" variant="solid" withArrow>
             Join Community
-          </Link>
-          <Link to="/knowledge-base" className="btn-secondary">
+          </Button>
+          <Button href="/knowledge-base" variant="soft" leftIcon={BookOpen}>
             Explore Resources
-          </Link>
+          </Button>
         </div>
       </section>
 
@@ -205,12 +205,9 @@ function Home() {
           Start collaborating with developers from around the world. Join our
           community today!
         </p>
-        <Link
-          to="/signup"
-          className="inline-flex items-center px-6 py-3 border border-transparent text-lg font-medium rounded-md bg-[var(--accent)] text-[var(--bg-primary)] dark:bg-[var(--accent)] dark:text-[var(--bg-primary)] "
-        >
+        <Button href="/signup" variant="brand" withArrow>
           Get Started
-        </Link>
+        </Button>
       </section>
     </div>
   );

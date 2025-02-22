@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { MeetingRoom } from '../components/MeetingRoom';
+import { Button } from '../components/Button';
 import {
   Video,
   Users,
@@ -10,7 +11,6 @@ import {
   Clock,
   Monitor,
 } from 'lucide-react';
-import { Link } from 'react-router-dom';
 import { supabase } from '../lib/supabase';
 import { format, parseISO } from 'date-fns';
 import { dummyMeeting } from '../lib/dummy-data';
@@ -72,7 +72,7 @@ interface MeetingCardProps {
 const MeetingCard: React.FC<MeetingCardProps> = React.memo(
   ({ meeting, onJoin }) => {
     return (
-      <div className="bg-[var(--bg-primary)] text-[var(--text-primary)] bg-[var(--card-bg)] rounded-2xl shadow-md hover:shadow-lg transition-shadow duration-300 overflow-hidden">
+      <div className=" text-[var(--text-primary)] bg-[var(--card-bg)] rounded-2xl shadow-md hover:shadow-lg transition-shadow duration-300 overflow-hidden">
         <div className="p-6">
           <h3 className="text-xl font-semibold mb-2">{meeting.title}</h3>
           <p className="mb-4">{meeting.description}</p>
@@ -102,13 +102,14 @@ const MeetingCard: React.FC<MeetingCardProps> = React.memo(
             </div>
           </div>
 
-          <button
+          <Button
+            variant="brand"
+            fullWidth
+            leftIcon={Video}
             onClick={() => onJoin(meeting.room_id)}
-            className="w-full flex items-center justify-center gap-2 py-2 px-4 bg-[var(--accent)] text-[var(--bg-primary)] dark:bg-[var(--accent)] dark:text-[var(--bg-primary)] transition-all duration-300 rounded-lg text-sm font-medium"
           >
-            <Video className="w-4 h-4" />
             Join Meeting
-          </button>
+          </Button>
         </div>
       </div>
     );
@@ -125,7 +126,7 @@ function FeatureCard({
   description: string;
 }) {
   return (
-    <div className="bg-[var(--bg-primary)] text-[var(--text-primary)] bg-[var(--card-bg)] rounded-lg shadow-sm p-6 text-center">
+    <div className=" text-[var(--text-primary)] bg-[var(--card-bg)] rounded-lg shadow-sm p-6 text-center">
       <div className="flex justify-center mb-4 text-[var(--accent)] ">
         {icon}
       </div>
@@ -278,12 +279,9 @@ export function Meetings() {
             Plan ahead and schedule meetings with your team. Send automatic
             invitations and reminders.
           </p>
-          <Link to="/meetings/schedule">
-            <button className="btn  bg-[var(--accent)] text-[var(--bg-primary)] dark:bg-[var(--accent)] dark:text-[var(--bg-primary)] hover:bg-[var(--accent)]">
-              <Calendar className="w-4 h-4 mr-2 " />
-              Schedule Now
-            </button>
-          </Link>
+          <Button variant="brand" leftIcon={Calendar} href="/meetings/schedule">
+            Schedule Now
+          </Button>
         </div>
       </section>
       {/* Features Grid */}
