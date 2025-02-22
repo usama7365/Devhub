@@ -116,7 +116,9 @@ export function Discussions() {
             Join the conversation with fellow developers
           </p>
         </div>
-        <Button variant="brand" leftIcon={MessageSquare}>New Discussion</Button>
+        <Button variant="brand" leftIcon={MessageSquare}>
+          New Discussion
+        </Button>
       </div>
 
       {/* Main Content */}
