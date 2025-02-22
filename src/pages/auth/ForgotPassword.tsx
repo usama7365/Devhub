@@ -76,8 +76,7 @@ export function ForgotPassword() {
           </div>
 
           <Button
-  variant="accent"
-  size="full"
+  variant="brand"
   leftIcon={Mail}
   type="submit"
   isLoading={loading}

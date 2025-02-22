@@ -78,10 +78,9 @@ export function BugReports() {
           </p>
         </div>
         <Button
-  variant="accent"
+  variant="brand"
   href="/bug-reports/new"
   leftIcon={Bug}
-  size="md"
 >
   Report Bug
 </Button>

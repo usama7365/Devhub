@@ -129,10 +129,9 @@ export function KnowledgeBase() {
           </p>
         </div>
         <Button
-  variant="accent"
+  variant="brand"
   href="/knowledge-base/new"
   leftIcon={Book}
-  size="md"
 >
   Write Article
 </Button>

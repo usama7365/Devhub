@@ -102,9 +102,9 @@ const MeetingCard: React.FC<MeetingCardProps> = React.memo(
             </div>
           </div>
 
-          <Button variant="accent" size="full" leftIcon={Video} onClick={() => onJoin(meeting.room_id)}>
+          <Button variant="brand" fullWidth leftIcon={Video} onClick={() => onJoin(meeting.room_id)}>
   Join Meeting
-</Button>
+</Button> 
         </div>
       </div>
     );

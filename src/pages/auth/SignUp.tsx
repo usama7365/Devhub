@@ -108,14 +108,14 @@ export function SignUp() {
             ))}
           </div>
 
-          <Button type="submit" variant="accent" size="full" leftIcon={Mail} isLoading={loading}  >
+          <Button type="submit" fullWidth variant="brand" leftIcon={Mail} isLoading={loading}  >
   Sign up with Email
 </Button>
         </form>
 
         <div className="mt-6 text-center">
           <p className="text-[var(--text-secondary)]">or continue with</p>
-          <Button variant="github" fullWidth leftIcon={Github} onClick={handleGithubSignUp}>
+          <Button variant="social" fullWidth leftIcon={Github} onClick={handleGithubSignUp}>
   Sign up with GitHub
 </Button>
         </div>

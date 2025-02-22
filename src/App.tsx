@@ -105,24 +105,12 @@ function Home() {
           knowledge, and grow together.
         </p>
         <div className="flex justify-center gap-4">
-        <Button
-    href="/signup"
-    variant="solid"
-   
-    withArrow
-    className="hover:shadow-lg hover:shadow-[var(--shadow-color)] hover:scale-[1.02] transform transition-transform duration-300"
-  >
-    Join Community
-  </Button>
-          <Button
-    href="/knowledge-base"
-    variant="soft"
-  
-    leftIcon={BookOpen}
-    className="transform-none hover:shadow-none"
-  >
-    Explore Resources
-  </Button>
+          <Button href="/signup" variant="solid" withArrow>
+            Join Community
+          </Button>
+          <Button href="/knowledge-base" variant="soft" leftIcon={BookOpen}>
+            Explore Resources
+          </Button>
         </div>
       </section>
 
@@ -217,14 +205,9 @@ function Home() {
           Start collaborating with developers from around the world. Join our
           community today!
         </p>
-        <Button
-  href="/signup"
-  variant="brand"
-  withArrow
-  className="hover:shadow-lg hover:shadow-[var(--shadow-color)]"
->
-  Get Started
-</Button>
+        <Button href="/signup" variant="brand" withArrow>
+          Get Started
+        </Button>
       </section>
     </div>
   );

@@ -168,10 +168,10 @@ export function Blog() {
           </p>
         </div>
         <Button
-  variant="accent"
+  variant="brand"
   href="/blog/new"
   leftIcon={Pencil}
-  size="md"
+
 >
   Write Post
 </Button>

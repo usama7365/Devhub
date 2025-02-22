@@ -118,11 +118,11 @@ export function SignIn() {
           </div>
 
           <Button 
-  variant="accent" 
-  size="full" 
+  variant="brand" 
   leftIcon={Mail}
   isLoading={loading}
   type="submit"
+  fullWidth
 >
   Sign in with Email
 </Button>
@@ -131,8 +131,8 @@ export function SignIn() {
         <div className="mt-6 text-center">
           <p className="text-[var(--text-secondary)]">or continue with</p>
           <Button 
-  variant="github" 
-  size="full" 
+          fullWidth
+  variant="social"
   leftIcon={Github}
   onClick={handleGithubSignIn}
 >

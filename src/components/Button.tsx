@@ -63,7 +63,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     const buttonClasses = buttonUtils(
       styles.base,
       styles.variant[variant] || styles.variant.solid,
-      fullWidth && 'w-full', // 👈 Ensures full-width works dynamically
+      fullWidth && 'w-full', // Ensures full-width works dynamically
       className
     );
 
