@@ -7,17 +7,17 @@ import { formatDistanceToNow } from 'date-fns';
 
 export function Home() {
   return (
-    <div className="max-w-7xl space-y-24 py-12">
+    <div className="max-w-7xl mx-auto space-y-24 py-12 px-2 sm:px-6">
       {/* Hero Section */}
       <section className="text-center">
         <h1 className="text-5xl font-bold text-[var(--text-primary)] mb-6">
           Welcome to <span className="text-[var(--accent)]">DevHub</span>
         </h1>
-        <p className="text-xl text-[var(--text-secondary)] max-w-3xl mx-auto mb-8">
+        <p className="text-xl text-[var(--text-secondary)] max-w-3xl mx-auto mb-8 px-4">
           Join our thriving community of developers to collaborate, share
           knowledge, and grow together.
         </p>
-        <div className="flex justify-center gap-4">
+        <div className="flex flex-wrap justify-center gap-4 px-4">
           <Button href="/signup" variant="solid" withArrow>
             Join Community
           </Button>
@@ -28,7 +28,7 @@ export function Home() {
       </section>
 
       {/* Features Section */}
-      <section>
+      <section className="px-2">
         <h2 className="text-3xl font-bold text-center mb-12">
           Everything You Need
         </h2>
@@ -52,7 +52,7 @@ export function Home() {
       </section>
 
       {/* Latest Activity Section */}
-      <section>
+      <section className="px-2">
         <h2 className="text-3xl font-bold text-center mb-12">
           Latest Activity
         </h2>
@@ -101,7 +101,7 @@ export function Home() {
       </section>
 
       {/* Community Stats Section */}
-      <section className="text-center">
+      <section className="text-center px-2">
         <h2 className="text-3xl font-bold mb-12">Our Growing Community</h2>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
           <StatCard number="10K+" label="Developers" />
@@ -112,9 +112,9 @@ export function Home() {
       </section>
 
       {/* CTA Section */}
-      <section className="bg-[var(--card-bg)]  text-[var(--text-secondary)] -mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8 py-16 text-center">
-        <h2 className="text-3xl font-bold  mb-4">Ready to Join?</h2>
-        <p className=" mb-8 max-w-2xl mx-auto">
+      <section className="bg-[var(--card-bg)] text-[var(--text-secondary)] -mx-4 sm:-mx-6 lg:-mx-8 px-6 sm:px-8 lg:px-10 py-16 text-center">
+        <h2 className="text-3xl font-bold mb-4">Ready to Join?</h2>
+        <p className="mb-8 max-w-2xl mx-auto px-4">
           Start collaborating with developers from around the world. Join our
           community today!
         </p>
