@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Github, Twitter, Linkedin, Mail, Heart } from 'lucide-react';
-import LOGO from '../assets/images/logo-dark.png';
+import LOGO from '../assets/images/main-logo.svg';
 
 export function Footer() {
   const days = [
@@ -22,10 +22,15 @@ export function Footer() {
           <div className="col-span-1 sm:col-span-2 text-center sm:text-left">
             <Link
               to="/"
-              className="inline-flex sm:flex items-center justify-center sm:justify-start"
+              className="flex flex-col items-center justify-center sm:items-start sm:justify-start"
             >
-              <img src={LOGO} alt="DevHub Logo" style={{ height: '5.5rem' }} />
+              <img src={LOGO} alt="DevHub Logo" style={{ height: '4.5rem' }} />
+              <p className="text-2xl mt-1">
+                <span className="font-extrabold">DEV</span>
+                <span className="font-normal">HUB</span>
+              </p>
             </Link>
+
             <p className="mt-4 text-[var(--text-secondary)]">
               A community platform for developers to share knowledge, discuss
               ideas, and grow together.

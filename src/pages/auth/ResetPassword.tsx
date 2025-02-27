@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Eye, EyeOff } from 'lucide-react'; // Import eye icons
 import { supabase } from '../../lib/supabase';
-import LOGO from '../../assets/images/logo-dark.png';
+import LOGO from '../../assets/images/main-logo.svg';
 import { Button } from '../../components/Button';
 export function ResetPassword() {
   const navigate = useNavigate();
@@ -73,6 +73,10 @@ export function ResetPassword() {
             className="mx-auto"
             style={{ height: '8rem' }}
           />
+          <p className="text-4xl mt-1">
+            <span className="font-extrabold">DEV</span>
+            <span className="font-normal">HUB</span>
+          </p>
         </div>
 
         <div>
