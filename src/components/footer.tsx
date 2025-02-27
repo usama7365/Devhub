@@ -124,11 +124,13 @@ export function Footer() {
         </div>
         <div className="mt-8 pt-8 border-t border-[var(--border-color)]">
           <div className="flex flex-col md:flex-row items-center justify-center gap-2">
-            <p className="text-center text-[var(--text-secondary)] flex items-center">
-              Made with <Heart className="w-4 h-4 mx-1 text-red-500" /> by
-              DevHub Team{' '}
-              <span className="hidden sm:inline-block ml-2">||</span>
+            <p className="text-center text-[var(--text-secondary)] flex justify-center items-center gap-x-2 text-sm sm:text-base">
+              Made with
+              <Heart className="w-4 h-4 text-red-500" aria-label="love" />
+              by <span className="font-medium">DevHub Team</span>
+              <span className="hidden sm:inline-block text-gray-400">||</span>
             </p>
+
             <p className="text-center text-[var(--text-secondary)]">
               Have a nice <span className="text-cyan-700">{days[today]}!</span>
             </p>
