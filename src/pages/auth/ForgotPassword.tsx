@@ -82,6 +82,7 @@ export function ForgotPassword() {
           <Button
             variant="brand"
             leftIcon={Mail}
+            fullWidth
             type="submit"
             isLoading={loading}
             disabled={loading}

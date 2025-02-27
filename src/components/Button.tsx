@@ -30,7 +30,7 @@ const styles = {
   base: buttonUtils(
     'inline-flex items-center justify-center font-medium rounded-md transition-all duration-300',
     'disabled:opacity-50 disabled:cursor-not-allowed group whitespace-nowrap',
-    'px-4 py-2 text-base' // Default Tailwind button sizing
+    'px-4 py-2 text-base ' // Default Tailwind button sizing
   ),
   variant: {
     solid:

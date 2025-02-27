@@ -119,7 +119,7 @@ export function KnowledgeBase() {
     <div className="max-w-7xl py-8 px-4 sm:px-6 lg:px-8 text-[var(--text-primary)] flex-1 w-full border border-[var(--bg-primary)]">
       {/* Header Section */}
       <div className="flex flex-col sm:flex-row justify-between items-center mb-8">
-        <div className="mb-4 sm:mb-0">
+        <div className="mb-4 sm:mb-0 text-center sm:text-left">
           <h1 className="text-3xl font-bold text-[var(--text-primary)]">
             Knowledge Base
           </h1>

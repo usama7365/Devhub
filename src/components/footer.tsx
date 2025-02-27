@@ -126,7 +126,8 @@ export function Footer() {
           <div className="flex flex-col md:flex-row items-center justify-center gap-2">
             <p className="text-center text-[var(--text-secondary)] flex items-center">
               Made with <Heart className="w-4 h-4 mx-1 text-red-500" /> by
-              DevHub Team ||
+              DevHub Team{' '}
+              <span className="hidden sm:inline-block ml-2">||</span>
             </p>
             <p className="text-center text-[var(--text-secondary)]">
               Have a nice <span className="text-cyan-700">{days[today]}!</span>
