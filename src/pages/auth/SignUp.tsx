@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Github, Mail } from 'lucide-react';
 import { supabase } from '../../lib/supabase';
-import LOGO from '../../assets/images/logo-dark.png';
+import LOGO from '../../assets/images/main-logo.svg';
 import { Button } from '../../components/Button';
 export function SignUp() {
   const navigate = useNavigate();
@@ -69,6 +69,10 @@ export function SignUp() {
             className="mx-auto"
             style={{ height: '8rem' }}
           />
+          <p className="text-4xl mt-1">
+            <span className="font-extrabold">DEV</span>
+            <span className="font-normal">HUB</span>
+          </p>
         </div>
 
         <div>

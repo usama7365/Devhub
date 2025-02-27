@@ -12,7 +12,7 @@ import {
   Bell,
 } from 'lucide-react';
 import { ThemeToggle } from './ThemeToggle';
-import LOGO from '../assets/images/logo-dark.png';
+import LOGO from '../assets/images/main-logo.svg';
 
 interface NavLinkProps {
   to: string;
@@ -75,17 +75,21 @@ const MobileMenu: React.FC<{
           isOpen ? 'translate-x-0' : '-translate-x-full'
         }`}
       >
-        <div className="px-4 pt-5 pb-3 flex justify-between">
+        <div className="px-4 pt-5 pb-3 flex flex-col items-center">
           <Link
             to="/"
-            className="text-xl font-bold text-indigo-600 dark:text-indigo-400"
+            className="text-xl font-bold text-[var(--text-secondary)] flex flex-col items-center"
             onClick={onClose}
           >
-            <img src={LOGO} alt="DevHub Logo" style={{ height: '5.5rem' }} />
+            <img src={LOGO} alt="DevHub Logo" style={{ height: '4.5rem' }} />
+            <p className="text-lg mt-1">
+              <span className="font-extrabold">DEV</span>
+              <span className="font-normal">HUB</span>
+            </p>
           </Link>
           <button
             onClick={onClose}
-            className="p-2 text-[var(--text-secondary)] hover:text-[var(--text-primary)]"
+            className="p-2 text-[var(--text-secondary)] hover:text-[var(--text-primary)] absolute right-4 top-4"
           >
             <X className="w-6 h-6" />
           </button>
@@ -123,18 +127,23 @@ export function Navbar() {
   }, []);
 
   return (
+    // fixed inset-x-0 top-0 z-50 border-b border-slate-200/10 backdrop-blur  //  we need to add this property properly and make sure it doesn't effect on open side bar
     <nav className="bg-[var(--bg-primary)] border-b border-[var(--border-color)] text-[var(--text-primary)] fixed w-full z-50 top-0">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between h-16">
-          {/* Left Side (Logo & Desktop Menu) */}
-          <div className="flex items-center">
-            <Link to="/" className="flex items-center">
+        <div className="flex justify-between h-19">
+          {/* Left Sidebar (Logo & Desktop Menu) */}
+          <div className="flex items-center ">
+            <Link to="/" className="flex flex-col items-center">
               <img
-                className="text-xl font-bold text-indigo-600 dark:text-indigo-400"
+                className="text-xl font-bold "
                 src={LOGO}
                 alt="DevHub Logo"
-                style={{ height: '4.5rem' }}
+                style={{ height: '2.5rem' }}
               />
+              <p className="text-lg text-[var(--text-primary)]">
+                <span className="font-extrabold">DEV</span>
+                <span className="font-normal">HUB</span>
+              </p>
             </Link>
             <div className="hidden sm:flex sm:ml-6 sm:space-x-8 text-[var(--accent)]">
               {NAVIGATION_ITEMS.map((item) => (
