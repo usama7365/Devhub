@@ -153,7 +153,7 @@ export function Navbar() {
           </div>
 
           {/* Right Side (Icons & Mobile Menu Button) */}
-          <div className="flex items-center space-x-4 text-[var(--accent)] hover:text-[var(--text-hover)] rounded-md transition-all duration-200 ease-in-out">
+          <div className="flex items-center space-x-4 text-sm text-[var(--accent)] hover:text-[var(--text-hover)] rounded-md transition-all duration-200 ease-in-out">
             <Link
               to="/notifications"
               className="p-2 rounded-full text-[var(--text-secondary)] hover:text-[var(--text-primary)]"
