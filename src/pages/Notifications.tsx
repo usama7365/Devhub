@@ -124,12 +124,14 @@ export function Notifications() {
           Back
         </button>
       </div>
+
       <div className="max-w-4xl mx-auto">
+        
         <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm">
           {/* Header */}
-          <div className="border-b dark:border-gray-700 p-4">
+          <div className="border-black dark:border-gray-700 p-4  dark:bg-green-400 text-blue-500 text-center">
             <div className="flex items-center justify-between">
-              <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100">
+              <h1 className="text-2xl font-bold text-gray-900 dark:text-green-950">
                 Notifications
               </h1>
               <div className="flex items-center space-x-4">
