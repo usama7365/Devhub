@@ -118,34 +118,34 @@ export function Notifications() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-8">
         <button
           onClick={() => navigate('/')}
-          className="inline-flex items-center text-sm text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
+          className="inline-flex items-center text-sm text-gray-400 hover:text-gray-600 dark:text-gray-400 dark:hover:text-gray-200"
         >
           <ArrowLeft className="w-4 h-4 mr-2" />
           Back
         </button>
       </div>
-      <div className="max-w-4xl mx-auto">
-        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm">
+      <div className="max-w-4xl mx-auto ">
+        <div className=" bg-[var(--card-bg)] rounded-lg shadow-sm ">
           {/* Header */}
-          <div className="border-b dark:border-gray-700 p-4">
+          <div className="border-b dark:border-gray-700 p-4 text-[var(--accent)] ">
             <div className="flex items-center justify-between">
-              <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100">
+              <h1 className="text-2xl font-bold text-[var(--text-primary)] ">
                 Notifications
               </h1>
-              <div className="flex items-center space-x-4">
+              <div className="flex items-center space-x-2 bg-[var(--card-bg)] ">
                 <select
                   value={filter}
                   onChange={(e) =>
                     setFilter(e.target.value as 'all' | 'unread')
                   }
-                  className="rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-100"
+                  className="rounded-md ml-3 border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 border-[var(--border-color)] bg-[var(--card-bg)] "
                 >
                   <option value="all">All</option>
                   <option value="unread">Unread</option>
                 </select>
                 <button
                   onClick={markAllAsRead}
-                  className="text-sm text-indigo-600 hover:text-indigo-500 dark:text-indigo-400 dark:hover:text-indigo-300"
+                  className="text-sm hover:text-[var(--text-secondary)] text-[var(--accent)]"
                 >
                   Mark all as read
                 </button>
@@ -154,40 +154,38 @@ export function Notifications() {
           </div>
 
           {/* Notifications List */}
-          <div className="divide-y divide-gray-200 dark:divide-gray-700">
+          <div className="divide-y  divide-gray-200 dark:divide-gray-700">
             {filteredNotifications.length === 0 ? (
-              <div className="p-8 text-center text-gray-500 dark:text-gray-400">
+              <div className="p-8 text-center  ">
                 No notifications to display
               </div>
             ) : (
               filteredNotifications.map((notification) => (
                 <div
                   key={notification.id}
-                  className={`p-4 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors ${
-                    !notification.read
-                      ? 'bg-indigo-50 dark:bg-indigo-900/20'
-                      : ''
+                  className={`p-4 hover:bg-[var(--bg-primary)]   transition-colors ${
+                    !notification.read ? 'bg-[var(--card-bg)]' : ''
                   }`}
                 >
-                  <div className="flex items-start justify-between">
+                  <div className="flex items-start justify-between ">
                     <div className="flex items-start space-x-3">
                       <div
                         className={`mt-1 ${
                           !notification.read
-                            ? 'text-indigo-600 dark:text-indigo-400'
-                            : 'text-gray-400 dark:text-gray-500'
+                            ? 'text-[var(--accent)]'
+                            : 'text-[var(--text-hover)]'
                         }`}
                       >
                         {getNotificationIcon(notification.type)}
                       </div>
                       <div>
-                        <h3 className="text-sm font-medium text-gray-900 dark:text-gray-100">
+                        <h3 className="text-sm font-medium text-[var(--accent)] focus:text-[var(--primary)]">
                           {notification.title}
                         </h3>
-                        <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">
+                        <p className="mt-1 text-sm text-[var(--text-secondary)]">
                           {notification.message}
                         </p>
-                        <p className="mt-1 text-xs text-gray-500 dark:text-gray-500">
+                        <p className="mt-1 text-xs text-[var(--text-secondary)]">
                           {formatDistanceToNow(
                             new Date(notification.timestamp),
                             { addSuffix: true }
@@ -195,7 +193,7 @@ export function Notifications() {
                         </p>
                       </div>
                     </div>
-                    <div className="flex items-center space-x-2">
+                    <div className="flex items-center space-x-2 text-[var(--text-secondary)]">
                       {!notification.read && (
                         <button
                           onClick={() => markAsRead(notification.id)}
